@@ -1,0 +1,150 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:math_app/config/routes/router.gr.dart';
+
+import 'route_path.dart';
+
+@AutoRouterConfig(
+  replaceInRouteName: 'Screen,Route',
+)
+class
+
+AppRouter extends $AppRouter {
+  @override
+  List<AutoRoute> get routes => [
+
+    //AUTH
+    AutoRoute(
+      page: LoginRoute.page,
+      path: "/login",
+      // initial: true
+    ),
+    AutoRoute(
+      page: RegisterRoute.page,
+      path: RoutePath.register,
+    ),
+    AutoRoute(
+      page: ForgotPasswordRoute.page,
+      path: RoutePath.forgotPassword,
+    ),
+
+        //________________
+
+        AutoRoute(
+          page: AppMainRoute.page,
+          path: RoutePath.main,
+
+
+
+          children: [
+            AutoRoute(
+              page: RootHome.page,
+              path: RoutePath.home,
+              initial: true,
+
+              children: [
+                AutoRoute(
+                  page: HomeRoute.page,
+                  path: "",
+                ),
+              ],
+            ),
+
+            AutoRoute(
+              page: RootMyCourse.page,
+              path: RoutePath.myCourse,
+              children: [
+                AutoRoute(
+                  page: MyCoursesRoute.page,
+                  path: "",
+                ),
+              ],
+            ),
+            AutoRoute(
+              page: RootChat.page,
+              path: RoutePath.chat,
+              children: [
+                AutoRoute(
+                  page: ChatListRoute.page,
+                  path: "",
+                ),
+              ],
+            ),
+            AutoRoute(
+              page: RootProfile.page,
+              path: RoutePath.profile,
+              children: [
+                AutoRoute(
+                  page: MyProfileRoute.page,
+                  path: "",
+                ),
+                // AutoRoute(
+                //   page: ChangePasswordRoute.page,
+                //   path: RoutePath.changePassword,
+                // ),
+              ],
+            ),
+          ],
+        ),
+
+    AutoRoute(
+      page: CostIncomeRoute.page,
+      path: RoutePath.costIncome,
+    ),
+    AutoRoute(
+      page: CourseDetailsRoute.page,
+      path: RoutePath.courseDetails,
+    ),
+
+
+    AutoRoute(
+      page: ChatRoute.page,
+      path: RoutePath.chatScreen,
+    ),
+
+
+    AutoRoute(
+      page: PlanRoute.page,
+      path: RoutePath.plan,
+    ),
+    AutoRoute(
+      page: AboutRoute.page,
+      path: RoutePath.about,
+    ),
+    AutoRoute(
+      page: TermsOfUseRoute.page,
+      path: RoutePath.termsUse,
+    ),
+    AutoRoute(
+      page: UpdatePasswordRoute.page,
+      path: RoutePath.updatePassword,
+    ),  AutoRoute(
+      page: ShowLessonRoute.page,
+      path: RoutePath.showLesson,
+    ),
+    AutoRoute(
+      page: AboutAddRoute.page,
+      path: RoutePath.aboutAdd,
+    ), AutoRoute(
+      page: SkillsRoute.page,
+      path: RoutePath.skillsScreen,
+    ),
+ AutoRoute(
+      page: LanguageEditRoute.page,
+      path: RoutePath.language,
+    ),
+ AutoRoute(
+      page: ExperienceRoute.page,
+      path: RoutePath.experience,
+    ),
+    AutoRoute(
+      page: EducationRoute.page,
+      path: RoutePath.education,
+    ),
+    AutoRoute(
+      page: AwardRoute.page,
+      path: RoutePath.award,
+    ),
+
+
+      ];
+}
