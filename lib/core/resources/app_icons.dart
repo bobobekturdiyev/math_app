@@ -14,6 +14,8 @@ abstract class AppIcons {
   // ============================================
 
 
+  static const String pause = "$_imgPath/pause.svg";
+  static const String checkCircle = "$_imgPath/check_circle.svg";
   static const String dotsBadge = "$_imgPath/dots_badge.svg";
   static const String plus = "$_imgPath/plus.svg";
   static const String minus = "$_imgPath/minus.svg";
