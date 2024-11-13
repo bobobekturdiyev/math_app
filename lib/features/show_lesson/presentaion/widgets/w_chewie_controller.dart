@@ -29,9 +29,11 @@ class _WChewiePlayerState extends State<WChewiePlayer> {
 
   void _initPlayer() {
     videoPlayerController =
-        VideoPlayerController.networkUrl(Uri.parse("${widget.url}.m3u8"))
-          ..initialize();
+        VideoPlayerController.networkUrl(Uri.parse(widget.url))..initialize();
     chewieController = ChewieController(
+      // autoPlay: true,
+      looping: true,
+
       videoPlayerController: videoPlayerController,
       aspectRatio: 16 / 9,
     );
