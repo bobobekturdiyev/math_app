@@ -12,6 +12,7 @@ class AppColors {
   static const Color primaryTextColor = Color(0xFF092724);
 
   static const Color orange = Color(0xFFFFAA05);
+  static const Color currentCourseCardColor = Color(0xFFF6FBFA);
   static const Color blueAccent = Color(0xFF16C7F9);
   static const Color pink = Color(0xFFFF3364);
   static const Color green = Color(0xFF54BA4A);
