@@ -6,9 +6,9 @@ abstract class Styles {
   Styles._();
 
   static TextStyle getButtonStyle() => const TextStyle(
-        color: AppColors.black,
+        color: AppColors.white,
         fontSize: 14,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w600,
         fontFamily: "Poppins",
       );
 
@@ -63,6 +63,15 @@ abstract class Styles {
         color: AppColors.subTextColor,
         fontSize: 10,
         fontWeight: FontWeight.w400,
+        fontFamily: "Poppins",
+      );
+
+
+
+      static TextStyle courseSectionStyle() => const TextStyle(
+        color: AppColors.subTextColor,
+        fontSize: 12,
+        fontWeight: FontWeight.w600,
         fontFamily: "Poppins",
       );
 
