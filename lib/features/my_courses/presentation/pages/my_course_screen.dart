@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:math_app/config/routes/router.gr.dart';
 import 'package:math_app/core/resources/app_colors.dart';
 import 'package:math_app/core/resources/app_icons.dart';
 import 'package:math_app/core/resources/styles.dart';
@@ -87,7 +88,11 @@ class _MyCoursesScreenState extends State<MyCoursesScreen>
                         padding: const EdgeInsets.symmetric(horizontal: 24),
                         itemCount: 10,
                         itemBuilder: (context, index) {
-                          return WMyCourseItem();
+                          return GestureDetector(
+                              onTap: (){
+                                context.router.push(ShowLessonRoute(slug: 'slug'));
+                              },
+                              child: WMyCourseItem());
                         }),
                     SizedBox(),
                     SizedBox(),

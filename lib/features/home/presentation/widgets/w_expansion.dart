@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:math_app/config/routes/route_path.dart';
 import 'package:math_app/config/routes/router.gr.dart';
+import 'package:math_app/core/extensions/integer_extensions.dart';
 import 'package:math_app/core/resources/app_icons.dart';
 import 'package:math_app/core/resources/styles.dart';
 
@@ -34,6 +35,7 @@ class _WExpansionTileState extends State<WExpansionTile> {
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
+
         onExpansionChanged: (value) {
           setState(() {
             isOpen = value;
@@ -77,7 +79,7 @@ class _WExpansionTileState extends State<WExpansionTile> {
                               shape: BoxShape.circle,
                               color: AppColors.primaryColorAccent),
                           child: Text(
-                            formatNumber(index + 1),
+                            (index+1).indexFormat(),
                             style: Styles.getLessonIndexStyle(),
                           ),
                         ),
@@ -112,7 +114,5 @@ class _WExpansionTileState extends State<WExpansionTile> {
     );
   }
 
-  String formatNumber(int number) {
-    return number.toString().padLeft(2, '0');
-  }
+
 }
