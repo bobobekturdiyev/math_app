@@ -19,7 +19,7 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 24.0,vertical: 16),
       decoration: const BoxDecoration(
         color: Colors.white,
       ),
@@ -27,8 +27,8 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
 
           GestureDetector(
-            onTap: (){context.router.pop();},
-            child:SvgPicture.asset(AppIcons.arrowLeft),
+            onTap: (){context.router.maybePop();},
+            child:SvgPicture.asset(AppIcons.arrowLeftBadge),
 
           ),
           if(logo!=null)...{

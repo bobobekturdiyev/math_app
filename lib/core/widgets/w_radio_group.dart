@@ -8,7 +8,7 @@ class WRadioGroup extends StatefulWidget {
   final Function(int) onChange;
   final double? horizontalPadding;
 
-  const WRadioGroup({
+  const   WRadioGroup({
     Key? key,
     this.axis = Axis.vertical,
     required this.items,

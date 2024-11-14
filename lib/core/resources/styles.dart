@@ -74,6 +74,43 @@ abstract class Styles {
         fontWeight: FontWeight.w600,
         fontFamily: "Poppins",
       );
+      static TextStyle getAppbarStyle() => const TextStyle(
+        color: AppColors.primaryTextColor,
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        fontFamily: "Poppins",
+      );
+
+      static TextStyle getResultTextStyle() => const TextStyle(
+        color: AppColors.primaryTextColor,
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        fontFamily: "Poppins",
+      );
+      static TextStyle getResultInfoGuide() => const TextStyle(
+        color: AppColors.subTextColor,
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+        fontFamily: "Poppins",
+      );
+
+      static TextStyle getDialogTitle() => const TextStyle(
+        color: AppColors.C_070707,
+        fontSize: 24,
+        fontWeight: FontWeight.w600,
+        fontFamily: "Poppins",
+      );  static TextStyle getDialogText() => const TextStyle(
+        color: AppColors.C_070707,
+        fontSize: 18,
+        fontWeight: FontWeight.w400,
+        fontFamily: "Poppins",
+      );
+      static TextStyle getCorrectAnswersStyle() => const TextStyle(
+        color: AppColors.white,
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        fontFamily: "Poppins",
+      );
 
 
   static TextStyle getTextStyle({

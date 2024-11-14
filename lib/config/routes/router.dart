@@ -27,7 +27,7 @@ AppRouter extends $AppRouter {
       path: RoutePath.forgotPassword,
     ),
 
-        //________________
+    //================
 
         AutoRoute(
           page: AppMainRoute.page,
@@ -85,6 +85,17 @@ AppRouter extends $AppRouter {
             ),
           ],
         ),
+    // =================
+
+    AutoRoute(
+      page: TestsRoute.page,
+      path: RoutePath.testsRoute,
+    ),
+    AutoRoute(
+      page: EitherResultRoute.page,
+      path: RoutePath.eitherResult,
+    ),
+
 
     AutoRoute(
       page: CostIncomeRoute.page,
@@ -92,6 +103,12 @@ AppRouter extends $AppRouter {
     ),
     AutoRoute(
       page: CourseDetailsRoute.page,
+      path: RoutePath.courseDetails,
+    ),
+
+
+    AutoRoute(
+      page: TestResultRoute.page,
       path: RoutePath.courseDetails,
     ),
 

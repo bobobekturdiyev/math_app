@@ -8,20 +8,23 @@ enum SelectorType { radio, checkbox }
 
 class WSelectButton extends StatelessWidget {
   final bool isSelected;
+  final Color? color;
   final String txt;
+  final TextStyle? style;
+  final EdgeInsets? margin;
   final SelectorType selectorType;
 
   const WSelectButton({
     Key? key,
     this.isSelected = false,
     required this.txt,
-    this.selectorType = SelectorType.radio,
+    this.selectorType = SelectorType.radio, this.style, this.margin, this.color,
   }) : super(key: key);
 
   _getRadioDecoration() => BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
-          color: isSelected ? AppColors.primaryColor : AppColors.grey,
+          color: color?? ( isSelected ?AppColors.primaryColor : AppColors.grey),
           width: 2,
         ),
       );
@@ -34,19 +37,19 @@ class WSelectButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
+      padding:margin?? const EdgeInsets.only(bottom: 16),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           isSelected && selectorType == SelectorType.checkbox
               ? SvgPicture.asset(
                   AppIcons.smile,
-                  width: 24,
-                  height: 24,
+                  width: 20,
+                  height: 20,
                 )
               : Container(
-                  width: 24,
-                  height: 24,
+                  width: 20,
+                  height: 20,
                   alignment: Alignment.center,
                   decoration: selectorType == SelectorType.radio
                       ? _getRadioDecoration()
@@ -55,9 +58,9 @@ class WSelectButton extends StatelessWidget {
                       ? Container(
                           width: 12,
                           height: 12,
-                          decoration: const BoxDecoration(
+                          decoration:   BoxDecoration(
                             shape: BoxShape.circle,
-                            color: AppColors.primaryColor,
+                            color:color?? AppColors.primaryColor,
                           ),
                         )
                       : null,
@@ -65,8 +68,8 @@ class WSelectButton extends StatelessWidget {
           const SizedBox(width: 12),
           Text(
             txt,
-            style: const TextStyle(
-              fontSize: 12,
+            style: style?? const TextStyle(
+              fontSize: 1,
               fontWeight: FontWeight.w400,
               color: Color(0xFF070707),
             ),

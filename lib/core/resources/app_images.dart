@@ -4,6 +4,7 @@ abstract class AppImages {
   static const _imgPath = "assets/png/";
 
   static const splash = "${_imgPath}splash.png";
+  static const matter = "${_imgPath}matter.png";
   static const dtm = "${_imgPath}dtm.png";
   static const ph_user = "${_imgPath}ph_user_circle.png";
   static const notFound = "${_imgPath}not_found.png";

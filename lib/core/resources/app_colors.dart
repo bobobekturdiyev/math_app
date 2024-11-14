@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 class AppColors {
   //General
   static const Color primaryColor = Color(0xFF2EC4B6);
-  static const Color primaryColorAccent = Color(0xFFF6FBFA);
+  static const Color primaryColorAccent = Color(0xFFD5F3F0);
   static const Color primaryColorDark = Color(0xFF0059B5);
 
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
 
   static const Color primaryTextColor = Color(0xFF092724);
+  static const Color lessonIndexCircleC = Color(0xFFF6FBFA);
+  static const Color backBtnTextColor = Color(0xFFCED4D3);
 
-  static const Color orange = Color(0xFFFFAA05);
+  static const Color redAccent = Color(0xFFF3D5D5);
+  static const Color yellow = Color(0xFFFFC746);
   static const Color currentCourseCardColor = Color(0xFFF6FBFA);
   static const Color blueAccent = Color(0xFF16C7F9);
   static const Color pink = Color(0xFFFF3364);
@@ -30,7 +33,7 @@ class AppColors {
     static const Color borderColor = Color(0xFFF4F4F4);
 
   static const Color inputColor = Color(0xFFFFFFFF);
-  static const Color backgroundColor = Color(0xFFFFFFFF);
+  static const Color  backgroundColor = Color(0xFFFFFFFF);
   static const Color text2 = Color(0xFF52526C);
   static const Color text = Color(0xFF2F2F3B);
   static const Color lessonTabBar = Color(0xFFF1EFFF);
@@ -41,11 +44,14 @@ class AppColors {
   static const Color C_F9F9F9F9= Color(0xFFF9F9F9);
   static const Color C_D9D9D9= Color(0xFFD9D9D9);
   static const Color C_777777= Color(0xFF777777);
+  static const Color C_070707= Color(0xFF070707);
+  static const Color C_F7F7F7= Color(0xFFF7F7F7);
+  static const Color C_A1A1A1= Color(0xFFA1A1A1);
   static const Color fieldColor= Color(0xFFFFFFFF);
 
   static const Color cardColor = Color(0xFFF8F7FB);
 
-  static const Color danger = Color(0xFFFF4D4D);
+  static const Color danger = Color(0xFFE85E5E);
   static const Color removeColor = Color(0xFFFF002E);
 
   static const Color shimmerAnimate = Color(0xFF383838);

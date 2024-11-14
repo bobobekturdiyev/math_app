@@ -3,11 +3,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:math_app/config/routes/route_path.dart';
 import 'package:math_app/core/error/exception_handler.dart';
 import 'package:math_app/core/extensions/integer_extensions.dart';
 import 'package:math_app/core/resources/app_icons.dart';
 import 'package:math_app/core/resources/styles.dart';
 import 'package:math_app/core/widgets/w_button.dart';
+import 'package:math_app/core/widgets/w_circle_index_card.dart';
 import 'package:math_app/features/home/presentation/widgets/w_course_rating.dart';
 import 'package:math_app/features/show_lesson/presentaion/widgets/w_pod_controller.dart';
 
@@ -107,19 +109,7 @@ class _ShowLessonScreenState extends State<ShowLessonScreen> {
                                 children: [
                                   Row(
                                     children: [
-                                      Container(
-                                        alignment: Alignment.center,
-                                        height: 32,
-                                        width: 32,
-                                        decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color:
-                                                AppColors.primaryColorAccent),
-                                        child: Text(
-                                          (index + 1).indexFormat(),
-                                          style: Styles.getLessonIndexStyle(),
-                                        ),
-                                      ),
+                                      WCircleIndexCard(index: index),
                                       const SizedBox(
                                         width: 12,
                                       ),
@@ -153,7 +143,9 @@ class _ShowLessonScreenState extends State<ShowLessonScreen> {
                             borderRadius: 16,
                             textStyle: Styles.getButtonStyle(),
                             text: "taking_a_test_b_department".tr(),
-                            onTap: () {},
+                            onTap: () {
+                              context.router.pushNamed(RoutePath.testsRoute);
+                            },
                           ),
                         )
                       ],

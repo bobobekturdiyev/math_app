@@ -6,6 +6,7 @@ import 'package:math_app/config/routes/router.gr.dart';
 import 'package:math_app/core/extensions/integer_extensions.dart';
 import 'package:math_app/core/resources/app_icons.dart';
 import 'package:math_app/core/resources/styles.dart';
+import 'package:math_app/core/widgets/w_circle_index_card.dart';
 
 import '../../../../core/resources/app_colors.dart';
 import '../../data/model/lesson/lesson_dto.dart';
@@ -71,18 +72,8 @@ class _WExpansionTileState extends State<WExpansionTile> {
                   children: [
                     Row(
                       children: [
-                        Container(
-                          alignment: Alignment.center,
-                          height: 32,
-                          width: 32,
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColors.primaryColorAccent),
-                          child: Text(
-                            (index+1).indexFormat(),
-                            style: Styles.getLessonIndexStyle(),
-                          ),
-                        ),
+                        WCircleIndexCard(index: index),
+
                         const SizedBox(
                           width: 12,
                         ),

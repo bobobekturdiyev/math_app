@@ -14,7 +14,14 @@ abstract class AppIcons {
   // ============================================
 
 
+  static const String variantCheckSuccess = "$_imgPath/variant_check_success.svg";
+  static const String variantCheckFailure= "$_imgPath/variant_check_failure.svg";
+  static const String bubbleSuccess = "$_imgPath/bubble_success.svg";
+  static const String bubbleFailure = "$_imgPath/bubble_failure.svg";
+  static const String arrowRight = "$_imgPath/arrow_right.svg";
   static const String pause = "$_imgPath/pause.svg";
+  static const String checkRoundBadge = "$_imgPath/check_round_badge.svg";
+  static const String exclamationRoundBadge = "$_imgPath/exclamation_round_badge.svg";
   static const String checkCircle = "$_imgPath/check_circle.svg";
   static const String dotsBadge = "$_imgPath/dots_badge.svg";
   static const String plus = "$_imgPath/plus.svg";
@@ -47,7 +54,6 @@ abstract class AppIcons {
   static const String arrowUpRight = "$_imgPath/arrow_up_right.svg";
   static const String arrowTop = "$_imgPath/arrow_top.svg";
   static const String arrowBottom = "$_imgPath/arrow_bottom.svg";
-  static const String arrowRight = "$_imgPath/arrow_down.svg";
   static const String send = "$_imgPath/send.svg";
   static const String attach = "$_imgPath/attach.svg";
   static const String doubleCheck = "$_imgPath/double_check.svg";
