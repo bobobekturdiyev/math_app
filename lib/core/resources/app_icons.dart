@@ -14,9 +14,12 @@ abstract class AppIcons {
   // ============================================
 
 
+  static const String backIcon = "$_imgPath/back_icon.svg";
+  static const String noNotification = "$_imgPath/no_notif.svg";
   static const String variantCheckSuccess = "$_imgPath/variant_check_success.svg";
   static const String variantCheckFailure= "$_imgPath/variant_check_failure.svg";
   static const String bubbleSuccess = "$_imgPath/bubble_success.svg";
+  static const String discount = "$_imgPath/discount.svg";
   static const String bubbleFailure = "$_imgPath/bubble_failure.svg";
   static const String arrowRight = "$_imgPath/arrow_right.svg";
   static const String pause = "$_imgPath/pause.svg";

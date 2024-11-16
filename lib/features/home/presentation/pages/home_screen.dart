@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:math_app/config/routes/route_path.dart';
 import 'package:math_app/config/routes/router.gr.dart';
 import 'package:math_app/core/di/locator.dart';
 import 'package:math_app/core/resources/app_images.dart';
@@ -95,7 +96,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        context.router.pushNamed(RoutePath.notification);
+                      },
                       child: SvgPicture.asset(AppIcons.notification)),
                 ],
               ),

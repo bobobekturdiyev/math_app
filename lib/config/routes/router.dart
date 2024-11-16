@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:math_app/config/routes/router.gr.dart';
+import 'package:math_app/features/notification/presentation/pages/notification_screen.dart';
 
 import 'route_path.dart';
 
@@ -114,6 +115,10 @@ AppRouter extends $AppRouter {
 
 
     AutoRoute(
+      page: NotificationRoute.page,
+      path: RoutePath.notification,
+    ),
+  AutoRoute(
       page: ChatRoute.page,
       path: RoutePath.chatScreen,
     ),

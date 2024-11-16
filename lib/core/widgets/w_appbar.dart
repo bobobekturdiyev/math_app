@@ -9,10 +9,11 @@ import '../resources/styles.dart';
 class WAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String?  logo;
   final String title;
+  final Widget? trailing;
 
 
   const WAppBar({
-    Key? key,  this.logo, required this.title,
+    Key? key,  this.logo, required this.title, this.trailing,
 
   }) : super(key: key);
 
@@ -24,6 +25,7 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
         color: Colors.white,
       ),
       child:Row(
+
         children: [
 
           GestureDetector(
@@ -36,7 +38,11 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
 
           },
           const SizedBox(width: 16,),
-          Text( title,style: Styles.getTextStyle(fontSize: 16),)
+          Text( title,style: Styles.getTextStyle(fontSize: 16),),
+          if(trailing!=null)...{
+            const Spacer(),
+            trailing!
+          }
         ],
       ),
     );

@@ -19,6 +19,13 @@ abstract class Styles {
         fontFamily: "Poppins",
       );
 
+  static TextStyle getNotificationTitle() => const TextStyle(
+        color: AppColors.primaryTextColor,
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        fontFamily: "Poppins",
+      );
+
 
   static TextStyle getCourseTitleStyle() => const TextStyle(
         color: AppColors.primaryTextColor,
@@ -109,6 +116,31 @@ abstract class Styles {
         color: AppColors.white,
         fontSize: 14,
         fontWeight: FontWeight.w600,
+        fontFamily: "Poppins",
+      );
+
+      static TextStyle getNoNotificationStyle() => const TextStyle(
+        color: AppColors.primaryTextColor,
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        fontFamily: "Poppins",
+      );
+      static TextStyle getChatItemSubtitleStyle() =>  TextStyle(
+        color: AppColors.chatItemSubColor.withOpacity(.5),
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+        fontFamily: "Poppins",
+      );
+      static TextStyle getChatItemTitle() =>  const TextStyle(
+        color: AppColors.chatItemTitleColor,
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        fontFamily: "Poppins",
+      );
+      static TextStyle getChatCountStyle() =>  const TextStyle(
+        color: AppColors.white,
+        fontSize: 12,
+        fontWeight: FontWeight.w900,
         fontFamily: "Poppins",
       );
 

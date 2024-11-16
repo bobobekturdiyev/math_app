@@ -12,6 +12,10 @@ class AppColors {
   static const Color primaryTextColor = Color(0xFF092724);
   static const Color lessonIndexCircleC = Color(0xFFF6FBFA);
   static const Color backBtnTextColor = Color(0xFFCED4D3);
+  static const Color chatItemSubColor = Color(0xFF797C7B80);
+  static const Color notMeMessageColor = Color(0xFFF2F7FB);
+  static const Color chatItemTitleColor = Color(0xFF000E08);
+  static const Color chatFieldBackground = Color(0xFFF3F6F6);
 
   static const Color redAccent = Color(0xFFF3D5D5);
   static const Color yellow = Color(0xFFFFC746);
@@ -52,6 +56,7 @@ class AppColors {
   static const Color cardColor = Color(0xFFF8F7FB);
 
   static const Color danger = Color(0xFFE85E5E);
+  static const Color chatCountBadgeColor = Color(0xFFF04A4C);
   static const Color removeColor = Color(0xFFFF002E);
 
   static const Color shimmerAnimate = Color(0xFF383838);
