@@ -99,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       onTap: () {
                         context.router.pushNamed(RoutePath.notification);
                       },
-                      child: SvgPicture.asset(AppIcons.notification)),
+                      child: SvgPicture.asset(AppIcons.notificationWithBadge)),
                 ],
               ),
             ),
