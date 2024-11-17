@@ -73,13 +73,17 @@ class _WTextFieldState extends State<WTextField> {
   bool toggle = false;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+    return Padding(
+      padding: widget.margin,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if(widget.label!=null)...{
+             WLabel(label: widget.label!,),
+            const SizedBox(height: 8,)
+          },
 
-        Padding(
-          padding: widget.margin,
-          child: TextField(
+          TextField(
             autofocus: widget.autoFocus,
 
             maxLines: widget.maxLines,
@@ -104,9 +108,8 @@ class _WTextFieldState extends State<WTextField> {
                   ? IconButton(
                       icon: toggle
                           ? SvgPicture.asset(
-                              AppIcons.eye,
-                              width: 16,
-                              height: 16,
+                              AppIcons.hideEye,
+
                               colorFilter: const ColorFilter.mode(
                                   AppColors.grey, BlendMode.srcIn),
                             )
@@ -150,11 +153,11 @@ class _WTextFieldState extends State<WTextField> {
             keyboardType: widget.keyboardType,
             inputFormatters: widget.formatters,
           ),
-        ),
-        if (widget.label != null) ...{
-          const SizedBox(height: 12),
-        }
-      ],
+          if (widget.label != null) ...{
+            const SizedBox(height: 24),
+          }
+        ],
+      ),
     );
   }
 

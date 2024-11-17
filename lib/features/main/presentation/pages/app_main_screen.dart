@@ -38,7 +38,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    init();
+
     return AutoTabsRouter(
       routes: context.read<BottomNavBarBloc>().getRoutes(),
       transitionBuilder: (context, child, animation) {

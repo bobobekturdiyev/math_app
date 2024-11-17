@@ -18,6 +18,18 @@ abstract class Styles {
         fontWeight: FontWeight.w600,
         fontFamily: "Poppins",
       );
+  static TextStyle getSignOutTextStyle() => const TextStyle(
+        color: AppColors.primaryTextColor,
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        fontFamily: "Poppins",
+      );
+  static TextStyle getSignOutSubTextStyle() => const TextStyle(
+        color: AppColors.subTextColor,
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+        fontFamily: "Poppins",
+      );
 
   static TextStyle getNotificationTitle() => const TextStyle(
         color: AppColors.primaryTextColor,
@@ -141,6 +153,18 @@ abstract class Styles {
         color: AppColors.white,
         fontSize: 12,
         fontWeight: FontWeight.w900,
+        fontFamily: "Poppins",
+      );
+      static TextStyle getProfileTitle() =>  const TextStyle(
+        color: AppColors.white,
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        fontFamily: "Poppins",
+      );
+      static TextStyle getProfileSubTitle() =>  const TextStyle(
+        color: AppColors.white,
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
         fontFamily: "Poppins",
       );
 
