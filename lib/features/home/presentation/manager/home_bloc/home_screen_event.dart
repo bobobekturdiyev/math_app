@@ -11,6 +11,11 @@ abstract class HomeScreenEvent extends Equatable{}
 
 
 class GetAllCourse extends HomeScreenEvent{
+  final String? searchQuery;
+  final String? filter;
+
+  GetAllCourse({ this.searchQuery,  this.filter});
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [searchQuery,filter];
 }

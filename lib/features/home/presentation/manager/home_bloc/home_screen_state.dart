@@ -1,29 +1,22 @@
-
-
-
-
-
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
-
-import '../../../data/model/all_course/all_course_dto.dart';
+import 'package:math_app/features/home/domain/entity/all_course_entity.dart';
 
 @immutable
 abstract class HomeScreenState extends Equatable{}
 
 class HomeScreenInitial extends HomeScreenState {
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 }
 
 class AllCourseLoading extends HomeScreenState {
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 }
 
 class AllCourseLoaded extends HomeScreenState {
-  final List<AllCourseDto> allCourse;
+  final List<AllCourseEntity> allCourse;
 
   AllCourseLoaded({required this.allCourse});
   @override
@@ -31,8 +24,11 @@ class AllCourseLoaded extends HomeScreenState {
 }
 
 class AllCourseError extends HomeScreenState {
+  final String error;
+
+  AllCourseError({required this.error});
 
 
   @override
-  List<Object?> get props =>[];
+  List<Object?> get props =>[error];
 }
