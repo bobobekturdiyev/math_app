@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 4,
                           ),
                           Text(
-                            "course_details".tr(),
+                            "course_model".tr(),
                             style: Styles.getTextStyle(
                               fontSize: 12,
                               color: AppColors.primaryColor,

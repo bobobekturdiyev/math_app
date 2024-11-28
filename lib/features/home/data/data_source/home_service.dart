@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:math_app/core/shared_models/course_model/course_dto.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:math_app/core/network/urls.dart';
 import 'package:math_app/core/resources/default_response.dart';
 import 'package:math_app/features/home/data/model/all_course/all_course_dto.dart';
-import 'package:math_app/features/home/data/model/course_details/course_details_dto.dart';
 
 
 
@@ -22,7 +22,7 @@ Future<HttpResponse<DefaultResponse<AllCourseDto>>> getAllCourse({
 
 });
 @GET('/course/{slug}')
-Future<HttpResponse<CourseDetailsDto>> getCourseDetails({
+Future<HttpResponse<CourseDto>> getCourseDetails({
   @Path("slug") required String slug
 });
 

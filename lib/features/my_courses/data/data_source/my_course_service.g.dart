@@ -13,7 +13,7 @@ class _MyCourseService implements MyCourseService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://192.168.0.178:8000/api/v1';
+    baseUrl ??= 'https://demo-math.programmer.uz/api/v1';
   }
 
   final Dio _dio;
@@ -21,13 +21,14 @@ class _MyCourseService implements MyCourseService {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<DefaultResponse<MyCourseDto>>> getMyCourse() async {
+  Future<HttpResponse<List<MyCourseDto>>> getMyCourse(
+      {required String filter}) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'filter': filter};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<DefaultResponse<MyCourseDto>>>(Options(
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<HttpResponse<List<MyCourseDto>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -43,7 +44,9 @@ class _MyCourseService implements MyCourseService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = DefaultResponse<MyCourseDto>.fromJson(_result.data!);
+    var value = _result.data!
+        .map((dynamic i) => MyCourseDto.fromJson(i as Map<String, dynamic>))
+        .toList();
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

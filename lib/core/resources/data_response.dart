@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:math_app/features/home/data/model/course_details/course_details_dto.dart';
-import 'package:math_app/features/profile/data/model/all_info_dto/user_dto/user_dto.dart';
+import 'package:math_app/core/shared_models/course_model/course_dto.dart';
 import 'package:math_app/features/show_lesson/data/model/show_lesson_dto.dart';
 
 import '../../features/profile/data/model/all_info_dto/all_info_dto.dart';
@@ -30,8 +29,8 @@ class _Converter<T> implements JsonConverter<T, Object?> {
   T fromJson(Object? json) {
     if (json is Map<String, dynamic>) {
       switch (T) {
-        case CourseDetailsDto:
-          return CourseDetailsDto.fromJson(json) as T;
+        case CourseDto:
+          return CourseDto.fromJson(json) as T;
           case ShowLessonDto:
           return ShowLessonDto.fromJson(json) as T;
           case AllInfoDto:

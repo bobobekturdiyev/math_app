@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/widgets/w_logo.dart';
+import '../../../../core/resources/app_colors.dart';
 
 class WAuthHolder extends StatelessWidget {
   final double windowHeight;
   final double scaleFactor;
-  final bool isForgot;
-  final bool isLogin;
   final List<Widget> formElements;
   final List<Widget> footerElements;
-  final  step;
 
   const WAuthHolder({
     Key? key,
@@ -17,9 +14,6 @@ class WAuthHolder extends StatelessWidget {
     required this.formElements,
     required this.footerElements,
     this.scaleFactor = 1,
-     this.isLogin=true,
-    this.isForgot=false,
-    this.step,
   }) : super(key: key);
 
   @override
@@ -27,59 +21,40 @@ class WAuthHolder extends StatelessWidget {
     return SizedBox(
       height: windowHeight,
       child: Column(
-
-
-
         children: [
-          // if(isLogin)...{
-          //   // SizedBox(height: scaleFactor * 120),
-          // }else...{
-          //   // SizedBox(height: scaleFactor * 50
-          //   // ),
-          // },
-          const Spacer(),
-           // const WLogo(size: 100,),
-
-              SizedBox(height: scaleFactor*10,),
-
-          Column(
-          children: [
-            Container(
-              padding: EdgeInsets.all(
-                scaleFactor*20
-              ),
-              margin: EdgeInsets.only(
-                right: scaleFactor * 18,
-                left: scaleFactor *18,
-                top: scaleFactor * 20,
-                bottom: scaleFactor * 20,
-
-              ),
-              decoration:  BoxDecoration(
+          SizedBox(height: scaleFactor * 60),
+          // const WLogo(),
+          SizedBox(height: scaleFactor * 52),
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
                 color: Colors.white,
-
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFF081542).withOpacity(0.1),
-                    offset: const Offset(0.0, 1.0), //(x,y)
-                    blurRadius: 6.0,
-                  ),
-                ],
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(24),
+                  topRight: Radius.circular(24),
+                ),
               ),
+              padding: EdgeInsets.symmetric(
+                horizontal: scaleFactor * 30.0,
+                vertical: scaleFactor * 52,
+              ),
+              margin: EdgeInsets.symmetric(horizontal: scaleFactor * 16),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ...formElements,
-                  ...footerElements
-                ],
+                children: formElements,
               ),
             ),
-          ],
           ),
-          const Spacer(),
-
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: scaleFactor * 16),
+            padding: EdgeInsets.symmetric(horizontal: scaleFactor * 28),
+            color: AppColors.white,
+            child: Column(
+              children: footerElements,
+            ),
+          ),
         ],
       ),
     );

@@ -4,36 +4,32 @@ part 'my_course_dto.g.dart';
 
 @JsonSerializable()
 class MyCourseDto{
-  final int id;
-  final String title;
-  final String slug ;
-  final String excerpt;
-  @JsonKey(name: "photo_url")
-  final String imageUrl;
-  final String level;
+  // final int id;
+  final String name;
+  final String author ;
   final String duration;
-  final int enrollments;
-  final bool hasAccess;
+  final String photo;
+  final String slug;
+  @JsonKey(name: 'total_lessons')
+  final int totalLessons;
+  @JsonKey(name: 'completed_lessons')
+  final int completedLessons;
+  @JsonKey(name: 'completed_percentage')
+  final int completedPercentage;
 
 
 
   factory MyCourseDto.fromJson(Map<String, dynamic> json) =>
       _$MyCourseDtoFromJson(json);
 
+  MyCourseDto({required this.name, required this.author, required this.duration, required this.photo, required this.slug, required this.totalLessons, required this.completedLessons, required this.completedPercentage});
+
   Map<String, dynamic> toJson() => _$MyCourseDtoToJson(this);
 
-  const MyCourseDto({
-    required this.id,
-    required this.title,
-    required this.slug,
-    required this.excerpt,
-    required this.imageUrl,
-    required this.level,
-    required this.duration,
-    required this.enrollments,
-    required this.hasAccess,
-  });
+
 }
+
+
 
 
 

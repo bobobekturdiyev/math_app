@@ -18,6 +18,7 @@ import 'package:math_app/features/profile/presentation/manager/profile_bloc/prof
 import 'package:math_app/features/show_lesson/data/data_source/show_lesson_service.dart';
 import 'package:math_app/features/show_lesson/data/repositories/impl_show_lesson_repo.dart';
 import 'package:math_app/features/show_lesson/domain/repositories/show_lesson_repo.dart';
+import 'package:provider/provider.dart';
 
 import '../../features/chat/data/data_source/chat_service/chat_service.dart';
 import '../../features/chat/data/mapper/chat_mapper.dart';
@@ -28,7 +29,6 @@ import '../../features/chat/presentation/manager/chat_bloc/chat_bloc.dart';
 import '../../features/chat/presentation/manager/chat_manager_bloc/chat_managers_bloc.dart';
 import '../../features/my_courses/data/data_source/my_course_service.dart';
 
-import '../../features/profile/presentation/manager/portfolio_delete_bloc/portfolio_del_bloc.dart';
 import '../../features/profile/presentation/manager/user_bloc/user_bloc.dart';
 import '../state/bloc/bottom_nav_bar/bottom_nav_bar_bloc.dart';
 import 'locator.dart';
@@ -56,9 +56,9 @@ class Injector extends StatelessWidget {
         BlocProvider<BottomNavBarBloc>(
           create: (_) => BottomNavBarBloc(),
         ),
-
+        // ChangeNotifierProvider(create: (_) => CoursePlayerProvider()),
         BlocProvider<UserBloc>(
-          create: (ctx) => UserBloc(profileRepo: ctx.read()),
+          create: (ctx) => UserBloc(profileRepo: ctx.read())
         ),
         BlocProvider(
           create: (context) => ChatManagersBloc(
@@ -77,9 +77,7 @@ class Injector extends StatelessWidget {
         BlocProvider(
           create: (context) => ProfileBloc(profileRepo: context.read()),
         ),
-        BlocProvider(
-          create: (context) => PortfolioDelBloc(profileRepo: context.read()),
-        ),
+
 
       ], child: child),
     );

@@ -6,10 +6,10 @@ import '../../../../core/resources/app_colors.dart';
 import '../../../../core/resources/styles.dart';
 
 class WMyCourseItem extends StatelessWidget {
-  // final MyCourseDto myCourse;
-  const WMyCourseItem({
-    Key? key,
-  }) : super(key: key);
+  final MyCourseDto myCourse;
+final GestureTapCallback onTap;
+  const WMyCourseItem({super.key, required this.myCourse, required this.onTap});
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,98 +27,102 @@ class WMyCourseItem extends StatelessWidget {
               color: Colors.black.withOpacity(0.05),
             ),
           ]),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: CachedNetworkImage(
-              imageUrl:
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-C_UAhXq9GfuGO452EEzfbKnh1viQB9EDBQ&s",
-              width: 86,
-              height: 86,
-              fit: BoxFit.cover,
+      child: InkWell(
+        onTap: onTap,
+        child: Row(
+
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: CachedNetworkImage(
+                imageUrl: myCourse.photo,
+                width: 86,
+                height: 86,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          const SizedBox(
-            width: 12,
-          ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  "DTM 2022",
-                  style: Styles.getTextStyle(
-                      fontWeight: FontWeight.w600, fontSize: 12),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Text(
-                  "Sardorxon Urfonxonov",
-                  style: Styles.getTextStyle(
-                    fontSize: 10,
-                    color: AppColors.subTextColor,
+            const SizedBox(
+              width: 12,
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    myCourse.name,
+                    style: Styles.getTextStyle(
+                        fontWeight: FontWeight.w600, fontSize: 12),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  maxLines: 1,
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "2 soat 53 minut",
-                                style: Styles.getTextStyle(
-                                    fontSize: 8, color: AppColors.subTextColor),
-                              ),
-                              Text(
-                                "75%",
-                                style: Styles.getTextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: 10),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 6,
-                          ),
-                           LinearProgressIndicator(
-                            value: 0.75,
-                            borderRadius: BorderRadius.circular(5),
-                            color: AppColors.primaryColor, //<-- SEE HERE
-                            backgroundColor:
-                                AppColors.borderColor, //<-- SEE HERE
-                          ),
-                        ],
-                      ),
+                  Text(
+                    myCourse.author,
+                    style: Styles.getTextStyle(
+                      fontSize: 10,
+                      color: AppColors.subTextColor,
                     ),
+                    maxLines: 1,
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  myCourse.duration,
+                                  // "2 soat 53 minut",
+                                  style: Styles.getTextStyle(
+                                      fontSize: 8, color: AppColors.subTextColor),
+                                ),
+                                Text(
+                                  "${myCourse.completedPercentage}%",
+                                  style: Styles.getTextStyle(
+                                      fontWeight: FontWeight.w600, fontSize: 10),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 6,
+                            ),
+                             LinearProgressIndicator(
+                              value: myCourse.completedPercentage/100,
+                              borderRadius: BorderRadius.circular(5),
+                              color: AppColors.primaryColor, //<-- SEE HERE
+                              backgroundColor:
+                                  AppColors.borderColor, //<-- SEE HERE
+                            ),
+                          ],
+                        ),
+                      ),
 
 
-                  ],
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                Text(
-                  "38 / 50",
-                  style: Styles.getTextStyle(
-                      fontSize: 8, color: AppColors.subTextColor),
-                )
-              ],
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  Text(
+                    "${myCourse.completedLessons} / ${myCourse.totalLessons}",
+                    style: Styles.getTextStyle(
+                        fontSize: 8, color: AppColors.subTextColor),
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

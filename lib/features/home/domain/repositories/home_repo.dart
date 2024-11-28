@@ -1,6 +1,6 @@
 import 'package:math_app/core/resources/data_state.dart';
 import 'package:math_app/features/home/domain/entity/all_course_entity.dart';
-import 'package:math_app/features/home/domain/entity/course_details_entity.dart';
+import 'package:math_app/core/shared_entities/course_details_entity.dart';
 
 
 

@@ -13,7 +13,7 @@ class _AuthService implements AuthService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://192.168.0.178:8000/api/v1';
+    baseUrl ??= 'https://demo-math.programmer.uz/api/v1';
   }
 
   final Dio _dio;
@@ -21,52 +21,21 @@ class _AuthService implements AuthService {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<RegisterDto>> register(
-      {required RegisterRequest registerRequest}) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(registerRequest.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<RegisterDto>>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/register-phone',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = RegisterDto.fromJson(_result.data!);
-    final httpResponse = HttpResponse(value, _result);
-    return httpResponse;
-  }
-
-  @override
-  Future<HttpResponse<LoginDto>> login(
-      {required LoginRequest loginRequest}) async {
+  Future<HttpResponse<LoginResponse>> login(LoginRequest loginRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(loginRequest.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<LoginDto>>(Options(
+        _setStreamType<HttpResponse<LoginResponse>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/login-phone',
+              '/student-login',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -75,28 +44,26 @@ class _AuthService implements AuthService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = LoginDto.fromJson(_result.data!);
+    final value = LoginResponse.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
 
   @override
-  Future<HttpResponse<RegisterDto>> verifyCode(
-      {required Map<String, dynamic> reqBody}) async {
+  Future<HttpResponse<DefaultResponse<dynamic>>> logout() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(reqBody);
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<RegisterDto>>(Options(
+        _setStreamType<HttpResponse<DefaultResponse<dynamic>>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/activate-user-phone',
+              '/logout',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -105,28 +72,26 @@ class _AuthService implements AuthService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = RegisterDto.fromJson(_result.data!);
+    final value = DefaultResponse<dynamic>.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
 
   @override
-  Future<HttpResponse<LoginDto>> revokePassword(
-      {required ForgotOneReq forgotOneReq}) async {
+  Future<HttpResponse<User>> getMe() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(forgotOneReq.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<LoginDto>>(Options(
-      method: 'POST',
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<HttpResponse<User>>(Options(
+      method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/revoke-password-phone',
+              '/get-Me',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -135,67 +100,7 @@ class _AuthService implements AuthService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = LoginDto.fromJson(_result.data!);
-    final httpResponse = HttpResponse(value, _result);
-    return httpResponse;
-  }
-
-  @override
-  Future<HttpResponse<LoginDto>> checkVerifyPassword(
-      {required ForgotTwoReq forgotTwoReq}) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(forgotTwoReq.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<LoginDto>>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/check-verify-code-phone',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = LoginDto.fromJson(_result.data!);
-    final httpResponse = HttpResponse(value, _result);
-    return httpResponse;
-  }
-
-  @override
-  Future<HttpResponse<LoginDto>> resetPassword(
-      {required ForgotReq forgotReq}) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(forgotReq.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<LoginDto>>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/reset-password',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = LoginDto.fromJson(_result.data!);
+    final value = User.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

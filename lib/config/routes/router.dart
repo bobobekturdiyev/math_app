@@ -1,8 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:math_app/config/routes/router.gr.dart';
-import 'package:math_app/features/notification/presentation/pages/notification_screen.dart';
-import 'package:math_app/features/profile/presentation/pages/settings_screen.dart';
-
+import 'package:math_app/features/auth/presentation/manager/provider/auth_guard.dart';
 import 'route_path.dart';
 
 @AutoRouterConfig(
@@ -14,17 +12,11 @@ class AppRouter extends $AppRouter {
         //AUTH
         AutoRoute(
           page: LoginRoute.page,
-          path: "/login",
-          // initial: true
+          path: RoutePath.login,
+          initial: true,
+          guards: [AuthGuard()]
         ),
-        AutoRoute(
-          page: RegisterRoute.page,
-          path: RoutePath.register,
-        ),
-        AutoRoute(
-          page: ForgotPasswordRoute.page,
-          path: RoutePath.forgotPassword,
-        ),
+
 
         //================
 
@@ -35,7 +27,7 @@ class AppRouter extends $AppRouter {
             AutoRoute(
               page: RootHome.page,
               path: RoutePath.home,
-              initial: true,
+              // initial: true,
               children: [
                 AutoRoute(
                   page: HomeRoute.page,
@@ -96,8 +88,8 @@ class AppRouter extends $AppRouter {
           path: RoutePath.settings,
         ),
         AutoRoute(
-          page: TestsRoute.page,
-          path: RoutePath.testsRoute,
+          page: QuizRoute.page,
+          path: RoutePath.quizRoute,
         ),
         AutoRoute(
           page: EitherResultRoute.page,

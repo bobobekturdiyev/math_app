@@ -1,7 +1,10 @@
-import 'package:math_app/features/show_lesson/data/model/show_lesson_dto.dart';
+import 'package:math_app/core/shared_entities/course_details_entity.dart';
+import 'package:math_app/features/show_lesson/data/model/quiz_models/quiz_dto.dart';
 
 import '../../../../core/resources/data_state.dart';
 
 abstract class ShowLessonRepo{
-  Future<DataState<ShowLessonDto>>getLesson({required String slug});
+  Future<DataState<CourseDetailsEntity>>getLesson({required String slug});
+  Future<DataState>lessonMarkAsWatch({required int  lessonId});
+  Future<DataState<QuizDto>>getQuizById({required int quizId});
 }

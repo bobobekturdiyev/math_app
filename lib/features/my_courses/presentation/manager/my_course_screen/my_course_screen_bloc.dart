@@ -15,7 +15,7 @@ class MyCourseScreenBloc extends Bloc<MyCourseScreenEvent, MyCourseScreenState> 
   MyCourseScreenBloc({required this.myCourseRepo}) : super(MyCourseScreenInitial()) {
     on<GetMyCourses>((event, emit)async {
       emit(MyCourseLoading());
-      final result=await myCourseRepo.getMyCourses();
+      final result=await myCourseRepo.getMyCourses(event.filter.name);
       if(result is DataSuccess){
         emit(MyCoursesLoaded(myCourses: result.data??[]));
       }else{

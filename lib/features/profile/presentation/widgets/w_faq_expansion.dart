@@ -9,7 +9,8 @@ class WFaqExpansion extends StatefulWidget {
   final String bodyText;
   final EdgeInsets? margin;
 
-  const WFaqExpansion({super.key, required this.title, required this.bodyText,  this.margin});
+  const WFaqExpansion(
+      {super.key, required this.title, required this.bodyText, this.margin});
 
   @override
   State<WFaqExpansion> createState() => _WFaqExpansionState();
@@ -21,12 +22,11 @@ class _WFaqExpansionState extends State<WFaqExpansion> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: widget.margin?? const EdgeInsets.only(bottom: 24),
+      margin: widget.margin ?? const EdgeInsets.only(bottom: 24),
       decoration: BoxDecoration(
-          color: AppColors.C_FAFAFA,
-          borderRadius: BorderRadius.circular(12),
-        ),
-
+        color: AppColors.C_FAFAFA,
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: Column(
         children: [
           Container(
@@ -35,8 +35,9 @@ class _WFaqExpansionState extends State<WFaqExpansion> {
                 color: AppColors.C_FAFAFA,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                    color:
-                        isOpen ? AppColors.primaryColor : AppColors.transparent)),
+                    color: isOpen
+                        ? AppColors.primaryColor
+                        : AppColors.transparent)),
             child: Row(
               children: [
                 Expanded(
@@ -46,13 +47,19 @@ class _WFaqExpansionState extends State<WFaqExpansion> {
                   ),
                 ),
                 InkWell(
-                    onTap: () {
-                      setState(() {
-                        isOpen = !isOpen;
-                      });
-                    },
-                    child: SvgPicture.asset(
-                        isOpen ? AppIcons.minus : AppIcons.plus)),
+                  onTap: () {
+                    setState(() {
+                      isOpen = !isOpen;
+                    });
+                  },
+                  child: SvgPicture.asset(
+                    isOpen ? AppIcons.minus : AppIcons.plus,
+                    colorFilter: const ColorFilter.mode(
+                      Color(0xFF697B7A),
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -62,7 +69,6 @@ class _WFaqExpansionState extends State<WFaqExpansion> {
               child: isOpen
                   ? Padding(
                       padding: const EdgeInsets.all(16),
-
                       child: Text(
                         widget.bodyText,
                         style: Styles.getTextStyle(

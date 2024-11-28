@@ -4,14 +4,14 @@ part 'login_request.g.dart';
 
 @JsonSerializable()
 class LoginRequest {
-  final String value;
-  final String password;
-
+  final String code;
+  final String token;
 
   const LoginRequest({
-    required this.value,
-    required this.password,
+    required this.code,
+    required this.token,
   });
+
   factory LoginRequest.fromJson(Map<String, dynamic> json) =>
       _$LoginRequestFromJson(json);
 
