@@ -40,7 +40,6 @@ class WTestVariants extends StatefulWidget {
 }
 
 class _WTestVariantsState extends State<WTestVariants> {
-  List<String> _variants = ['a', 'b', 'c', 'd'];
 
   @override
   void initState() {
@@ -73,7 +72,7 @@ class _WTestVariantsState extends State<WTestVariants> {
   int selectedIndex = -1;
 
   _getChildren() => List.generate(
-        _variants.length,
+        widget.items.length,
         (index) => Padding(
           padding: EdgeInsets.only(
             bottom: widget.horizontalPadding == null
@@ -130,7 +129,7 @@ class _WTestVariantsState extends State<WTestVariants> {
                         : null,
                     margin: EdgeInsets.zero,
                     txt:
-                        "${_variants[index]}) ${widget.items.isEmpty ? '' : widget.items[index]}",
+                        " ${widget.items.isEmpty ? '' : widget.items[index]}",
                     isSelected:widget._disabled? widget.initialIndex == index: selectedIndex == index,
                     style: Styles.getTextStyle(color: AppColors.black),
                   ),

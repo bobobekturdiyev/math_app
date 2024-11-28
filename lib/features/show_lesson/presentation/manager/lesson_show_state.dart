@@ -11,9 +11,9 @@ abstract class LessonShowState extends Equatable{
 class LessonShowInitial extends LessonShowState {}
 
 class LessonShowLoaded extends LessonShowState{
-  final ShowLessonDto req;
+  final CourseDetailsEntity courseEntity;
 
-  const LessonShowLoaded({required this.req,});
+  const LessonShowLoaded({required this.courseEntity,});
 
 }
 
