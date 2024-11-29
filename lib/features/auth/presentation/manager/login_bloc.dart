@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:math_app/core/resources/data_state.dart';
-import 'package:math_app/features/auth/data/models/user.dart';
+import 'package:math_app/core/shared/data/shared_models/user_model/user.dart';
 import 'package:math_app/features/auth/domain/entities/login_request.dart';
 import 'package:url_launcher/url_launcher.dart';
 

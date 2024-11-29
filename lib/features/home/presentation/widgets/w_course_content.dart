@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:math_app/core/shared_entities/module_entity.dart';
+import 'package:math_app/core/shared/domain/shared_entities/module_entity.dart';
 import 'package:math_app/features/home/presentation/widgets/w_expansion.dart';
 
 class WCourseContent extends StatelessWidget {

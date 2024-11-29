@@ -1,4 +1,5 @@
-import 'package:math_app/core/shared_entities/module_entity.dart';
+
+import 'package:math_app/core/shared/domain/shared_entities/module_entity.dart';
 
 class CourseDetailsEntity {
   final int id;

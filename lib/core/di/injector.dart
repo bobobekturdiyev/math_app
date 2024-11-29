@@ -2,6 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:math_app/core/network/dio_manager.dart';
+import 'package:math_app/core/shared/data/data_source/shared_service.dart';
+import 'package:math_app/core/shared/data/repositories/impl_shared_repo.dart';
+import 'package:math_app/core/shared/domain/repositories/shared_repo.dart';
+import 'package:math_app/core/state/bloc/main_data/user_bloc.dart';
 import 'package:math_app/features/auth/data/data_sources/auth_service.dart';
 import 'package:math_app/features/auth/data/repositories/impl_auth_repo.dart';
 import 'package:math_app/features/auth/domain/repositories/auth_repo.dart';
@@ -14,12 +18,9 @@ import 'package:math_app/features/profile/data/data_source/payme_service/payme_s
 import 'package:math_app/features/profile/data/data_source/profile_service.dart';
 import 'package:math_app/features/profile/data/repositories/impl_profile_repo.dart';
 import 'package:math_app/features/profile/domain/repositories/profile_repo.dart';
-import 'package:math_app/features/profile/presentation/manager/profile_bloc/profile_bloc.dart';
 import 'package:math_app/features/show_lesson/data/data_source/show_lesson_service.dart';
 import 'package:math_app/features/show_lesson/data/repositories/impl_show_lesson_repo.dart';
 import 'package:math_app/features/show_lesson/domain/repositories/show_lesson_repo.dart';
-import 'package:provider/provider.dart';
-
 import '../../features/chat/data/data_source/chat_service/chat_service.dart';
 import '../../features/chat/data/mapper/chat_mapper.dart';
 import '../../features/chat/data/repositories/impl_user_repostories.dart';
@@ -29,7 +30,6 @@ import '../../features/chat/presentation/manager/chat_bloc/chat_bloc.dart';
 import '../../features/chat/presentation/manager/chat_manager_bloc/chat_managers_bloc.dart';
 import '../../features/my_courses/data/data_source/my_course_service.dart';
 
-import '../../features/profile/presentation/manager/user_bloc/user_bloc.dart';
 import '../state/bloc/bottom_nav_bar/bottom_nav_bar_bloc.dart';
 import 'locator.dart';
 
@@ -46,6 +46,7 @@ class Injector extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         ..._getAuthRepo(),
+        ..._getSharedRepo(),
         ..._getHomeRepo(),
         ..._getPlanRepo(),
         ..._getShowLessonRepo(),
@@ -58,7 +59,7 @@ class Injector extends StatelessWidget {
         ),
         // ChangeNotifierProvider(create: (_) => CoursePlayerProvider()),
         BlocProvider<UserBloc>(
-          create: (ctx) => UserBloc(profileRepo: ctx.read())
+          create: (ctx) => UserBloc(sharedRepo: ctx.read())
         ),
         BlocProvider(
           create: (context) => ChatManagersBloc(
@@ -74,9 +75,9 @@ class Injector extends StatelessWidget {
             ),
           ),
         ),
-        BlocProvider(
-          create: (context) => ProfileBloc(profileRepo: context.read()),
-        ),
+        // BlocProvider(
+        //   create: (context) => ProfileBloc(profileRepo: context.read()),
+        // ),
 
 
       ], child: child),
@@ -92,6 +93,16 @@ class Injector extends StatelessWidget {
         RepositoryProvider<AuthRepo>(
           create: (context) =>
               ImplAuthRepo(authService: context.read()),
+        ),
+      ];
+  List<RepositoryProvider> _getSharedRepo() => [
+
+        RepositoryProvider<SharedService>(
+          create: (context) => SharedService(locator<Dio>()),
+        ),
+        RepositoryProvider<SharedRepo>(
+          create: (context) =>
+              ImplSharedRepo(sharedService: context.read()),
         ),
       ];
   List<RepositoryProvider> _getHomeRepo() => [

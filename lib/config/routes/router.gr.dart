@@ -48,6 +48,8 @@ import 'package:math_app/features/profile/presentation/pages/profile_screen.dart
     as _i11;
 import 'package:math_app/features/profile/presentation/pages/settings_screen.dart'
     as _i21;
+import 'package:math_app/features/show_lesson/data/model/quiz_models/either_result_dto.dart'
+    as _i26;
 import 'package:math_app/features/show_lesson/presentation/pages/either_result_screen.dart'
     as _i6;
 import 'package:math_app/features/show_lesson/presentation/pages/quiz_screen.dart'
@@ -105,7 +107,7 @@ abstract class $AppRouter extends _i24.RootStackRouter {
         routeData: routeData,
         child: _i6.EitherResultScreen(
           key: args.key,
-          resultType: args.resultType,
+          resultDto: args.resultDto,
         ),
       );
     },
@@ -343,13 +345,13 @@ class CourseDetailsRouteArgs {
 class EitherResultRoute extends _i24.PageRouteInfo<EitherResultRouteArgs> {
   EitherResultRoute({
     _i25.Key? key,
-    required _i6.ResultType resultType,
+    required _i26.EitherResultDto resultDto,
     List<_i24.PageRouteInfo>? children,
   }) : super(
           EitherResultRoute.name,
           args: EitherResultRouteArgs(
             key: key,
-            resultType: resultType,
+            resultDto: resultDto,
           ),
           initialChildren: children,
         );
@@ -363,16 +365,16 @@ class EitherResultRoute extends _i24.PageRouteInfo<EitherResultRouteArgs> {
 class EitherResultRouteArgs {
   const EitherResultRouteArgs({
     this.key,
-    required this.resultType,
+    required this.resultDto,
   });
 
   final _i25.Key? key;
 
-  final _i6.ResultType resultType;
+  final _i26.EitherResultDto resultDto;
 
   @override
   String toString() {
-    return 'EitherResultRouteArgs{key: $key, resultType: $resultType}';
+    return 'EitherResultRouteArgs{key: $key, resultDto: $resultDto}';
   }
 }
 

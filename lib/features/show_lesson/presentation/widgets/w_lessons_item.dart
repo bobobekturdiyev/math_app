@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:math_app/core/resources/app_colors.dart';
 import 'package:math_app/core/resources/app_icons.dart';
 import 'package:math_app/core/resources/styles.dart';
-import 'package:math_app/core/shared_entities/lesson_entity.dart';
+import 'package:math_app/core/shared/domain/shared_entities/lesson_entity.dart';
 import 'package:math_app/core/widgets/w_circle_index_card.dart';
 
 class WLessonsItem extends StatelessWidget {

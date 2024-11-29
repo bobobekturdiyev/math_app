@@ -7,7 +7,7 @@ import 'package:math_app/core/resources/app_images.dart';
 import 'package:math_app/core/resources/styles.dart';
 import 'package:math_app/core/widgets/w_appbar.dart';
 import 'package:math_app/core/widgets/w_circle_index_card.dart';
-import 'package:math_app/features/show_lesson/presentaion/widgets/w_test_variants.dart';
+import 'package:math_app/features/show_lesson/presentation/widgets/w_test_variants.dart';
 
 @RoutePage()
 class TestResultScreen extends StatelessWidget {

@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:math_app/core/shared_models/course_model/course_dto.dart';
+import 'package:math_app/config/routes/router.gr.dart';
+import 'package:math_app/core/shared/data/shared_models/course_model/course_dto.dart';
+import 'package:math_app/features/show_lesson/data/model/quiz_models/either_result_dto.dart';
 import 'package:math_app/features/show_lesson/data/model/quiz_models/quiz_dto.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -27,6 +29,11 @@ abstract class ShowLessonService {
   @POST('/lesson/{id}/watch')
   Future<HttpResponse> lessonMarkAsWatch({
     @Path("id") required int id
+  });
+  @POST('/quiz/{id}/check')
+  Future<HttpResponse<EitherResultDto>> quizCheckRoute({
+    @Path("id") required int quizId,
+    @Body() required Map<String ,dynamic> quizCheckBody
   });
 
 

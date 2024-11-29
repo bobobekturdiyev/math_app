@@ -4,13 +4,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:math_app/core/resources/app_colors.dart';
+import 'package:math_app/core/shared/domain/shared_entities/lesson_entity.dart';
+import 'package:math_app/core/shared/domain/shared_entities/module_entity.dart';
 import 'package:math_app/core/widgets/video_player/universal_video_player.dart';
 import 'package:math_app/core/widgets/video_player/video_player_ctrl.dart';
 import 'package:math_app/core/widgets/w_appbar.dart';
 import 'package:math_app/core/widgets/w_button.dart';
 import 'package:math_app/core/widgets/w_standard_tabbar.dart';
-import 'package:math_app/core/shared_entities/lesson_entity.dart';
-import 'package:math_app/core/shared_entities/module_entity.dart';
+
 import 'package:math_app/features/home/presentation/manager/course_details_screen_bloc/course_details_screen_bloc.dart';
 import 'package:math_app/features/home/presentation/widgets/w_course_about.dart';
 import 'package:math_app/features/home/presentation/widgets/w_course_rating.dart';
@@ -51,7 +52,9 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen>
 
   @override
   void dispose() {
-    controller.dispose();
+    if(controller.isInitialized){
+      controller.dispose();
+    }
     super.dispose();
   }
 

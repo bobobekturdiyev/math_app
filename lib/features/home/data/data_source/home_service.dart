@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:math_app/core/shared_models/course_model/course_dto.dart';
+import 'package:math_app/core/shared/data/shared_models/course_model/course_dto.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:math_app/core/network/urls.dart';
 import 'package:math_app/core/resources/default_response.dart';

@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:math_app/config/routes/router.gr.dart';
 import 'package:math_app/core/resources/styles.dart';
-import 'package:math_app/core/shared_entities/lesson_entity.dart';
-import 'package:math_app/core/shared_entities/module_entity.dart';
+import 'package:math_app/core/shared/domain/shared_entities/lesson_entity.dart';
+import 'package:math_app/core/shared/domain/shared_entities/module_entity.dart';
 import 'package:math_app/core/widgets/video_player/universal_video_player.dart';
 import 'package:math_app/core/widgets/video_player/video_player_ctrl.dart';
 import 'package:math_app/core/widgets/w_button.dart';
 import 'package:math_app/features/home/presentation/widgets/w_course_rating.dart';
-import 'package:math_app/features/show_lesson/presentaion/widgets/w_lessons_item.dart';
+import 'package:math_app/features/show_lesson/presentation/widgets/w_lessons_item.dart';
 
 import '../../../../core/resources/app_colors.dart';
 import '../manager/lesson_show_bloc.dart';
@@ -118,7 +118,9 @@ class _ShowLessonScreenState extends State<ShowLessonScreen> {
                                                 .courseEntity
                                                 .modules[moduleIndex]
                                                 .lessons[index],
-                                            onTap: () {},
+                                            onTap: () {
+                                              controller.playAt(index);
+                                            },
                                             index: index,
                                             isPLaying:
                                                 controller.currentIndex ==

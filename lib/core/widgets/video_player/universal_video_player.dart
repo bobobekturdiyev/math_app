@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:math_app/core/shared_entities/lesson_entity.dart';
+import 'package:last_pod_player/last_pod_player.dart';
+import 'package:math_app/core/shared/domain/shared_entities/lesson_entity.dart';
 import 'package:math_app/core/widgets/video_player/video_player_ctrl.dart';
-import 'package:pod_player/pod_player.dart';
+// import 'package:pod_player/pod_player.dart';
 import 'package:provider/provider.dart';
 
 enum VideoSourceType { youtube, vimeo, network }
@@ -47,7 +48,7 @@ class UniversalVideoPlayer extends StatelessWidget {
             aspectRatio: 16 / 9,
             child: Consumer<VideoController>(
               builder: (context, controller, _) {
-                if(controller.playerController.currentVideoPosition >=
+                if(controller.isInitialized&&controller.playerController.currentVideoPosition >=
                     controller. playerController.totalVideoLength){
                   onCompleted(controller.currentVideo);
                 }

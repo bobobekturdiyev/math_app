@@ -1,9 +1,9 @@
 import 'package:math_app/core/resources/data_state.dart';
 import 'package:math_app/core/error/exception_handler.dart';
-import 'package:math_app/core/shared_mapper/shared_mapper.dart';
+import 'package:math_app/core/shared/data/shared_mapper/shared_mapper.dart';
+import 'package:math_app/core/shared/domain/shared_entities/course_details_entity.dart';
 import 'package:math_app/features/home/data/mapper/home_mapper.dart';
 import 'package:math_app/features/home/domain/entity/all_course_entity.dart';
-import 'package:math_app/core/shared_entities/course_details_entity.dart';
 import 'package:math_app/features/home/domain/repositories/home_repo.dart';
 import 'package:math_app/features/home/data/data_source/home_service.dart';
 

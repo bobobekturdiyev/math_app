@@ -49,7 +49,7 @@ class PortfolioDelBloc extends Bloc<PortfolioDelEvent, PortfolioDelState> {
   resultFunc(result){
     if(result is DataSuccess){
       if(result.data?.code==200){
-         locator<GlobalKey<ScaffoldState>>().currentContext!.read<UserBloc>().add(GetUserData());
+         // locator<GlobalKey<ScaffoldState>>().currentContext!.read<UserBloc>().add(GetUserData());
 
       }else{
         emit(DelState(status: StateStatus.error));

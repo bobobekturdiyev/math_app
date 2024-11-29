@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:math_app/config/routes/route_path.dart';
+import 'package:math_app/config/routes/router.gr.dart';
 import 'package:math_app/core/resources/app_colors.dart';
 import 'package:math_app/core/resources/app_icons.dart';
 import 'package:math_app/core/resources/styles.dart';
@@ -11,6 +12,7 @@ import 'package:math_app/core/widgets/w_appbar.dart';
 import 'package:math_app/core/widgets/w_button.dart';
 import 'package:math_app/core/widgets/w_cupertino_switch.dart';
 import 'package:math_app/features/profile/presentation/widgets/w_profile_section_item.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 @RoutePage()
 class SettingsScreen extends StatelessWidget {
@@ -144,7 +146,9 @@ class SettingsScreen extends StatelessWidget {
                   Expanded(
                     child: WButton(
                         verticalPadding: 10,
-                        text: "back".tr(), onTap: (){}),
+                        text: "back".tr(), onTap: (){
+                        ctx.maybePop();
+                    }),
                   ),
                   const SizedBox(width: 15,),
                   Expanded(
@@ -154,7 +158,11 @@ class SettingsScreen extends StatelessWidget {
                         verticalPadding: 10,
                         text: "out".tr(),
                         textStyle: Styles.getButtonStyle().copyWith(color: AppColors.danger),
-                        onTap: (){}),
+                        onTap: () async {
+                          SharedPreferences preferences = await SharedPreferences.getInstance();
+                          await preferences.clear();
+                          context.router.replaceAll([const LoginRoute()]);
+                        }),
                   ),
                 ],
               ),

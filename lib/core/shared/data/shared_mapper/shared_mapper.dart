@@ -1,10 +1,12 @@
 
-import 'package:math_app/core/shared_entities/course_details_entity.dart';
-import 'package:math_app/core/shared_entities/lesson_entity.dart';
-import 'package:math_app/core/shared_entities/module_entity.dart';
-import 'package:math_app/core/shared_models/course_model/course_dto.dart';
-import 'package:math_app/core/shared_models/course_module/course_module_dto.dart';
-import 'package:math_app/core/shared_models/lesson/lesson_dto.dart';
+
+
+import 'package:math_app/core/shared/data/shared_models/course_model/course_dto.dart';
+import 'package:math_app/core/shared/data/shared_models/course_module/course_module_dto.dart';
+import 'package:math_app/core/shared/data/shared_models/lesson/lesson_dto.dart';
+import 'package:math_app/core/shared/domain/shared_entities/course_details_entity.dart';
+import 'package:math_app/core/shared/domain/shared_entities/lesson_entity.dart';
+import 'package:math_app/core/shared/domain/shared_entities/module_entity.dart';
 
 class SharedMapper{
   CourseDetailsEntity getCourseDetailsDtoToEntity(CourseDto dto) =>

@@ -9,6 +9,7 @@ import 'package:math_app/config/routes/route_path.dart';
 import 'package:math_app/config/routes/router.gr.dart';
 import 'package:math_app/core/di/locator.dart';
 import 'package:math_app/core/resources/styles.dart';
+import 'package:math_app/core/state/bloc/main_data/user_bloc.dart';
 import 'package:math_app/core/widgets/w_bottomsheet.dart';
 import 'package:math_app/core/widgets/w_radio_group.dart';
 import 'package:math_app/core/widgets/w_shimmer_loader.dart';
@@ -17,6 +18,7 @@ import 'package:math_app/features/home/domain/usecases/home_usecase.dart';
 import 'package:math_app/features/home/presentation/manager/home_bloc/home_screen_event.dart';
 import 'package:math_app/features/home/presentation/manager/home_bloc/home_screen_state.dart';
 import 'package:math_app/features/home/presentation/widgets/w_course_card.dart';
+import 'package:math_app/features/home/presentation/widgets/w_welcome_text.dart';
 
 import '../../../../core/resources/app_colors.dart';
 import '../../../../core/resources/app_icons.dart';
@@ -63,44 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "hi_user".tr(namedArgs: {"name": "Hafiz"}),
-                        style: Styles.getHiUserStyle(),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "suit_yourself".tr(),
-                            style: Styles.getTextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            "course_model".tr(),
-                            style: Styles.getTextStyle(
-                              fontSize: 12,
-                              color: AppColors.primaryColor,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            "find".tr(),
-                            style: Styles.getTextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                WWelcomeText(),
                   InkWell(
                       onTap: () {
                         context.router.pushNamed(RoutePath.notification);

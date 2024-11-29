@@ -5,7 +5,7 @@ import 'package:math_app/core/error/exception_handler.dart';
 import 'package:math_app/core/resources/app_keys.dart';
 import 'package:math_app/core/resources/data_state.dart';
 import 'package:math_app/features/auth/data/data_sources/auth_service.dart';
-import 'package:math_app/features/auth/data/models/user.dart';
+import 'package:math_app/core/shared/data/shared_models/user_model/user.dart';
 import 'package:math_app/features/auth/domain/entities/login_request.dart';
 import 'package:math_app/features/auth/domain/repositories/auth_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';

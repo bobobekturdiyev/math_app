@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:math_app/core/shared_models/lesson/lesson_dto.dart';
-import 'package:math_app/core/shared_models/quiz/quiz_light_weight_dto.dart';
+import 'package:math_app/core/shared/data/shared_models/lesson/lesson_dto.dart';
+import 'package:math_app/core/shared/data/shared_models/quiz/quiz_light_weight_dto.dart';
+
 
 part 'course_module_dto.g.dart';
 

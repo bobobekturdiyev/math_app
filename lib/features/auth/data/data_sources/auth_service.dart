@@ -2,7 +2,7 @@
 import 'package:dio/dio.dart';
 import 'package:math_app/core/resources/default_response.dart';
 import 'package:math_app/features/auth/data/models/login_response.dart';
-import 'package:math_app/features/auth/data/models/user.dart';
+import 'package:math_app/core/shared/data/shared_models/user_model/user.dart';
 import 'package:math_app/features/auth/domain/entities/login_request.dart';
 import 'package:retrofit/dio.dart';
 import 'package:retrofit/http.dart';

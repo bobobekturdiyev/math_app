@@ -1,4 +1,4 @@
-import 'package:math_app/core/shared_entities/lesson_entity.dart';
+import 'package:math_app/core/shared/domain/shared_entities/lesson_entity.dart';
 
 class ModuleEntity {
   final int id;

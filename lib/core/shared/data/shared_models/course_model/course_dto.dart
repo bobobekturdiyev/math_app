@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:math_app/core/shared_models/course_module/course_module_dto.dart';
+import 'package:math_app/core/shared/data/shared_models/course_module/course_module_dto.dart';
 
 
 part 'course_dto.g.dart';

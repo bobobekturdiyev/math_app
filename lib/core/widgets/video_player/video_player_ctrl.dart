@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:last_pod_player/last_pod_player.dart';
 import 'package:math_app/core/extensions/video_type_ext.dart';
+import 'package:math_app/core/shared/domain/shared_entities/lesson_entity.dart';
 import 'package:math_app/core/widgets/video_player/universal_video_player.dart';
-import 'package:math_app/core/shared_entities/lesson_entity.dart';
 
-import 'package:pod_player/pod_player.dart';
 
 class VideoController extends ChangeNotifier {
   final List<LessonEntity> playlist;
@@ -46,7 +46,6 @@ class VideoController extends ChangeNotifier {
     playerController = PodPlayerController(
 
       playVideoFrom: videoSource,
-
       podPlayerConfig: const PodPlayerConfig(
           autoPlay: true, isLooping: false, videoQualityPriority: [720, 360],
 

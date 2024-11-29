@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:math_app/core/resources/app_icons.dart';
 import 'package:math_app/core/resources/styles.dart';
+import 'package:math_app/core/shared/domain/shared_entities/module_entity.dart';
 import 'package:math_app/core/widgets/w_circle_index_card.dart';
-import 'package:math_app/core/shared_entities/module_entity.dart';
 
 import '../../../../core/resources/app_colors.dart';
 
@@ -61,26 +61,30 @@ class _WExpansionTileState extends State<WExpansionTile> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        WCircleIndexCard(index: index),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              widget.moduleEntity.lessons[index].title,
-                              style: Styles.getLessonTitle(),
+                    Expanded(
+                      child: Row(
+                        children: [
+                          WCircleIndexCard(index: index),
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  widget.moduleEntity.lessons[index].title,
+                                  style: Styles.getLessonTitle(),
+                                ),
+                                Text(
+                                  "Video - ${widget.moduleEntity.lessons[index].duration} min",
+                                  style: Styles.getLessonSubTitle(),
+                                ),
+                              ],
                             ),
-                            Text(
-                              "Video - ${widget.moduleEntity.lessons[index].duration} min",
-                              style: Styles.getLessonSubTitle(),
-                            ),
-                          ],
-                        ),
-                      ],
+                          ),
+                        ],
+                      ),
                     ),
                     SvgPicture.asset(
                       widget.moduleEntity.lessons[index].hasAccess == 1

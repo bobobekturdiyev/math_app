@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 _showSnackBar(context, "Siz tizimga kirdingiz");
                                 context
                                     .read<BottomNavBarBloc>()
-                                    .add(OpenPage(path: RoutePath.home));
+                                    .add(const OpenPage(path: RoutePath.home));
                                 context.router.replaceAll([AppMainRoute()]);
                                 // locator<AuthBloc>()
                                 //     .add(AuthLoggedIn(user: state.user));

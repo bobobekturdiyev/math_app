@@ -8,3 +8,16 @@ class GetQuizById extends QuizEvent{
 
   GetQuizById({required this.quizId});
 }
+
+
+class SelectOptionEvent extends QuizEvent{
+  final String questionId;
+  final String? optionId;
+
+  SelectOptionEvent({required this.questionId,  this.optionId});
+
+}
+
+class QuizCheckEvent extends QuizEvent{
+
+}
