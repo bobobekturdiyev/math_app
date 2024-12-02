@@ -1,4 +1,5 @@
 import 'package:math_app/core/widgets/video_player/universal_video_player.dart';
+import 'package:math_app/core/widgets/video_player/video_player_ctrl.dart';
 
 class VideoUrlAnalyzer {
   static VideoSourceType detectVideoType(String url) {

@@ -5,44 +5,26 @@ abstract class ProfileEvent extends Equatable {}
 
 
 
-class AboutAdd extends ProfileEvent{
-  final String about;
+class UpdateProfileIMage extends ProfileEvent{
+  final File image;
 
-  AboutAdd({required this.about});
+  UpdateProfileIMage({required this.image});
+
   @override
-  List<Object?> get props => [about];
+  List<Object?> get props => [image];
 
 }
-class LanguageAdd extends ProfileEvent{
-  final String lang;
-  final int level;
+class UpdateUserInfo extends ProfileEvent{
+  final String email;
+  final String address;
+  final String birthday;
 
-  LanguageAdd( {required this.lang, required this.level,});
+  UpdateUserInfo({required this.email, required this.address, required this.birthday});
+
+
   @override
-  List<Object?> get props => [lang, level];
-
-}
-class UpdateLang extends ProfileEvent{
-  final String lang;
-  final int level;
-  final int id;
-
-  UpdateLang(  {required this.lang, required this.level,required this.id,});
-  @override
-  List<Object?> get props => [lang, level,id];
+  List<Object?> get props => [email,address,birthday];
 
 }
 
-
-
-class SkillsAdd extends ProfileEvent{
-  final StateStatus status;
-  final String? text;
-  final List<int> tags;
-
-  SkillsAdd(  {this.text, this.status=StateStatus.normal,this.tags=const[] });
-  @override
-  List<Object?> get props => [status];
-
-}
 

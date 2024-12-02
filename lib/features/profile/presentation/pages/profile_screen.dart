@@ -52,7 +52,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                   leadingIconPath: AppIcons.security,
                   title: "security".tr(),
                   onTap: () {
-                    context.router.pushNamed(RoutePath.personalInfo);
+                    // context.router.pushNamed(RoutePath.privacyPolicy);
 
                   }
                   ,

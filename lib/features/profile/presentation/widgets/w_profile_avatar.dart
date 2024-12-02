@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:math_app/core/resources/app_colors.dart';
 
 class WProfileAvatar extends StatelessWidget {
+  final String? imageUrl;
   final Color? borderColor;
   final double? borderWidth;
-  const WProfileAvatar({super.key, this.borderColor,  this.borderWidth});
+  const WProfileAvatar({super.key, this.borderColor,  this.borderWidth,  this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +35,8 @@ class WProfileAvatar extends StatelessWidget {
             ],
           ):null,
         ),
-        child: const CircleAvatar(
-          backgroundImage: CachedNetworkImageProvider(
-              "https://ntrepidcorp.com/wp-content/uploads/2016/06/team-1-640x640.jpg"),
+        child:  CircleAvatar(
+          backgroundImage: CachedNetworkImageProvider(imageUrl??'https://i0.wp.com/digitalhealthskills.com/wp-content/uploads/2022/11/3da39-no-user-image-icon-27.png?fit=500%2C500&ssl=1'),
         ),
       );
   }

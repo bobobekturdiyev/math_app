@@ -99,7 +99,10 @@ class EitherResultScreen extends StatelessWidget {
                   top: 8,
                   left: 20,
                   child: Text(
-                    "correct_answers".tr(namedArgs: {'to': '${resultDto.correctAnswers}', 'from': '${resultDto.totalQuestions}'}),
+                    "correct_answers".tr(namedArgs: {
+                      'to': '${resultDto.correctAnswers}',
+                      'from': '${resultDto.totalQuestions}'
+                    }),
                     style: Styles.getCorrectAnswersStyle(),
                   ),
                 ),
@@ -112,7 +115,11 @@ class EitherResultScreen extends StatelessWidget {
               WTextLink(
                 text: "check_test_results".tr(),
                 onTap: () {
-                  context.router.push(const TestResultRoute());
+                  context.router.push(
+                    TestResultRoute(
+                      eitherResultDto: resultDto,
+                    ),
+                  );
                 },
               ),
           ],

@@ -9,7 +9,7 @@ class WTestVariants extends StatefulWidget {
   final Axis axis;
   final List<String> items;
   final int? initialIndex;
-  final Function(int) onChange;
+  final Function(int)? onChange;
   final bool _disabled;
   final double? horizontalPadding;
   final int? _correctIndex;
@@ -30,7 +30,7 @@ class WTestVariants extends StatefulWidget {
     required this.items,
     required this.initialIndex,
     this.horizontalPadding,
-    required this.onChange,
+     this.onChange,
     required int correctIndex,
   })  : _correctIndex = correctIndex,
         _disabled = true;
@@ -87,7 +87,9 @@ class _WTestVariantsState extends State<WTestVariants> {
                     setState(() {
                       selectedIndex = index;
                     });
-                    widget.onChange(selectedIndex);
+                    if(widget.onChange!=null) {
+                      widget.onChange!(selectedIndex);
+                    }
                   },
             child: Container(
               width: double.infinity,

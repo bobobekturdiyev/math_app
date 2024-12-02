@@ -1,46 +1,33 @@
 part of 'profile_bloc.dart';
-
+enum UserImageState{normal,loading,loaded}
 @immutable
-abstract class ProfileState extends Equatable {}
-
-
-
-class ProfileInitial extends ProfileState {
-  @override
-  List<Object?> get props => [];
-}
-
-
-class MyIncomeState extends ProfileState {
-  @override
-  List<Object?> get props => [];
-}
-class AboutState extends ProfileState {
-  final StateStatus status;
+class ProfileState extends Equatable {
+  final StateStatus stateStatus;
+  final UserImageState userImageState;
   final String? error;
+  final User? user;
 
 
-  AboutState({ this.status=StateStatus.normal,this.error, });
+  const ProfileState({
+    this.stateStatus = StateStatus.normal,
+    this.userImageState = UserImageState.normal,
+    this.user,
+    this.error
+  });
+
+  ProfileState copyWith({
+    StateStatus? stateStatus,
+    UserImageState? userImageState,
+    User? user,
+    String? error,
+  }) =>
+      ProfileState(
+        stateStatus: stateStatus ?? this.stateStatus,
+        userImageState: userImageState ?? this.userImageState,
+        user: user ?? this.user,
+        error: error ?? this.error,
+      );
+
   @override
-  List<Object?> get props => [status,error];
+  List<Object?> get props => [stateStatus,error,user,userImageState];
 }
-
-class LangState extends ProfileState {
-  final StateStatus status;
-  final String? error;
-
-
-  LangState({ this.status=StateStatus.normal,this.error, });
-  @override
-  List<Object?> get props => [status,error];
-}
-class SkillsState extends ProfileState {
-  final StateStatus status;
-  final String? error;
-  final List<SkillsDto> skills;
-
-  SkillsState( { this.status=StateStatus.normal,  this.error, this.skills=const[]});
-  @override
-  List<Object?> get props => [status,error];
-}
-

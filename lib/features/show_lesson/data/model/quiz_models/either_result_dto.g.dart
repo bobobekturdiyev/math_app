@@ -11,6 +11,9 @@ EitherResultDto _$EitherResultDtoFromJson(Map<String, dynamic> json) =>
       correctAnswers: (json['correct_answers'] as num).toInt(),
       totalQuestions: (json['total_questions'] as num).toInt(),
       passed: json['passed'] as bool,
+      result: (json['result'] as List<dynamic>)
+          .map((e) => ResultDto.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$EitherResultDtoToJson(EitherResultDto instance) =>
@@ -18,4 +21,5 @@ Map<String, dynamic> _$EitherResultDtoToJson(EitherResultDto instance) =>
       'correct_answers': instance.correctAnswers,
       'total_questions': instance.totalQuestions,
       'passed': instance.passed,
+      'result': instance.result,
     };
