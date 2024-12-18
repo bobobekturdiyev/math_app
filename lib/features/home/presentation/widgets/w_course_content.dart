@@ -15,6 +15,8 @@ class WCourseContent extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
         padding: const EdgeInsets.only(top: 24),
         itemCount: modules.length,
         itemBuilder: (ctx, index) {

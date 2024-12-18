@@ -25,11 +25,13 @@ class AppRouter extends $AppRouter {
           path: RoutePath.main,
           children: [
             AutoRoute(
+
               page: RootHome.page,
               path: RoutePath.home,
               // initial: true,
               children: [
                 AutoRoute(
+
                   page: HomeRoute.page,
                   path: "",
                 ),

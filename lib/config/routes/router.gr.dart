@@ -148,11 +148,9 @@ abstract class $AppRouter extends _i24.RootStackRouter {
       );
     },
     PersonalInfoRoute.name: (routeData) {
-      final args = routeData.argsAs<PersonalInfoRouteArgs>(
-          orElse: () => const PersonalInfoRouteArgs());
       return _i24.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i13.PersonalInfoScreen(key: args.key),
+        child: const _i13.PersonalInfoScreen(),
       );
     },
     PrivacyPolicyRoute.name: (routeData) {
@@ -218,9 +216,13 @@ abstract class $AppRouter extends _i24.RootStackRouter {
       );
     },
     TestResultRoute.name: (routeData) {
+      final args = routeData.argsAs<TestResultRouteArgs>();
       return _i24.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i23.TestResultScreen(),
+        child: _i23.TestResultScreen(
+          key: args.key,
+          eitherResultDto: args.eitherResultDto,
+        ),
       );
     },
   };
@@ -464,31 +466,16 @@ class NotificationRoute extends _i24.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i13.PersonalInfoScreen]
-class PersonalInfoRoute extends _i24.PageRouteInfo<PersonalInfoRouteArgs> {
-  PersonalInfoRoute({
-    _i25.Key? key,
-    List<_i24.PageRouteInfo>? children,
-  }) : super(
+class PersonalInfoRoute extends _i24.PageRouteInfo<void> {
+  const PersonalInfoRoute({List<_i24.PageRouteInfo>? children})
+      : super(
           PersonalInfoRoute.name,
-          args: PersonalInfoRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'PersonalInfoRoute';
 
-  static const _i24.PageInfo<PersonalInfoRouteArgs> page =
-      _i24.PageInfo<PersonalInfoRouteArgs>(name);
-}
-
-class PersonalInfoRouteArgs {
-  const PersonalInfoRouteArgs({this.key});
-
-  final _i25.Key? key;
-
-  @override
-  String toString() {
-    return 'PersonalInfoRouteArgs{key: $key}';
-  }
+  static const _i24.PageInfo<void> page = _i24.PageInfo<void>(name);
 }
 
 /// generated route for
@@ -667,14 +654,38 @@ class ShowLessonRouteArgs {
 
 /// generated route for
 /// [_i23.TestResultScreen]
-class TestResultRoute extends _i24.PageRouteInfo<void> {
-  const TestResultRoute({List<_i24.PageRouteInfo>? children})
-      : super(
+class TestResultRoute extends _i24.PageRouteInfo<TestResultRouteArgs> {
+  TestResultRoute({
+    _i25.Key? key,
+    required _i26.EitherResultDto eitherResultDto,
+    List<_i24.PageRouteInfo>? children,
+  }) : super(
           TestResultRoute.name,
+          args: TestResultRouteArgs(
+            key: key,
+            eitherResultDto: eitherResultDto,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'TestResultRoute';
 
-  static const _i24.PageInfo<void> page = _i24.PageInfo<void>(name);
+  static const _i24.PageInfo<TestResultRouteArgs> page =
+      _i24.PageInfo<TestResultRouteArgs>(name);
+}
+
+class TestResultRouteArgs {
+  const TestResultRouteArgs({
+    this.key,
+    required this.eitherResultDto,
+  });
+
+  final _i25.Key? key;
+
+  final _i26.EitherResultDto eitherResultDto;
+
+  @override
+  String toString() {
+    return 'TestResultRouteArgs{key: $key, eitherResultDto: $eitherResultDto}';
+  }
 }

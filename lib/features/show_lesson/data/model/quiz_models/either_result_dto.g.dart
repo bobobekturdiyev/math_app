@@ -11,8 +11,8 @@ EitherResultDto _$EitherResultDtoFromJson(Map<String, dynamic> json) =>
       correctAnswers: (json['correct_answers'] as num).toInt(),
       totalQuestions: (json['total_questions'] as num).toInt(),
       passed: json['passed'] as bool,
-      result: (json['result'] as List<dynamic>)
-          .map((e) => ResultDto.fromJson(e as Map<String, dynamic>))
+      result: (json['result'] as List<dynamic>?)
+          ?.map((e) => ResultDto.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

@@ -7,7 +7,7 @@ part 'question_dto.g.dart';
 
 @JsonSerializable()
 class QuestionDto {
-  final int id;
+  final int? id;
   @JsonKey(name: 'question_text')
   final String questionText;
   final String photo;
@@ -16,7 +16,7 @@ class QuestionDto {
   factory QuestionDto.fromJson(Map<String, dynamic> json) =>
       _$QuestionDtoFromJson(json);
 
-  QuestionDto({required this.id, required this.questionText, required this.photo, required this.options});
+  QuestionDto({ this.id, required this.questionText, required this.photo, required this.options});
 
 
 

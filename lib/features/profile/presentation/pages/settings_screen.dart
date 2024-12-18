@@ -43,13 +43,13 @@ class SettingsScreen extends StatelessWidget {
                   const SizedBox(
                     height: 24,
                   ),
-                  WProfileSectionItem(
-                    leadingIconPath: AppIcons.lock,
-                    title: "change_password".tr(),
-                    onTap: () {
-                      context.router.pushNamed(RoutePath.changePassword);
-                    },
-                  ),
+                  // WProfileSectionItem(
+                  //   leadingIconPath: AppIcons.lock,
+                  //   title: "change_password".tr(),
+                  //   onTap: () {
+                  //     context.router.pushNamed(RoutePath.changePassword);
+                  //   },
+                  // ),
                   WProfileSectionItem(
                     leadingIconPath: AppIcons.help,
                     title: "FAQ".tr(),

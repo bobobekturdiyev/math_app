@@ -6,6 +6,8 @@
   "birth_date": "Tug’ilgan sana",
   "search": "Qidirish",
   "phone_number": "Telefon raqam",
+  "first_name": "Ism",
+  "last_name": "Familiya",
   "password": "Parol",
   "all": "Barchasi",
   "in_process": "Jarayonda",

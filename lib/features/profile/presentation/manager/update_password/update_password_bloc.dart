@@ -44,18 +44,18 @@ class UpdatePasswordBloc extends Bloc<UpdatePasswordEvent, UpdatePasswordState> 
         emit(UpdatePasswordInitial(status: StateStatus.error, errorData: errors));
       } else {
         emit( UpdatePasswordInitial(status: StateStatus.loading));
-        final result = await profileRepo.updatePassword(
-            updatePasswordReq: UpdatePasswordReq(
-                password: event.password, confirmPassword: event.confirmPassword));
-
-        if (result is DataSuccess && result.data?.code==200) {
-          emit( UpdatePasswordInitial(status: StateStatus.success));
-        } else {
-          emit(UpdatePasswordInitial(
-            status: StateStatus.error,
-            error: result.errorResponse?.message ?? result.errorResponse?.errors?[0],
-          ));
-        }
+        // final result = await profileRepo.updatePassword(
+        //     updatePasswordReq: UpdatePasswordReq(
+        //         password: event.password, confirmPassword: event.confirmPassword));
+        //
+        // if (result is DataSuccess && result.data?.code==200) {
+        //   emit( UpdatePasswordInitial(status: StateStatus.success));
+        // } else {
+        //   emit(UpdatePasswordInitial(
+        //     status: StateStatus.error,
+        //     error: result.errorResponse?.message ?? result.errorResponse?.errors?[0],
+        //   ));
+        // }
       }
 
     });

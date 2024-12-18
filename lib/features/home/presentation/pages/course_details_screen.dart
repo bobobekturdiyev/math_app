@@ -52,7 +52,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen>
 
   @override
   void dispose() {
-    if(controller.isInitialized){
+    if (controller.isInitialized) {
       controller.dispose();
     }
     super.dispose();
@@ -76,133 +76,144 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen>
               playlist:
                   convertModulesToPlaylist(state.courseDetailsEntity.modules),
             );
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    children: [
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      SizedBox(
-                        // height: 174,
-                        width: double.infinity,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: UniversalVideoPlayer(
-                            controller: controller,
-                            onCompleted: (LessonEntity current) {},
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      const WCourseRating(),
-                      const SizedBox(
-                        height: 18,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "${state.courseDetailsEntity.discountPrice} so’m",
-                            style: Styles.getActivePriceStyle()
-                                .copyWith(fontSize: 14),
-                          ),
-                          const SizedBox(
-                            width: 6,
-                          ),
-                          Text(
-                            "${state.courseDetailsEntity.price} so’m",
-                            style: Styles.getDeActivePriceStyle(),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "teacher".tr(),
-                            style: Styles.getTextStyle(fontSize: 12),
-                          ),
-                          const SizedBox(
-                            width: 6,
-                          ),
-                          Text(
-                            state.courseDetailsEntity.author,
-                            style: Styles.getActivePriceStyle(),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 24,
-                      ),
-                      WStandardTabBar(
-                        // padding: const EdgeInsets.symmetric(horizontal: 24),
-                        tabController: tabController,
-                        tabs: [
-                          Tab(
-                            text: "details".tr(),
-                          ),
-                          Tab(
-                            text: "text_books".tr(),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: TabBarView(
-                      controller: tabController,
+
+            return CustomScrollView(
+              slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: true,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        WCourseAbout(
-                          description: state.courseDetailsEntity.description,
+                        Column(
+                          children: [
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            SizedBox(
+                              // height: 174,
+                              width: double.infinity,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: UniversalVideoPlayer(
+                                  controller: controller,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            const WCourseRating(),
+                            const SizedBox(
+                              height: 18,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "${state.courseDetailsEntity.discountPrice} so’m",
+                                  style: Styles.getActivePriceStyle()
+                                      .copyWith(fontSize: 14),
+                                ),
+                                const SizedBox(
+                                  width: 6,
+                                ),
+                                Text(
+                                  "${state.courseDetailsEntity.price} so’m",
+                                  style: Styles.getDeActivePriceStyle(),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 4,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "teacher".tr(),
+                                  style: Styles.getTextStyle(fontSize: 12),
+                                ),
+                                const SizedBox(
+                                  width: 6,
+                                ),
+                                Text(
+                                  state.courseDetailsEntity.author,
+                                  style: Styles.getActivePriceStyle(),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 24,
+                            ),
+                            WStandardTabBar(
+                              // padding: const EdgeInsets.symmetric(horizontal: 24),
+                              tabController: tabController,
+                              tabs: [
+                                Tab(
+                                  text: "details".tr(),
+                                ),
+                                Tab(
+                                  text: "text_books".tr(),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        WCourseContent(
-                          modules: state.courseDetailsEntity.modules,
-                          onLessonTap: (int index) {
-                            if (convertModulesToPlaylist(state
-                                        .courseDetailsEntity.modules)[index]
-                                    .hasAccess ==
-                                1) {
-                              controller.playAt(index);
-                            }
-                          },
+                        Expanded(
+                          child: TabBarView(
+                            controller: tabController,
+                            children: [
+                              WCourseAbout(
+                                description:
+                                    state.courseDetailsEntity.description,
+                              ),
+                              WCourseContent(
+                                modules: state.courseDetailsEntity.modules,
+                                onLessonTap: (int index) {
+                                  if (convertModulesToPlaylist(state
+                                              .courseDetailsEntity
+                                              .modules)[index]
+                                          .hasAccess ==
+                                      1) {
+                                    controller.playAt(index);
+                                  }
+                                },
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: WButton(
+                            text: "",
+                            borderRadius: 16,
+                            verticalPadding: 12,
+                            margin: const EdgeInsets.symmetric(vertical: 16),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "buy".tr(),
+                                  style:
+                                      Styles.getTextStyle(color: Colors.white),
+                                ),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                Text(
+                                  "${state.courseDetailsEntity.discountPrice} so’m",
+                                  style:
+                                      Styles.getTextStyle(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                            onTap: () {},
+                          ),
                         )
                       ],
                     ),
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: WButton(
-                      text: "",
-                      borderRadius: 16,
-                      verticalPadding: 12,
-                      margin: const EdgeInsets.symmetric(vertical: 16),
-                      child: Row(
-                        children: [
-                          Text(
-                            "buy".tr(),
-                            style: Styles.getTextStyle(color: Colors.white),
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            "${state.courseDetailsEntity.discountPrice} so’m",
-                            style: Styles.getTextStyle(color: Colors.white),
-                          ),
-                        ],
-                      ),
-                      onTap: () {},
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             );
           } else if (state is CourseDetailsError) {
             return const Center(

@@ -32,7 +32,7 @@ class WProfileTopBar extends StatelessWidget {
                   child: Column(
                     children: [
                       const SizedBox(
-                        height: 16,
+                        height: 60,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

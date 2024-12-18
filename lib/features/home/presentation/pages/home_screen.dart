@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                WWelcomeText(),
+                  const WWelcomeText(),
                   InkWell(
                       onTap: () {
                         context.router.pushNamed(RoutePath.notification);
@@ -76,24 +76,30 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 28,
-              ),
-              Builder(builder: (context) {
+        body: NestedScrollView(
+          floatHeaderSlivers: true,
+physics: const NeverScrollableScrollPhysics(),
+          headerSliverBuilder: (ctx, innerBoxIsScrolled) => [
+            SliverAppBar(
+              foregroundColor: Colors.white,
+              backgroundColor: Colors.white,
+              floating: true,
+              snap: true,
+              toolbarHeight: 100,
+              leading: const SizedBox(),
+              leadingWidth: 0,
+              title:     Builder(builder: (context) {
                 return WTextField(
                   controller: controller,
                   hint: "search".tr(),
                   onChanged: (query) {
                     if (_debounce?.isActive ?? false) _debounce?.cancel();
-                    _debounce = Timer(const Duration(milliseconds: 500), () {
-                      context
-                          .read<HomeScreenBloc>()
-                          .add(GetAllCourse(searchQuery: query));
-                    });
+                    _debounce =
+                        Timer(const Duration(milliseconds: 500), () {
+                          context
+                              .read<HomeScreenBloc>()
+                              .add(GetAllCourse(searchQuery: query));
+                        });
                   },
                   hintFontSize: 12,
                   prefixIcon: SvgPicture.asset(
@@ -111,43 +117,41 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 );
               }),
-              const SizedBox(
-                height: 20,
-              ),
-              Expanded(
-                child: BlocBuilder<HomeScreenBloc, HomeScreenState>(
-                  builder: (context, state) {
-                    if (state is AllCourseLoading) {
-                      return ListView.builder(
-                          itemCount: 8,
-                          itemBuilder: (ctx, index) {
-                            return _shimmer();
-                          });
-                    } else if (state is AllCourseLoaded) {
-                      return ListView.builder(
-                        itemCount: state.allCourse.length,
-                        itemBuilder: (ctx, index) {
-                          return WCourseCard(
-                            allCourseEntity: state.allCourse[index],
-                            onTap: () {
-                              context.router.push(CourseDetailsRoute(
-                                  slug: state.allCourse[index].slug,
-                                  title: state.allCourse[index].name));
-                            },
-                          );
-                        },
-                      );
-                    } else if (state is AllCourseError) {
-                      return Center(
-                        child: Text(state.error),
-                      );
-                    } else {
-                      return const SizedBox();
-                    }
+            )
+          ],
+          body: BlocBuilder<HomeScreenBloc, HomeScreenState>(
+            builder: (context, state) {
+              if (state is AllCourseLoading) {
+                return ListView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                    itemCount: 8,
+                    itemBuilder: (ctx, index) {
+                      return _shimmer();
+                    });
+              } else if (state is AllCourseLoaded) {
+                return ListView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+
+                  itemCount: state.allCourse.length,
+                  itemBuilder: (ctx, index) {
+                    return WCourseCard(
+                      allCourseEntity: state.allCourse[index],
+                      onTap: () {
+                        context.router.push(CourseDetailsRoute(
+                            slug: state.allCourse[index].slug,
+                            title: state.allCourse[index].name));
+                      },
+                    );
                   },
-                ),
-              )
-            ],
+                );
+              } else if (state is AllCourseError) {
+                return Center(
+                  child: Text(state.error),
+                );
+              } else {
+                return const SizedBox();
+              }
+            },
           ),
         ),
       ),

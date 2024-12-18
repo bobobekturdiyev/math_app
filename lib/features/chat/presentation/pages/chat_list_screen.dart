@@ -45,7 +45,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
             AppImages.chatMask,
           ),
           Positioned(
-            top: 24,
+            top: 68,
             left: 24,
             child: Text(
               "Chat",
@@ -59,7 +59,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(24),
-            margin: const EdgeInsets.only(top: 90),
+            margin: const EdgeInsets.only(top: 128),
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(

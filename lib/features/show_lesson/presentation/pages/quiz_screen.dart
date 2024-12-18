@@ -2,22 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:math_app/config/routes/router.gr.dart';
-import 'package:math_app/core/extensions/integer_extensions.dart';
-import 'package:math_app/core/resources/app_icons.dart';
 import 'package:math_app/core/resources/state_status.dart';
 import 'package:math_app/core/widgets/w_appbar.dart';
 import 'package:math_app/core/widgets/w_circle_index_card.dart';
 import 'package:math_app/core/widgets/w_text_link.dart';
 import 'package:math_app/features/show_lesson/presentation/manager/quiz_manager/quiz_bloc.dart';
-import 'package:math_app/features/show_lesson/presentation/manager/test_provider.dart';
-import 'package:math_app/features/show_lesson/presentation/pages/either_result_screen.dart';
 import 'package:math_app/features/show_lesson/presentation/widgets/w_quiz_bottom_buttons.dart';
 import 'package:math_app/features/show_lesson/presentation/widgets/w_quiz_indexes.dart';
 import 'package:math_app/features/show_lesson/presentation/widgets/w_test_variants.dart';
-
-import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:math_app/core/resources/styles.dart';
 import 'package:math_app/core/resources/app_colors.dart';
@@ -120,145 +113,133 @@ class _QuizScreenState extends State<QuizScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => quizBloc,
-      child: ChangeNotifierProvider(
-        create: (ctx) => TestProvider(),
-        child: Consumer<TestProvider>(
-          builder: (context, testProvider, child) {
-            return PopScope(
-              canPop: false,
-              onPopInvokedWithResult: (didPop, dynamic) {
-                if (didPop) {
-                  return;
-                }
-                _showBackDialog(context);
-              },
-              child: BlocListener<QuizBloc, QuizState>(
-                listener: (context, state) {
-                  if(state.checkQuizState==CheckQuizState.loaded){
-                    context.router.push(EitherResultRoute(resultDto: state.resultDto!));
-                  }
-                },
-                child: Scaffold(
-                  appBar: WAppBar(
-                    title: "test".tr(),
+      child: PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, dynamic) {
+          if (didPop) {
+            return;
+          }
+          _showBackDialog(context);
+        },
+        child: BlocListener<QuizBloc, QuizState>(
+          listener: (context, state) {
+            if (state.checkQuizState == CheckQuizState.loaded) {
+              context.router
+                  .push(EitherResultRoute(resultDto: state.resultDto!));
+            }
+          },
+          child: Scaffold(
+            appBar: WAppBar(
+              title: "test".tr(),
+            ),
+            backgroundColor: AppColors.backgroundColor,
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  WQuizIndexes(),
+                  const SizedBox(
+                    height: 24,
                   ),
-                  backgroundColor: AppColors.backgroundColor,
-                  body: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        WQuizIndexes(),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        BlocBuilder<QuizBloc, QuizState>(
-                          builder: (context, state) {
-                            if (state.stateStatus == StateStatus.loading) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            } else if (state.stateStatus ==
-                                StateStatus.loaded) {
-                              return SizedBox(
-                                height: MediaQuery.sizeOf(context).height * .64,
-                                child: PageView.builder(
-                                  controller: controller,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount:
-                                      state.quizDto?.questions.length ?? 0,
-                                  itemBuilder: (ctx, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 24),
-                                      child: Column(
+                  BlocBuilder<QuizBloc, QuizState>(
+                    builder: (context, state) {
+                      if (state.stateStatus == StateStatus.loading) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (state.stateStatus == StateStatus.loaded) {
+                        return SizedBox(
+                          height: MediaQuery.sizeOf(context).height * .64,
+                          child: PageView.builder(
+                            controller: controller,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: state.quizDto?.questions.length ?? 0,
+                            itemBuilder: (ctx, index) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 24),
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                      child: Row(
                                         children: [
+                                          WCircleIndexCard(index: index),
+                                          const SizedBox(
+                                            width: 12,
+                                          ),
                                           Expanded(
-                                            child: Row(
-                                              children: [
-                                                WCircleIndexCard(index: index),
-                                                const SizedBox(
-                                                  width: 12,
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    state.quizDto?.title ?? '',
-                                                    style: Styles.getTextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
+                                            child: Text(
+                                              state.quizDto?.title ?? '',
+                                              style: Styles.getTextStyle(
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                             ),
-                                          ),
-                                          const SizedBox(
-                                            height: 20,
-                                          ),
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(16),
-                                            child: CachedNetworkImage(
-                                              fit: BoxFit.fitWidth,
-                                              width: double.infinity,
-                                              height: 200,
-                                              imageUrl: state.quizDto!
-                                                  .questions[index].photo,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 20,
-                                          ),
-                                          WTestVariants(
-                                            initialIndex: state.quizDto!
-                                                .questions[index].options
-                                                .indexWhere((e) => quizBloc
-                                                    .answers
-                                                    .containsValue(
-                                                        e.id.toString())),
-                                            items: state.quizDto!
-                                                .questions[index].options
-                                                .map((e) => e.text)
-                                                .toList(),
-                                            onChange: (selectedIndex) {
-                                              quizBloc.add(
-                                                SelectOptionEvent(
-                                                  questionId: state.quizDto!
-                                                      .questions[index].id
-                                                      .toString(),
-                                                  optionId: state
-                                                      .quizDto!
-                                                      .questions[index]
-                                                      .options[selectedIndex]
-                                                      .id
-                                                      .toString(),
-                                                ),
-                                              );
-                                            },
-                                          ),
+                                          )
                                         ],
                                       ),
-                                    );
-                                  },
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(16),
+                                      child: CachedNetworkImage(
+                                        fit: BoxFit.fitWidth,
+                                        width: double.infinity,
+                                        height: 200,
+                                        imageUrl: state
+                                            .quizDto!.questions[index].photo,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    WTestVariants(
+                                      initialIndex: state
+                                          .quizDto!.questions[index].options
+                                          .indexWhere((e) => quizBloc.answers
+                                              .containsValue(e.id.toString())),
+                                      items: state
+                                          .quizDto!.questions[index].options
+                                          .map((e) => e.text)
+                                          .toList(),
+                                      onChange: (selectedIndex) {
+                                        quizBloc.add(
+                                          SelectOptionEvent(
+                                            questionId: state
+                                                .quizDto!.questions[index].id
+                                                .toString(),
+                                            optionId: state
+                                                .quizDto!
+                                                .questions[index]
+                                                .options[selectedIndex]
+                                                .id
+                                                .toString(),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
                                 ),
                               );
-                            } else if (state.stateStatus == StateStatus.error) {
-                              return Center(
-                                child: Text(state.error ?? "Error"),
-                              );
-                            } else {
-                              return const SizedBox();
-                            }
-                          },
-                        ),
-                      ],
-                    ),
+                            },
+                          ),
+                        );
+                      } else if (state.stateStatus == StateStatus.error) {
+                        return Center(
+                          child: Text(state.error ?? "Error"),
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
+                    },
                   ),
-                  floatingActionButton: WQuizBottomButtons(
-                    controller: controller,
-                  ),
-                ),
+                ],
               ),
-            );
-          },
+            ),
+            floatingActionButton: WQuizBottomButtons(
+              controller: controller,
+            ),
+          ),
         ),
       ),
     );

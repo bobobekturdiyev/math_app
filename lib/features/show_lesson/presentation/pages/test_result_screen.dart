@@ -1,23 +1,21 @@
-import 'dart:math';
-
 import 'package:auto_route/annotations.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:math_app/core/resources/app_images.dart';
 import 'package:math_app/core/resources/styles.dart';
 import 'package:math_app/core/widgets/w_appbar.dart';
 import 'package:math_app/core/widgets/w_circle_index_card.dart';
+import 'package:math_app/features/show_lesson/data/model/quiz_models/either_result_dto.dart';
 import 'package:math_app/features/show_lesson/presentation/widgets/w_test_variants.dart';
 
 @RoutePage()
 class TestResultScreen extends StatelessWidget {
-  const TestResultScreen({super.key});
+  final EitherResultDto eitherResultDto;
+
+  const TestResultScreen({super.key, required this.eitherResultDto});
 
   @override
   Widget build(BuildContext context) {
-    final rnd=Random();
-
-
     return SafeArea(
       child: Scaffold(
         appBar: WAppBar(
@@ -40,21 +38,48 @@ class TestResultScreen extends StatelessWidget {
                           width: 12,
                         ),
                         Text(
-                          "Ushbu rasmdagi masalani yeching!",
-                          style: Styles.getTextStyle(fontWeight: FontWeight.w500),
+                          eitherResultDto.result![index].questionText,
+                          style:
+                              Styles.getTextStyle(fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20,),
-                    Image.asset(AppImages.matter,height: 200,),
-                    const SizedBox(height: 20,),
-                    WTestVariants.disabled(
-                      items: [],
-                      onChange: (v) {},
-                      initialIndex: rnd.nextInt(4),
-                      correctIndex: rnd.nextInt(4),
+                    const SizedBox(
+                      height: 20,
                     ),
-                    const SizedBox(height: 24,)
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: CachedNetworkImage(
+                        fit: BoxFit.fitWidth,
+                        width: double.infinity,
+                        height: 200,
+                        imageUrl: eitherResultDto.result![index].photo,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    WTestVariants.disabled(
+                      items: eitherResultDto.result![index].options
+                          .map((e) => e.text)
+                          .toList(),
+                      initialIndex:
+                          eitherResultDto.result![index].options.indexWhere(
+                        (e) =>
+                            e.id ==
+                            int.parse(
+                                eitherResultDto.result![index].userAnswerId),
+                      ),
+                      correctIndex:
+                          eitherResultDto.result![index].options.indexWhere(
+                        (e) =>
+                            e.id ==
+                            (eitherResultDto.result![index].correctOptionId),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    )
                   ],
                 ),
               ),

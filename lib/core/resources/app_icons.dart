@@ -15,6 +15,8 @@ abstract class AppIcons {
 
 
   static const String shield = "$_imgPath/shield.svg";
+  static const String arrowDown = "$_imgPath/arrow_down.svg";
+  static const String dots = "$_imgPath/dots.svg";
   static const String logoutCircleFill = "$_imgPath/logout_circle_fill.svg";
   static const String hideEye = "$_imgPath/hide_eye.svg";
   static const String notification = "$_imgPath/notification.svg";

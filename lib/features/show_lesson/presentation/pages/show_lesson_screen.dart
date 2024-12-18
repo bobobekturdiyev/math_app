@@ -39,6 +39,7 @@ class _ShowLessonScreenState extends State<ShowLessonScreen> {
 
   @override
   void dispose() {
+    controller.dispose();
     super.dispose();
   }
 
@@ -48,7 +49,6 @@ class _ShowLessonScreenState extends State<ShowLessonScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      appBar: AppBar(),
       body: BlocProvider(
         create: (context) => _lessonShowBloc,
         child: BlocBuilder<LessonShowBloc, LessonShowState>(
@@ -62,11 +62,9 @@ class _ShowLessonScreenState extends State<ShowLessonScreen> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  UniversalVideoPlayer(controller: controller, 
-                    onCompleted: (LessonEntity current) {
-
-                      _lessonShowBloc.add(LessonMarkAsWatched(lessonId: current.id));
-                    },),
+                  UniversalVideoPlayer(
+                    controller: controller,
+                  ),
                   Expanded(
                     child: SingleChildScrollView(
                       padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -101,31 +99,36 @@ class _ShowLessonScreenState extends State<ShowLessonScreen> {
                                   state.courseEntity.modules[moduleIndex].name,
                                   style: Styles.courseSectionStyle(),
                                 ),
-
                                 Column(
                                   children: [
                                     ListView.builder(
-                                        itemCount:  state
+                                        itemCount: state
                                             .courseEntity
                                             .modules[moduleIndex]
-                                            .lessons.length,
+                                            .lessons
+                                            .length,
                                         shrinkWrap: true,
                                         physics:
                                             const NeverScrollableScrollPhysics(),
                                         itemBuilder: (ctx, index) {
-                                          return WLessonsItem(
-                                            lessonEntity: state
-                                                .courseEntity
-                                                .modules[moduleIndex]
-                                                .lessons[index],
-                                            onTap: () {
-                                              controller.playAt(index);
-                                            },
-                                            index: index,
-                                            isPLaying:
-                                                controller.currentIndex ==
-                                                    index,
-                                          );
+                                          return ValueListenableBuilder<
+                                                  VideoController>(
+                                              valueListenable: controller,
+                                              builder: (context, _, __) {
+                                                return WLessonsItem(
+                                                  lessonEntity: state
+                                                      .courseEntity
+                                                      .modules[moduleIndex]
+                                                      .lessons[index],
+                                                  onTap: () {
+                                                    controller.playAt(index);
+                                                  },
+                                                  index: index,
+                                                  isPLaying:
+                                                      controller.currentIndex ==
+                                                          index,
+                                                );
+                                              });
                                         }),
                                     SizedBox(
                                       width: double.infinity,
@@ -134,7 +137,11 @@ class _ShowLessonScreenState extends State<ShowLessonScreen> {
                                         textStyle: Styles.getButtonStyle(),
                                         text: "taking_a_test_b_department".tr(),
                                         onTap: () {
-                                        if(state.courseEntity.modules[moduleIndex].quizId!=0)  {
+                                          if (state
+                                                  .courseEntity
+                                                  .modules[moduleIndex]
+                                                  .quizId !=
+                                              0) {
                                             context.router.push(QuizRoute(
                                                 quizId: state
                                                     .courseEntity
@@ -146,7 +153,9 @@ class _ShowLessonScreenState extends State<ShowLessonScreen> {
                                     )
                                   ],
                                 ),
-                                const SizedBox(height: 20,)
+                                const SizedBox(
+                                  height: 20,
+                                )
                               ],
                             ),
                           )

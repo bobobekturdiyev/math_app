@@ -1,27 +1,29 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:last_pod_player/last_pod_player.dart';
 import 'package:math_app/core/extensions/video_type_ext.dart';
 import 'package:math_app/core/shared/domain/shared_entities/lesson_entity.dart';
-import 'package:math_app/core/widgets/video_player/universal_video_player.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+enum VideoSourceType { youtube, vimeo, network }
 
-
-class VideoController extends ChangeNotifier {
+class VideoController extends ChangeNotifier implements ValueListenable<VideoController> {
   final List<LessonEntity> playlist;
-  late PodPlayerController playerController;
+  late dynamic currentPlayer;
   int _currentIndex = 0;
-
   bool _isInitialized = false;
 
   bool get isInitialized => _isInitialized;
 
   int get currentIndex => _currentIndex;
 
-  LessonEntity get currentVideo => playlist[_currentIndex];
+  LessonEntity? get currentVideo => playlist[_currentIndex];
+
+  // Callback for video end
+  void Function(LessonEntity video, int index)? onVideoEnded;
 
   VideoController({required this.playlist}) {
-    if(playlist.isNotEmpty){
+    if (playlist.isNotEmpty) {
       _initializePlayer();
-
     }
   }
 
@@ -30,41 +32,52 @@ class VideoController extends ChangeNotifier {
   }
 
   void _setupPlayer(LessonEntity video) {
-    PlayVideoFrom videoSource;
-    switch (video.videoUrl.videoType) {
-      case VideoSourceType.youtube:
-        videoSource = PlayVideoFrom.youtube(video.videoUrl);
-        break;
-      case VideoSourceType.vimeo:
-        videoSource = PlayVideoFrom.vimeo(_extractVimeoVideoId(video.videoUrl)!);
-        break;
-      case VideoSourceType.network:
-        videoSource = PlayVideoFrom.network(video.videoUrl);
-        break;
-    }
+    if (video.videoUrl.videoType == VideoSourceType.youtube) {
+      currentPlayer = YoutubePlayerController(
+        initialVideoId: YoutubePlayer.convertUrlToId(video.videoUrl)!,
+        flags: const YoutubePlayerFlags(autoPlay: true,),
+      )..addListener(_youtubeListener);
+    } else {
+      final PlayVideoFrom source = video.videoUrl.videoType == VideoSourceType.vimeo
+          ? PlayVideoFrom.vimeo(_extractVimeoVideoId(video.videoUrl)!)
+          : PlayVideoFrom.network(video.videoUrl);
 
-    playerController = PodPlayerController(
-
-      playVideoFrom: videoSource,
-      podPlayerConfig: const PodPlayerConfig(
-          autoPlay: true, isLooping: false, videoQualityPriority: [720, 360],
-
-
-      ),
-    )..initialise().then((_) {
+      currentPlayer = PodPlayerController(
+        playVideoFrom: source,
+        podPlayerConfig: const PodPlayerConfig(autoPlay: true, isLooping: false),
+      )..initialise().then((_) {
         _isInitialized = true;
         notifyListeners();
-        _setupListeners();
+        _setupPodListeners();
       });
+    }
+
+
   }
 
-  void _setupListeners() {
-    playerController.addListener(() {
-      if (playerController.currentVideoPosition >=
-          playerController.totalVideoLength) {
-        onVideoComplete();
+  void _setupPodListeners() {
+    if (currentPlayer is PodPlayerController) {
+      (currentPlayer as PodPlayerController).addListener(() {
+        if (currentPlayer.currentVideoPosition >= currentPlayer.totalVideoLength) {
+          _onVideoEnd();
+        }
+      });
+    }
+  }
+
+  void _youtubeListener() {
+    if (currentPlayer is YoutubePlayerController) {
+      final youtubeController = currentPlayer as YoutubePlayerController;
+
+      if (youtubeController.value.playerState == PlayerState.ended) {
+        _onVideoEnd();
       }
-    });
+    }
+  }
+
+  void _onVideoEnd() {
+    onVideoEnded?.call(currentVideo!, _currentIndex);
+    playNext();
   }
 
   void playNext() {
@@ -88,32 +101,35 @@ class VideoController extends ChangeNotifier {
     }
   }
 
-  void onVideoComplete() {
-    if (_currentIndex < playlist.length - 1) {
-      playNext();
-    }
-  }
-
   void _switchVideo() {
-    playerController.dispose();
+    if (currentPlayer is PodPlayerController || currentPlayer is YoutubePlayerController) {
+      final playerToDispose = currentPlayer;
+      Future.microtask(() {
+        playerToDispose.dispose();
+      });
+    }
+
     _isInitialized = false;
     notifyListeners();
+
     _setupPlayer(playlist[_currentIndex]);
+  }
+
+
+  String? _extractVimeoVideoId(String url) {
+    final regex = RegExp(r'vimeo\.com/(?:.*#|.*/videos?/|)(\d+)');
+    final match = regex.firstMatch(url);
+    return match?.group(1);
   }
 
   @override
   void dispose() {
-    playerController.dispose();
+    if (currentPlayer is PodPlayerController || currentPlayer is YoutubePlayerController) {
+      currentPlayer.dispose();
+    }
     super.dispose();
   }
-  String? _extractVimeoVideoId(String url) {
-    final regex = RegExp(r'vimeo\.com/(?:.*#|.*/videos?/|)(\d+)');
-    final match = regex.firstMatch(url);
 
-    if (match != null && match.groupCount >= 1) {
-      return match.group(1);
-    }
-
-    return null;
-  }
+  @override
+  VideoController get value => this;
 }

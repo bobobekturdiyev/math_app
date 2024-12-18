@@ -35,7 +35,7 @@ class WWelcomeText extends StatelessWidget {
                   width: 4,
                 ),
                 Text(
-                  "course_model".tr(),
+                  "course".tr(),
                   style: Styles.getTextStyle(
                     fontSize: 12,
                     color: AppColors.primaryColor,
