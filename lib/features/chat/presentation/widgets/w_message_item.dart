@@ -4,104 +4,97 @@ import 'package:flutter/material.dart';
 import '../../../../core/resources/app_colors.dart';
 import '../../../../core/resources/styles.dart';
 import '../../domain/entity/user_all/chat_user.dart';
+
 class WMessageItem extends StatelessWidget {
   final bool isMe;
-  final bool previous;
-  final ChatUserEntities chat;
-  final bool next;
+  final bool showAvatar;
 
-  const WMessageItem({Key? key, required this.isMe, required this.chat, required this.previous, required this.next, })
-      : super(key: key);
+  const WMessageItem({
+    Key? key,
+    required this.isMe,
+    required this.showAvatar,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
-      padding:  EdgeInsets.only(top: previous?4:16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+    return Padding(
+      padding: const EdgeInsets.only(top: 30),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment:
+            isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
-          // Container(
-          //   padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 4),
-          //   decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(49),
-          //       color: AppColors.dateColor
-          //   ),
-          //   child: Text(),
-          // ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment:isMe? MainAxisAlignment.end:MainAxisAlignment.start,
+          if (!isMe&&showAvatar) ...{
+            const CircleAvatar(
+              radius: 22,
+              backgroundImage: CachedNetworkImageProvider(
+                'https://westernfinance.org/wp-content/uploads/speaker-3-v2.jpg',
+              ),
+            ),
+            const SizedBox(
+              width: 12,
+            ),
+          }else...{
+            const SizedBox(width: 42,)
+          },
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if(!isMe&&!next)...{
-                Container(
-                  width: 20,
-                  height: 20,
-                  decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(6)),
-                  child: CachedNetworkImage(
-                    imageUrl:
-                    'https://westernfinance.org/wp-content/uploads/speaker-3-v2.jpg',
-                    fit: BoxFit.cover,
+              if (!isMe&&showAvatar) ...{
+                const SizedBox(
+                  height: 6,
+                ),
+                Text(
+                  "Jhon Abraham",
+                  style: Styles.getChatItemTitle().copyWith(
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-
-              }else...{
-                const SizedBox(width: 20,)
+                const SizedBox(
+                  height: 12,
+                ),
               },
-              Stack(
-                children: [
-                  Container(
-                    constraints: BoxConstraints(
-                      minWidth: 100,
-                      maxWidth: MediaQuery.sizeOf(context).width * 0.6,
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 12),
-                    margin:   EdgeInsets.only(right:isMe?8:0,left: !isMe?8:0 ),
-                    decoration:  BoxDecoration(
-                        color: isMe? AppColors.primaryColor:AppColors.white,
-                        borderRadius: BorderRadius.circular(12)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 20),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      constraints: BoxConstraints(
+                        minWidth: 100,
+                        maxWidth: MediaQuery.sizeOf(context).width * 0.6,
+                      ),
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: isMe
+                            ? AppColors.primaryColor
+                            : AppColors.notMeMessageColor,
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: const Radius.circular(22),
+                            bottomRight: const Radius.circular(22),
+                            topRight:
+                                isMe ? Radius.zero : const Radius.circular(22),
+                            topLeft:
+                                isMe ? const Radius.circular(22) : Radius.zero),
+                      ),
                       child: Text(
-                        chat.text,
-                        style: Styles.getTextStyle(color:isMe? AppColors.white:AppColors.black),
+                        "Salom! Jhon abraham",
+                        style: Styles.getTextStyle(
+                            color: isMe ? AppColors.white : AppColors.black),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    bottom:  4,
-                    right: 12,
-                    child: Text(
-                      chat.time,
-                      style: Styles.getTextStyle(
-                          fontWeight: FontWeight.w300,
-                          fontSize: 10,
-                          color:isMe? AppColors.white:const Color(0xFF8A8A93)),
+                    Padding(
+                      padding: EdgeInsets.only(right: isMe ? 16 : 8, top: 8),
+                      child: Text(
+                        "09:25",
+                        style: Styles.getChatItemSubtitleStyle().copyWith(
+                            fontWeight: FontWeight.w900, fontSize: 10),
+                      ),
                     ),
-                  )
-
-                ],
-              ),
-
-              if(isMe&&!next)...{
-
-                Container(
-                  width: 20,
-                  height: 20,
-
-                  decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(6)),
-                  child: CachedNetworkImage(
-                    imageUrl:
-                    'https://westernfinance.org/wp-content/uploads/speaker-3-v2.jpg',
-                    fit: BoxFit.cover,
-                  ),
+                  ],
                 ),
-              }else...{
-                const SizedBox(width: 20,),
-
-              }
+              ),
             ],
           ),
         ],

@@ -3,34 +3,28 @@ import 'package:json_annotation/json_annotation.dart';
 part 'all_course_dto.g.dart';
 
 @JsonSerializable()
-class AllCourseDto{
+class AllCourseDto {
   final int id;
-  final String title;
-  final String slug ;
-  final String excerpt ;
-  @JsonKey(name: "photo_url")
-  final String imageUrl ;
-  final String level ;
-  final String duration ;
-  final int enrollments ;
+  final int price;
+  final String name;
+  final String slug;
+  final String photo;
+  final String excerpt;
+  @JsonKey(name: 'discounted_price')
+  final int discountedPrice;
 
-  const AllCourseDto({
-    required this.id,
-    required this.title,
-    required this.slug,
-    required this.excerpt,
-    required this.imageUrl,
-    required this.level,
-    required this.duration,
-    required this.enrollments,
-  });
   factory AllCourseDto.fromJson(Map<String, dynamic> json) =>
       _$AllCourseDtoFromJson(json);
 
+  AllCourseDto({
+    required this.id,
+    required this.name,
+    required this.slug,
+    required this.photo,
+    required this.price,
+    required this.excerpt,
+    required this.discountedPrice,
+  });
+
   Map<String, dynamic> toJson() => _$AllCourseDtoToJson(this);
 }
-
-
-
-
-

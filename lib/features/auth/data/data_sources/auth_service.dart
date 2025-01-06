@@ -1,15 +1,14 @@
+
 import 'package:dio/dio.dart';
-import 'package:math_app/features/auth/data/models/login_dto.dart';
-import 'package:math_app/features/auth/domain/entities/forgot_req/forgot_req1.dart';
-import 'package:math_app/features/auth/domain/entities/forgot_req/forgot_req2.dart';
-import 'package:math_app/features/auth/domain/entities/forgot_req/forgot_request.dart';
+import 'package:math_app/core/resources/default_response.dart';
+import 'package:math_app/features/auth/data/models/login_response.dart';
+import 'package:math_app/core/shared/data/shared_models/user_model/user.dart';
 import 'package:math_app/features/auth/domain/entities/login_request.dart';
-import 'package:math_app/features/auth/domain/entities/register_request.dart';
-import 'package:retrofit/retrofit.dart';
+import 'package:retrofit/dio.dart';
+import 'package:retrofit/http.dart';
 
 
 import '../../../../core/network/urls.dart';
-import '../models/register_dto.dart';
 
 part 'auth_service.g.dart';
 
@@ -17,39 +16,20 @@ part 'auth_service.g.dart';
 abstract class AuthService {
   factory AuthService(Dio dio, {String baseUrl}) = _AuthService;
 
-  @POST("/register-phone")
-  Future<HttpResponse<RegisterDto>> register({
-    @Body() required  RegisterRequest registerRequest
+  @POST("/student-login")
+  Future<HttpResponse<LoginResponse>> login(
+    @Body() LoginRequest loginRequest,
+  );
 
-  });
-  @POST("/login-phone")
-  Future<HttpResponse<LoginDto>> login({
-    @Body() required  LoginRequest loginRequest
+  @POST("/logout")
+  Future<HttpResponse<DefaultResponse>> logout();
 
-  });
-
-  @POST("/activate-user-phone")
-  Future<HttpResponse<RegisterDto>> verifyCode({
-   @Body() required Map<String, dynamic> reqBody
-
-  });
-
-  @POST("/revoke-password-phone")
-  Future<HttpResponse<LoginDto>> revokePassword({
-   @Body() required ForgotOneReq forgotOneReq
-
-  });  
-  
-  @POST("/check-verify-code-phone")
-  Future<HttpResponse<LoginDto>> checkVerifyPassword({
-   @Body() required ForgotTwoReq forgotTwoReq
-
-  });
-
-  @POST("/reset-password")
-  Future<HttpResponse<LoginDto>> resetPassword({
-   @Body() required ForgotReq forgotReq
-  });
-
-
+  @GET("/get-Me")
+  Future<HttpResponse<User>> getMe();
+//
+// @GET("/courses/type/alif")
+// Future<HttpResponse<List<Course>>> getAlifCourses();
+//
+// @GET("/course/{id}/modules")
+// Future<HttpResponse<List<Module>>> getModules(@Path('id') int id);
 }

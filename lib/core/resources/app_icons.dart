@@ -14,11 +14,27 @@ abstract class AppIcons {
   // ============================================
 
 
+  static const String shield = "$_imgPath/shield.svg";
+  static const String arrowDown = "$_imgPath/arrow_down.svg";
+  static const String dots = "$_imgPath/dots.svg";
+  static const String logoutCircleFill = "$_imgPath/logout_circle_fill.svg";
+  static const String hideEye = "$_imgPath/hide_eye.svg";
+  static const String notification = "$_imgPath/notification.svg";
+  static const String help = "$_imgPath/help.svg";
+  static const String location = "$_imgPath/location.svg";
+  static const String phone = "$_imgPath/phone.svg";
+  static const String message = "$_imgPath/message.svg";
+  static const String cameraCircleFilled = "$_imgPath/camera_circle_filled.svg";
+  static const String rightArrow = "$_imgPath/right_arrow.svg";
+  static const String security = "$_imgPath/security.svg";
+  static const String backIcon = "$_imgPath/back_icon.svg";
+  static const String noNotification = "$_imgPath/no_notif.svg";
   static const String variantCheckSuccess = "$_imgPath/variant_check_success.svg";
   static const String variantCheckFailure= "$_imgPath/variant_check_failure.svg";
   static const String bubbleSuccess = "$_imgPath/bubble_success.svg";
+  static const String discount = "$_imgPath/discount.svg";
   static const String bubbleFailure = "$_imgPath/bubble_failure.svg";
-  static const String arrowRight = "$_imgPath/arrow_right.svg";
+  static const String arrowRightTile = "$_imgPath/arrow_right_tile.svg";
   static const String pause = "$_imgPath/pause.svg";
   static const String checkRoundBadge = "$_imgPath/check_round_badge.svg";
   static const String exclamationRoundBadge = "$_imgPath/exclamation_round_badge.svg";
@@ -37,7 +53,7 @@ abstract class AppIcons {
   static const String award = "$_imgPath/award.svg";
   static const String clock = "$_imgPath/clock.svg";
   static const String logoMini = "$_imgPath/logo_mini.svg";
-  static const String notification = "$_imgPath/notification.svg";
+  static const String notificationWithBadge = "$_imgPath/notification_with_badge.svg";
   static const String search = "$_imgPath/search.svg";
   static const String buy = "$_imgPath/buy.svg";
   static const String grid = "$_imgPath/grid.svg";
@@ -62,6 +78,7 @@ abstract class AppIcons {
   static const String eye = "$_imgPath/eye.svg";
   static const String commentMini = "$_imgPath/comment_mini.svg";
   static const String user = "$_imgPath/user.svg";
+  static const String setting = "$_imgPath/setting.svg";
   static const String calendar = "$_imgPath/calendar.svg";
   static const String check = "$_imgPath/check.svg";
   static const String X = "$_imgPath/x.svg";

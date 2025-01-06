@@ -1,150 +1,74 @@
 import 'package:dio/dio.dart';
-import 'package:math_app/features/auth/data/models/login_dto.dart';
-import 'package:math_app/features/auth/domain/entities/forgot_req/forgot_req1.dart';
-import 'package:math_app/features/auth/domain/entities/forgot_req/forgot_req2.dart';
-import 'package:math_app/features/auth/domain/entities/forgot_req/forgot_request.dart';
+import 'package:math_app/core/di/locator.dart';
+import 'package:math_app/core/error/error_response.dart';
+import 'package:math_app/core/error/exception_handler.dart';
+import 'package:math_app/core/resources/app_keys.dart';
+import 'package:math_app/core/resources/data_state.dart';
+import 'package:math_app/features/auth/data/data_sources/auth_service.dart';
+import 'package:math_app/core/shared/data/shared_models/user_model/user.dart';
 import 'package:math_app/features/auth/domain/entities/login_request.dart';
-import 'package:math_app/features/auth/domain/entities/register_request.dart';
+import 'package:math_app/features/auth/domain/repositories/auth_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../core/di/locator.dart';
-import '../../../../core/error/exception_handler.dart';
-import '../../../../core/resources/app_keys.dart';
-import '../../../../core/resources/data_state.dart';
-import '../../domain/repositories/auth_repo.dart';
-import '../data_sources/auth_service.dart';
-import '../models/register_dto.dart';
+import '../models/login_response.dart';
 
-class ImplAuthRepo extends AuthRepo {
-  late SharedPreferences preferences;
-  AuthService authService;
+class ImplAuthRepo implements AuthRepo {
+  final AuthService authService;
 
-  ImplAuthRepo({
-    required this.authService,
-  }) {
-    initialize();
-  }
-
-  void initialize() async {
-    preferences = await SharedPreferences.getInstance();
-  }
-  //
-  // @override
-  // Future<DataState> step1({required RegisterRequest request}) async {
-  //   try {
-  //     final response = await authService.step1Request(registerRequest: request);
-  //
-  //     return DataSuccess(data: response.data.data);
-  //   } catch (e) {
-  //     return _getError(e as DioException);
-  //   }
-  // }
+  ImplAuthRepo({required this.authService});
 
   @override
-  Future<DataState> verifyCode({
-    required String value,
-    required String code,
-
-  }) async {
+  Future<DataState<LoginResponse>> login(
+      {required LoginRequest loginRequest}) async {
     try {
-      final response = await authService.verifyCode(reqBody: {
-        "verify_code":int.parse(code),
-        "value":value
+      final result = await authService.login(loginRequest);
+
+      if (result.response.statusCode == 200) {
+        final data = result.data;
+
+        final prefs = await SharedPreferences.getInstance();
+
+        prefs.setString(AppKeys.token, data.authorization.token);
+
+        locator<Dio>().options.headers['Authorization'] =
+            'Bearer ${data.authorization.token}';
+
+        return DataSuccess(data: result.data);
+      } else {
+        return DataError(ErrorResponse(status: result.response.statusCode!,message: result.response.statusMessage));
       }
-
-
-
-      );
-      final String token = response.data.data?.token as String;
-      locator<Dio>().options.headers['Authorization'] = 'Bearer $token';
-      preferences.setString(AppKeys.token, token);
-
-      return DataSuccess(data: response.data.data);
     } catch (e) {
-      return _getError(e as DioException);
+      return DataException.getError(e);
     }
   }
 
   @override
-  Future<DataState<RegisterDto>> register({required RegisterRequest registerRequest}) async {
+  Future<DataState<String?>> logout() async {
     try {
-      final response = await authService.register(
-   registerRequest: registerRequest,
-      );
+      final result = await authService.logout();
 
-
-
-
-      return  DataSuccess<RegisterDto>(data: response.data);
+      if (result.response.statusCode == 200) {
+        return DataSuccess(data: result.data.data.toString());
+      } else {
+        return DataError(ErrorResponse(status: result.response.statusCode!,message: result.response.statusMessage));
+      }
     } catch (e) {
-      print(e);
-      return _getError<RegisterDto>(e);
-    }
-  }
-
-  _getError<T>(dynamic exception) => DataException.getError<T>(exception);
-
-  @override
-  Future<DataState<LoginDto>> login({required LoginRequest loginRequest}) async {
-    final response=await authService.login(loginRequest: loginRequest);
-
-    try{
-      if(response.data.data!=null) {
-        saveToken(response.data.data!.authorization.token);
-      }
-      return DataSuccess<LoginDto>(data: response.data);
-
-    }catch(e){
-      print(e);
-      return _getError<LoginDto>(e);
-
-    }
-
-  }
-
-  @override
-  Future<DataState<LoginDto>> resetPassword({required ForgotReq forgotReq})async {
-      try{
-        final response=await authService.resetPassword(forgotReq: forgotReq);
-       if(response.data.data!=null) {
-         saveToken(response.data.data!.authorization.token);
-      }
-
-      return DataSuccess<LoginDto>(data: response.data);
-      }catch(e){
-        return _getError<LoginDto>(e);
-
-      }
-  }
-
-  saveToken( String token){
-    locator<Dio>().options.headers['Authorization'] = 'Bearer $token';
-    preferences.setString(AppKeys.token, token);
-
-  }
-
-  @override
-  Future<DataState<LoginDto>> revokePassword({required  ForgotOneReq forgotOneReq})async {
-    try{
-      final response=await authService.revokePassword(forgotOneReq: forgotOneReq);
-      return DataSuccess<LoginDto>(data: response.data);
-    }catch(e){
-      return _getError<LoginDto>(e);
-
-
+      return DataException.getError(e);
     }
   }
 
   @override
-  Future<DataState<LoginDto>> checkVerifyCode({required ForgotTwoReq forgotTwoReq})async {
-      try{
-        final response=await authService.checkVerifyPassword(forgotTwoReq: forgotTwoReq);
-        return DataSuccess<LoginDto>(data: response.data);
+  Future<DataState<User?>> getMe() async {
+    try {
+      final result = await authService.getMe();
 
-      }catch(e){
-        return _getError<LoginDto>(e);
+      if (result.response.statusCode == 200) {
+        return DataSuccess(data: result.data);
+      } else {
+        return DataError(ErrorResponse(status: result.response.statusCode!,message: result.response.statusMessage));
       }
+    } catch (e) {
+      return DataException.getError(e);
+    }
   }
-
-
 }

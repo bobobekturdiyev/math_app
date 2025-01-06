@@ -1,13 +1,12 @@
 import 'package:dio/dio.dart';
-import 'package:math_app/core/resources/default_response.dart';
-import 'package:math_app/core/resources/data_response.dart';
-import 'package:math_app/features/home/data/model/lesson_by_course/lesson_by_course.dart';
+import 'package:math_app/core/shared/data/shared_models/course_model/course_dto.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:math_app/core/network/urls.dart';
+import 'package:math_app/core/resources/default_response.dart';
+import 'package:math_app/features/home/data/model/all_course/all_course_dto.dart';
 
 
-import '../../../../core/network/urls.dart';
-import '../model/all_course/all_course_dto.dart';
-import '../model/course_details/course_details_dto.dart';
+
 
 
 part 'home_service.g.dart';
@@ -16,17 +15,18 @@ part 'home_service.g.dart';
 abstract class HomeService {
   factory HomeService(Dio dio, {String baseUrl}) = _HomeService;
 
-@GET('/course-all-public')
-Future<HttpResponse<DefaultResponse<AllCourseDto>>> getAllCourse();
-@GET('/course-detail/{slug}')
-Future<HttpResponse<DataResponse<CourseDetailsDto>>> getCourseDetails({
+@GET('/courses')
+Future<HttpResponse<DefaultResponse<AllCourseDto>>> getAllCourse({
+    @Query('search') String? searchQuery,
+    @Query('filter') String? filter,
+
+});
+@GET('/course/{slug}')
+Future<HttpResponse<CourseDto>> getCourseDetails({
   @Path("slug") required String slug
 });
 
-@GET('/lesson-by-course-public/{slug}')
-Future<HttpResponse<DefaultResponse<LessonByCourseDto>>> getLesson({
-  @Path("slug") required String slug
-});
+
 
 
 

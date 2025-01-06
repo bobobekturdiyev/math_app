@@ -69,7 +69,7 @@ class WSelectButton extends StatelessWidget {
           Text(
             txt,
             style: style?? const TextStyle(
-              fontSize: 1,
+              fontSize: 12,
               fontWeight: FontWeight.w400,
               color: Color(0xFF070707),
             ),

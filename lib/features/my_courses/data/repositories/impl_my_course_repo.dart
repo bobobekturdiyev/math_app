@@ -11,10 +11,10 @@ class ImplMyCourseRepo extends MyCourseRepo{
   ImplMyCourseRepo({required this.myCourseService});
 
   @override
-  Future<DataState<List<MyCourseDto>>> getMyCourses()async {
+  Future<DataState<List<MyCourseDto>>> getMyCourses(String filter)async {
     try{
-   final response=   await myCourseService.getMyCourse();
-   return DataSuccess(data: response.data.data);
+   final response=   await myCourseService.getMyCourse(filter:filter );
+   return DataSuccess(data: response.data);
 
     }catch(e){
       return DataException.getError<List<MyCourseDto>>(e);

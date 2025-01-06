@@ -108,7 +108,7 @@ class _WChatFieldState extends State<WChatField> {
 
 
               filled: true,
-              fillColor:  AppColors.transparent,
+              fillColor:  AppColors.chatFieldBackground,
 
               border: getBorder(),
               enabledBorder: getBorder(),
@@ -144,6 +144,6 @@ class _WChatFieldState extends State<WChatField> {
     gapPadding: 0,
 
     borderSide: BorderSide(color: color ?? AppColors.C_F9F9F9F9, width: 0),
-    borderRadius: BorderRadius.circular(0),
+    borderRadius: BorderRadius.circular(12),
   );
 }

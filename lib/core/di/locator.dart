@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:math_app/core/resources/app_keys.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../resources/app_keys.dart';
 import '../util/interceptor.dart';
 
 GetIt locator = GetIt.instance;
@@ -15,7 +15,9 @@ Future<void> setupLocator() async {
 
   final prefs = await SharedPreferences.getInstance();
 
-  final token = prefs.getString(AppKeys.token);
+  final token =
+
+  prefs.getString(AppKeys.token);
   Dio dio = Dio();
   dio.interceptors.addAll([
     CustomInterceptor(),
@@ -33,9 +35,10 @@ Future<void> setupLocator() async {
   dio.options.maxRedirects = 5;
   dio.options.contentType = 'application/json';
   dio.options.headers.addAll({
-    "X-Authorization":"Programmer Uz",
+    // "X-Authorization":"Programmer Uz",
 
     "Authorization": "Bearer $token",
+    "APP-TOKEN": "KJy0y5P0I2rUmu",
   });
 
   locator.registerSingleton<Dio>(dio);

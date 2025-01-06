@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:math_app/core/resources/data_response.dart';
-import 'package:math_app/features/show_lesson/data/model/show_lesson_dto.dart';
+import 'package:math_app/config/routes/router.gr.dart';
+import 'package:math_app/core/shared/data/shared_models/course_model/course_dto.dart';
+import 'package:math_app/features/show_lesson/data/model/quiz_models/either_result_dto.dart';
+import 'package:math_app/features/show_lesson/data/model/quiz_models/quiz_dto.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/network/urls.dart';
@@ -16,9 +18,22 @@ abstract class ShowLessonService {
 
 
 
-  @GET('/lesson-show-public/{slug}')
-  Future<HttpResponse<DataResponse<ShowLessonDto>>> getLesson({
+  @GET('/course/{slug}')
+  Future<HttpResponse<CourseDto>> getLesson({
     @Path("slug") required String slug
+  });
+  @GET('/quiz/{id}')
+  Future<HttpResponse<QuizDto>> getQuizById({
+    @Path("id") required int id
+  });
+  @POST('/lesson/{id}/watch')
+  Future<HttpResponse> lessonMarkAsWatch({
+    @Path("id") required int id
+  });
+  @POST('/quiz/{id}/check')
+  Future<HttpResponse<EitherResultDto>> quizCheckRoute({
+    @Path("id") required int quizId,
+    @Body() required Map<String ,dynamic> quizCheckBody
   });
 
 

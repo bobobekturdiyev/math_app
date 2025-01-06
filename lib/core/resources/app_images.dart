@@ -3,6 +3,7 @@ abstract class AppImages {
 
   static const _imgPath = "assets/png/";
 
+  static const chatMask = "${_imgPath}chat_mask.png";
   static const splash = "${_imgPath}splash.png";
   static const matter = "${_imgPath}matter.png";
   static const dtm = "${_imgPath}dtm.png";

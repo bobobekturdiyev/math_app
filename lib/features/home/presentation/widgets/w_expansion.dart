@@ -1,28 +1,18 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:math_app/config/routes/route_path.dart';
-import 'package:math_app/config/routes/router.gr.dart';
-import 'package:math_app/core/extensions/integer_extensions.dart';
+
 import 'package:math_app/core/resources/app_icons.dart';
 import 'package:math_app/core/resources/styles.dart';
+import 'package:math_app/core/shared/domain/shared_entities/module_entity.dart';
 import 'package:math_app/core/widgets/w_circle_index_card.dart';
 
 import '../../../../core/resources/app_colors.dart';
-import '../../data/model/lesson/lesson_dto.dart';
 
 class WExpansionTile extends StatefulWidget {
-  final String title;
+  final ModuleEntity moduleEntity;
+  final Function(int index) onLessonTap;
 
-  // final List<LessonDto> lesson;
-  final bool isLogin;
-
-  const WExpansionTile(
-      {Key? key,
-      required this.title,
-      // required this.lesson,
-      required this.isLogin})
-      : super(key: key);
+  const WExpansionTile({super.key, required this.moduleEntity, required this.onLessonTap});
 
   @override
   State<WExpansionTile> createState() => _WExpansionTileState();
@@ -36,7 +26,6 @@ class _WExpansionTileState extends State<WExpansionTile> {
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
-
         onExpansionChanged: (value) {
           setState(() {
             isOpen = value;
@@ -44,14 +33,16 @@ class _WExpansionTileState extends State<WExpansionTile> {
         },
         trailing: SvgPicture.asset(isOpen ? AppIcons.minus : AppIcons.plus),
         title: Text(
-          'Bo’lim 1 - Kirish',
+          widget.moduleEntity.name,
           style: Styles.getTextStyle(color: AppColors.subTextColor),
         ),
         children: [
           ...List.generate(
-            2,
+            widget.moduleEntity.lessons.length,
             (index) => GestureDetector(
-              onTap: () {},
+              onTap: (){
+                widget.onLessonTap(index);
+              },
               child: Container(
                 margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
@@ -70,31 +61,40 @@ class _WExpansionTileState extends State<WExpansionTile> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        WCircleIndexCard(index: index),
-
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "DTM 2022 1-DARS",
-                              style: Styles.getLessonTitle(),
+                    Expanded(
+                      child: Row(
+                        children: [
+                          WCircleIndexCard(index: index),
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  widget.moduleEntity.lessons[index].title,
+                                  style: Styles.getLessonTitle(),
+                                ),
+                                Text(
+                                  "Video - ${widget.moduleEntity.lessons[index].duration} min",
+                                  style: Styles.getLessonSubTitle(),
+                                ),
+                              ],
                             ),
-                            Text(
-                              "Video - 15:22 min",
-                              style: Styles.getLessonSubTitle(),
-                            ),
-                          ],
-                        ),
-                      ],
+                          ),
+                        ],
+                      ),
                     ),
-                    SvgPicture.asset('isOpen' == 'open'
-                        ? AppIcons.playRoundDis
-                        : AppIcons.lock),
+                    SvgPicture.asset(
+                      widget.moduleEntity.lessons[index].hasAccess == 1
+                          ? AppIcons.playRoundDis
+                          : AppIcons.lock,
+                      colorFilter: const ColorFilter.mode(
+                        Color(0xFFCED4D3),
+                        BlendMode.srcIn,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -104,6 +104,4 @@ class _WExpansionTileState extends State<WExpansionTile> {
       ),
     );
   }
-
-
 }

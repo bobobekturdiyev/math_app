@@ -13,7 +13,7 @@ class _HomeService implements HomeService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://192.168.0.178:8000/api/v1';
+    baseUrl ??= 'https://demo-math.programmer.uz/api/v1';
   }
 
   final Dio _dio;
@@ -21,9 +21,16 @@ class _HomeService implements HomeService {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<DefaultResponse<AllCourseDto>>> getAllCourse() async {
+  Future<HttpResponse<DefaultResponse<AllCourseDto>>> getAllCourse({
+    String? searchQuery,
+    String? filter,
+  }) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'search': searchQuery,
+      r'filter': filter,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -34,7 +41,7 @@ class _HomeService implements HomeService {
     )
             .compose(
               _dio.options,
-              '/course-all-public',
+              '/courses',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -49,21 +56,21 @@ class _HomeService implements HomeService {
   }
 
   @override
-  Future<HttpResponse<DataResponse<CourseDetailsDto>>> getCourseDetails(
+  Future<HttpResponse<CourseDto>> getCourseDetails(
       {required String slug}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<DataResponse<CourseDetailsDto>>>(Options(
+        _setStreamType<HttpResponse<CourseDto>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/course-detail/${slug}',
+              '/course/${slug}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -72,37 +79,7 @@ class _HomeService implements HomeService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = DataResponse<CourseDetailsDto>.fromJson(_result.data!);
-    final httpResponse = HttpResponse(value, _result);
-    return httpResponse;
-  }
-
-  @override
-  Future<HttpResponse<DefaultResponse<LessonByCourseDto>>> getLesson(
-      {required String slug}) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<DefaultResponse<LessonByCourseDto>>>(
-            Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-                .compose(
-                  _dio.options,
-                  '/lesson-by-course-public/${slug}',
-                  queryParameters: queryParameters,
-                  data: _data,
-                )
-                .copyWith(
-                    baseUrl: _combineBaseUrls(
-                  _dio.options.baseUrl,
-                  baseUrl,
-                ))));
-    final value = DefaultResponse<LessonByCourseDto>.fromJson(_result.data!);
+    final value = CourseDto.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

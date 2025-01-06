@@ -38,7 +38,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    init();
+
     return AutoTabsRouter(
       routes: context.read<BottomNavBarBloc>().getRoutes(),
       transitionBuilder: (context, child, animation) {
@@ -49,81 +49,79 @@ class _AppMainScreenState extends State<AppMainScreen> {
         return Container(
           color: AppColors.white,
 
-          child: SafeArea(
-            child: BlocListener<BottomNavBarBloc, BottomNavBarState>(
-              listener: (context, state) async {
-                if (state is ChangePageIndex && !state.sameRoute) {
-                  tabsRouter.setActiveIndex(state.index);
-                }
-              },
-              child: Scaffold(
-                backgroundColor: AppColors.white,
-                resizeToAvoidBottomInset: false,
-                key: locator<GlobalKey<ScaffoldState>>(),
+          child: BlocListener<BottomNavBarBloc, BottomNavBarState>(
+            listener: (context, state) async {
+              if (state is ChangePageIndex && !state.sameRoute) {
+                tabsRouter.setActiveIndex(state.index);
+              }
+            },
+            child: Scaffold(
+              backgroundColor: AppColors.white,
+              resizeToAvoidBottomInset: false,
+              key: locator<GlobalKey<ScaffoldState>>(),
 
-                body: child,
-                bottomNavigationBar: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
+              body: child,
+              bottomNavigationBar: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
 
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: AppColors.white,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
 
 
-                      ),
-                      child: BlocListener<BottomNavBarBloc, BottomNavBarState>(
-                        listener: (context, state) async {
-                          if (state is ChangePageIndex) {
-                            tabsRouter.setActiveIndex(state.index);
-                          }
+                    ),
+                    child: BlocListener<BottomNavBarBloc, BottomNavBarState>(
+                      listener: (context, state) async {
+                        if (state is ChangePageIndex) {
+                          tabsRouter.setActiveIndex(state.index);
+                        }
+                      },
+                      child: BlocBuilder<BottomNavBarBloc, BottomNavBarState>(
+                        builder: (context, state) {
+                          return ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(8),
+                              topRight: Radius.circular(8),
+                            ),
+                            child: Row(
+
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                WBottomBarItem(
+                                  icon: state.index == 0
+                                      ? AppIcons.homeEn
+                                      : AppIcons.homeDis,
+                                  onTap: () => _openPage(RoutePath.home),
+                                ),
+                                WBottomBarItem(
+                                  icon: state.index == 1
+                                      ? AppIcons.playRoundEn
+                                      : AppIcons.playRoundDis,
+                                  onTap: () => _openPage(RoutePath.myCourse),
+                                ),
+                                WBottomBarItem(
+                                  icon: state.index == 2
+                                      ? AppIcons.chatEn
+                                      : AppIcons.chatDis,
+                                  onTap: () => _openPage(RoutePath.chat),
+                                ),
+                                WBottomBarItem(
+                                  icon: state.index == 3
+                                      ? AppIcons.profileEn
+                                      : AppIcons.profileDis,
+                                  onTap: () => _openPage(RoutePath.profile),
+                                ),
+                              ],
+                            ),
+                          );
                         },
-                        child: BlocBuilder<BottomNavBarBloc, BottomNavBarState>(
-                          builder: (context, state) {
-                            return ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(8),
-                                topRight: Radius.circular(8),
-                              ),
-                              child: Row(
-
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  WBottomBarItem(
-                                    icon: state.index == 0
-                                        ? AppIcons.homeEn
-                                        : AppIcons.homeDis,
-                                    onTap: () => _openPage(RoutePath.home),
-                                  ),
-                                  WBottomBarItem(
-                                    icon: state.index == 1
-                                        ? AppIcons.playRoundEn
-                                        : AppIcons.playRoundDis,
-                                    onTap: () => _openPage(RoutePath.myCourse),
-                                  ),
-                                  WBottomBarItem(
-                                    icon: state.index == 2
-                                        ? AppIcons.chatEn
-                                        : AppIcons.chatDis,
-                                    onTap: () => _openPage(RoutePath.chat),
-                                  ),
-                                  WBottomBarItem(
-                                    icon: state.index == 3
-                                        ? AppIcons.profileEn
-                                        : AppIcons.profileDis,
-                                    onTap: () => _openPage(RoutePath.profile),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

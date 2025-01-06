@@ -8,8 +8,8 @@ import 'package:math_app/config/routes/router.gr.dart';
 import 'package:math_app/core/resources/app_colors.dart';
 import 'package:math_app/core/resources/app_icons.dart';
 import 'package:math_app/core/resources/styles.dart';
-import 'package:math_app/core/widgets/w_tabbar.dart';
 import 'package:math_app/features/my_courses/presentation/manager/my_course_screen/my_course_screen_bloc.dart';
+import 'package:math_app/features/my_courses/presentation/widgets/w_filter_group.dart';
 import 'package:math_app/features/my_courses/presentation/widgets/w_my_course_item.dart';
 
 @RoutePage()
@@ -20,13 +20,9 @@ class MyCoursesScreen extends StatefulWidget {
   State<MyCoursesScreen> createState() => _MyCoursesScreenState();
 }
 
-class _MyCoursesScreenState extends State<MyCoursesScreen>
-    with SingleTickerProviderStateMixin {
-  late TabController tabController;
-
+class _MyCoursesScreenState extends State<MyCoursesScreen> {
   @override
   void initState() {
-    tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
 
@@ -65,64 +61,69 @@ class _MyCoursesScreenState extends State<MyCoursesScreen>
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              WTabBar(
-
-                tabController: tabController,
-                tabs: [
-                  Tab(
-                    text: 'all'.tr(),
-                  ),
-                  Tab(
-                    text: 'in_process'.tr(),
-                  ),
-                  Tab(
-                    text: 'complete'.tr(),
-                  ),
-                ],
+              Builder(
+                builder: (context) {
+                  return WFilterGroup(
+                    items: ['all'.tr(), 'in_process'.tr(), 'complete'.tr()],
+                    onChange: (index) {
+                      MyCourseFilter myCourseFilter = MyCourseFilter.all;
+                      switch (index) {
+                        case 0:
+                          myCourseFilter = MyCourseFilter.all;
+                          break;
+                        case 1:
+                          myCourseFilter = MyCourseFilter.in_proccess;
+                          break;
+                        case 2:
+                          myCourseFilter = MyCourseFilter.completed;
+                          break;
+                      }
+                      context
+                          .read<MyCourseScreenBloc>()
+                          .add(GetMyCourses(filter: myCourseFilter));
+                    },
+                  );
+                }
               ),
               Expanded(
-                child: TabBarView(
-                  controller: tabController,
-                  children: [
-                    ListView.builder(
+                child: BlocBuilder<MyCourseScreenBloc, MyCourseScreenState>(
+                    builder: (context, state) {
+                  if (state is MyCourseLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state is MyCoursesLoaded) {
+                    return ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 24),
-                        itemCount: 10,
+                        itemCount: state.myCourses.length,
                         itemBuilder: (context, index) {
-                          return GestureDetector(
-                              onTap: (){
-                                context.router.push(ShowLessonRoute(slug: 'slug'));
-                              },
-                              child: WMyCourseItem());
-                        }),
-                    SizedBox(),
-                    SizedBox(),
-                  ],
-                ),
+                          return WMyCourseItem(
+                            myCourse: state.myCourses[index],
+                            onTap: () {
+                              context.router.push(ShowLessonRoute(
+                                slug: state.myCourses[index].slug,
+                              ));
+                            },
+                          );
+                        });
+                  } else if (state is MyCoursesError) {
+                    return const Center(
+                      child: Text("Error"),
+                    );
+                  }
+                  // else if (state is NoAuth) {
+                  //   return Center(child: WButton(
+                  //       text: "Kirish", onTap: () {
+                  //     context.router.replaceNamed(RoutePath.login);
+                  //   }),);
+                  // }
+                  else {
+                    return const SizedBox();
+                  }
+                }),
               ),
             ],
           )),
     );
   }
 }
-
-// BlocBuilder<MyCourseScreenBloc, MyCourseScreenState>(
-// builder: (context, state) {
-// if (state is MyCourseLoading) {
-// return const Center(child: CircularProgressIndicator(),);
-// } else if (state is MyCoursesLoaded) {
-// return ListView.builder(
-// padding: const EdgeInsets.symmetric(horizontal: 20),
-// itemCount: state.myCourses.length,
-// itemBuilder: (context, index) {
-// return  WMyCourseItem(myCourse: state.myCourses[index],);
-// });
-// } else if (state is MyCoursesError) {
-// return const Center(child: Text("Error"),);
-// } else if (state is NoAuth) {
-// return Center(child: WButton(text: "Kirish", onTap: () {
-// context.router.replaceNamed(RoutePath.login);
-// }),);
-// } else {
-// return const SizedBox();
-// }
-// })

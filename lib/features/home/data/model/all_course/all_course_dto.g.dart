@@ -8,23 +8,21 @@ part of 'all_course_dto.dart';
 
 AllCourseDto _$AllCourseDtoFromJson(Map<String, dynamic> json) => AllCourseDto(
       id: (json['id'] as num).toInt(),
-      title: json['title'] as String,
+      name: json['name'] as String,
       slug: json['slug'] as String,
+      photo: json['photo'] as String,
+      price: (json['price'] as num).toInt(),
       excerpt: json['excerpt'] as String,
-      imageUrl: json['photo_url'] as String,
-      level: json['level'] as String,
-      duration: json['duration'] as String,
-      enrollments: (json['enrollments'] as num).toInt(),
+      discountedPrice: (json['discounted_price'] as num).toInt(),
     );
 
 Map<String, dynamic> _$AllCourseDtoToJson(AllCourseDto instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'title': instance.title,
+      'price': instance.price,
+      'name': instance.name,
       'slug': instance.slug,
+      'photo': instance.photo,
       'excerpt': instance.excerpt,
-      'photo_url': instance.imageUrl,
-      'level': instance.level,
-      'duration': instance.duration,
-      'enrollments': instance.enrollments,
+      'discounted_price': instance.discountedPrice,
     };
