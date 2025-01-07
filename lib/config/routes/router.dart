@@ -6,41 +6,34 @@ import 'route_path.dart';
 @AutoRouterConfig(
   replaceInRouteName: 'Screen,Route',
 )
-class
-
-AppRouter extends $AppRouter {
+class AppRouter extends $AppRouter {
   @override
   List<AutoRoute> get routes => [
+        //AUTH
+        AutoRoute(
+          page: LoginRoute.page,
+          path: "/login",
+          // initial: true
+        ),
+        AutoRoute(
+          page: RegisterRoute.page,
+          path: RoutePath.register,
+        ),
+        AutoRoute(
+          page: ForgotPasswordRoute.page,
+          path: RoutePath.forgotPassword,
+        ),
 
-    //AUTH
-    AutoRoute(
-      page: LoginRoute.page,
-      path: "/login",
-      // initial: true
-    ),
-    AutoRoute(
-      page: RegisterRoute.page,
-      path: RoutePath.register,
-    ),
-    AutoRoute(
-      page: ForgotPasswordRoute.page,
-      path: RoutePath.forgotPassword,
-    ),
-
-    //================
+        //================
 
         AutoRoute(
           page: AppMainRoute.page,
           path: RoutePath.main,
-
-
-
           children: [
             AutoRoute(
               page: RootHome.page,
               path: RoutePath.home,
               initial: true,
-
               children: [
                 AutoRoute(
                   page: HomeRoute.page,
@@ -48,7 +41,6 @@ AppRouter extends $AppRouter {
                 ),
               ],
             ),
-
             AutoRoute(
               page: RootMyCourse.page,
               path: RoutePath.myCourse,
@@ -85,83 +77,79 @@ AppRouter extends $AppRouter {
             ),
           ],
         ),
-    // =================
+        // =================
 
-    AutoRoute(
-      page: TestsRoute.page,
-      path: RoutePath.testsRoute,
-    ),
-    AutoRoute(
-      page: EitherResultRoute.page,
-      path: RoutePath.eitherResult,
-    ),
+        AutoRoute(
+          page: TestsRoute.page,
+          path: RoutePath.testsRoute,
+        ),
+        AutoRoute(
+          page: EitherResultRoute.page,
+          path: RoutePath.eitherResult,
+        ),
 
+        AutoRoute(
+          page: CostIncomeRoute.page,
+          path: RoutePath.costIncome,
+        ),
+        AutoRoute(
+          page: CourseDetailsRoute.page,
+          path: RoutePath.courseDetails,
+        ),
 
-    AutoRoute(
-      page: CostIncomeRoute.page,
-      path: RoutePath.costIncome,
-    ),
-    AutoRoute(
-      page: CourseDetailsRoute.page,
-      path: RoutePath.courseDetails,
-    ),
+        AutoRoute(
+          page: TestResultRoute.page,
+          path: RoutePath.courseDetails,
+        ),
 
+        AutoRoute(
+          page: ChatRoute.page,
+          path: RoutePath.chatScreen,
+        ),
 
-    AutoRoute(
-      page: TestResultRoute.page,
-      path: RoutePath.courseDetails,
-    ),
-
-
-    AutoRoute(
-      page: ChatRoute.page,
-      path: RoutePath.chatScreen,
-    ),
-
-
-    AutoRoute(
-      page: PlanRoute.page,
-      path: RoutePath.plan,
-    ),
-    AutoRoute(
-      page: AboutRoute.page,
-      path: RoutePath.about,
-    ),
-    AutoRoute(
-      page: TermsOfUseRoute.page,
-      path: RoutePath.termsUse,
-    ),
-    AutoRoute(
-      page: UpdatePasswordRoute.page,
-      path: RoutePath.updatePassword,
-    ),  AutoRoute(
-      page: ShowLessonRoute.page,
-      path: RoutePath.showLesson,
-    ),
-    AutoRoute(
-      page: AboutAddRoute.page,
-      path: RoutePath.aboutAdd,
-    ), AutoRoute(
-      page: SkillsRoute.page,
-      path: RoutePath.skillsScreen,
-    ),
- AutoRoute(
-      page: LanguageEditRoute.page,
-      path: RoutePath.language,
-    ),
- AutoRoute(
-      page: ExperienceRoute.page,
-      path: RoutePath.experience,
-    ),
-    AutoRoute(
-      page: EducationRoute.page,
-      path: RoutePath.education,
-    ),
-    AutoRoute(
-      page: AwardRoute.page,
-      path: RoutePath.award,
-    ),
-
-
+        AutoRoute(
+          page: PlanRoute.page,
+          path: RoutePath.plan,
+        ),
+        AutoRoute(
+          page: AboutRoute.page,
+          path: RoutePath.about,
+        ),
+        AutoRoute(
+          page: TermsOfUseRoute.page,
+          path: RoutePath.termsUse,
+        ),
+        AutoRoute(
+          page: UpdatePasswordRoute.page,
+          path: RoutePath.updatePassword,
+        ),
+        AutoRoute(
+          page: ShowLessonRoute.page,
+          path: RoutePath.showLesson,
+        ),
+        AutoRoute(
+          page: AboutAddRoute.page,
+          path: RoutePath.aboutAdd,
+        ),
+        AutoRoute(
+          page: SkillsRoute.page,
+          path: RoutePath.skillsScreen,
+        ),
+        AutoRoute(
+          page: LanguageEditRoute.page,
+          path: RoutePath.language,
+        ),
+        AutoRoute(
+          page: ExperienceRoute.page,
+          path: RoutePath.experience,
+        ),
+        AutoRoute(
+          page: EducationRoute.page,
+          path: RoutePath.education,
+        ),
+        AutoRoute(
+          page: AwardRoute.page,
+          path: RoutePath.award,
+        ),
       ];
 }

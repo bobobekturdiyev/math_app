@@ -15,11 +15,13 @@ import 'package:math_app/core/widgets/w_radio_group.dart';
 import 'package:math_app/core/widgets/w_tabbar.dart';
 import 'package:math_app/core/widgets/w_textfield.dart';
 import 'package:math_app/features/home/presentation/pages/premium_course_page.dart';
+import 'package:math_app/features/home/presentation/widgets/w_category.dart';
 import 'package:math_app/features/home/presentation/widgets/w_course_card.dart';
 
 import '../../../../core/resources/app_colors.dart';
 import '../../../../core/resources/app_icons.dart';
 import '../manager/home_bloc/home_screen_bloc.dart';
+import '../widgets/categories_header_delagate.dart';
 
 @RoutePage()
 class HomeScreen extends StatefulWidget {
@@ -43,103 +45,72 @@ class _HomeScreenState extends State<HomeScreen> {
       create: (context) => HomeScreenBloc(homeRepo: context.read()),
       child: Scaffold(
         backgroundColor: AppColors.backgroundColor,
-        appBar: AppBar(
-          toolbarHeight: 72,
-          // centerTitle: true,
-          automaticallyImplyLeading: false,
-          scrolledUnderElevation: 0,
-          backgroundColor: AppColors.backgroundColor,
-          title: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: ColoredBox(
-              color: AppColors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "hi_user".tr(namedArgs: {"name": "Hafiz"}),
-                        style: Styles.getHiUserStyle(),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "suit_yourself".tr(),
-                            style: Styles.getTextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            "course".tr(),
-                            style: Styles.getTextStyle(
-                              fontSize: 12,
-                              color: AppColors.primaryColor,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            "find".tr(),
-                            style: Styles.getTextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  InkWell(
-                      onTap: () {},
-                      child: SvgPicture.asset(AppIcons.notification)),
-                ],
-              ),
-            ),
-          ),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 28,
-              ),
-              WTextField(
-                controller: controller,
-                hint: "search".tr(),
-                hintFontSize: 12,
-                prefixIcon: SvgPicture.asset(
-                  AppIcons.search,
-                  fit: BoxFit.none,
-                ),
-                suffixIcon: GestureDetector(
-                  onTap: showFilterSheet,
-                  child: SvgPicture.asset(
-                    AppIcons.filter,
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              pinned: false,
+              floating: true,
+                elevation: 0,
+                scrolledUnderElevation: 0,
+                backgroundColor: AppColors.white,
+                title: WTextField(
+                  controller: controller,
+                  hint: "search".tr(),
+                  hintFontSize: 12,
+                  prefixIcon: SvgPicture.asset(
+                    AppIcons.search,
                     fit: BoxFit.none,
                   ),
+                  suffixIcon: GestureDetector(
+                    onTap: showFilterSheet,
+                    child: SvgPicture.asset(
+                      AppIcons.filter,
+                      fit: BoxFit.none,
+                    ),
+                  ),
+                ),
+            ),
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: CategoriesHeaderDelegate(
+                minHeight: 50,
+                maxHeight: 50,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                    ),
+                    child: Row(
+                      children: List.generate(
+                        4,
+                        (index) => Padding(
+                          padding:  EdgeInsets.only(left: index == 0 ? 16 : 0.0, right: index == 3 ? 16 : 0),
+                          child: WCategory(
+                            text: "Barchasi $index",
+                            isActive: index == 0,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Expanded(
-                child: ListView.builder(itemBuilder: (ctx, index) {
-                  return GestureDetector(
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: GestureDetector(
                     onTap: () {
                       context.router.push(CourseDetailsRoute(slug: 'slug'));
                     },
                     child: const WCourseCard(),
-                  );
-                }),
-              )
-            ],
-          ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -164,3 +135,5 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+

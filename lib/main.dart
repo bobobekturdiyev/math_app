@@ -11,24 +11,33 @@ import 'core/di/injector.dart';
 import 'core/di/locator.dart';
 import 'features/chat/data/websocket/socket_instance.dart';
 import 'firebase_options.dart';
+
+// BACKGROUND HANDLER FOR NOTIFICATION
+
 Future<void> backgroundHandler(RemoteMessage message) async {
   // NotificationService().showNotification(
   //   body: message.data['body'],
   //   title: message.data['title'],
   // );
 }
+
 void main() async {
-  HttpOverrides.global = MyHttpOverrides();
+  // HttpOverrides.global = MyHttpOverrides();
 
   WidgetsFlutterBinding.ensureInitialized();
-  // await NotificationService().initNotification();
-  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  locator.registerSingleton<SocketInstanse>(
-    (SocketInstanse()),
-  );  setupLocator();
+  // // await NotificationService().initNotification();
+  // FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+  //
+  //
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
+  //
+  // locator.registerSingleton<SocketInstanse>(
+  //   (SocketInstanse()),
+  // );
+
+  setupLocator();
   runApp(
     EasyLocalization(
         supportedLocales: const [
@@ -46,33 +55,33 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
-
-  MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-
   getToken() async {
     String? token = await FirebaseMessaging.instance.getToken();
     FirebaseMessaging.instance.getToken();
   }
-  final _router = AppRouter();
-@override
-  void initState() {
-  getToken();
 
+  final _router = AppRouter();
+
+  @override
+  void initState() {
     super.initState();
+    // getToken();
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       locale: context.locale,
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
-      title: 'math_app',
+      title: 'Matematika kursi',
       theme: ThemeData(
         useMaterial3: true,
       ),
@@ -81,13 +90,12 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-  }
-}
 
-
+// class MyHttpOverrides extends HttpOverrides {
+//   @override
+//   HttpClient createHttpClient(SecurityContext? context) {
+//     return super.createHttpClient(context)
+//       ..badCertificateCallback =
+//           (X509Certificate cert, String host, int port) => true;
+//   }
+// }

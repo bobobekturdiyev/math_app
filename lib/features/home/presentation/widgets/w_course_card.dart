@@ -12,7 +12,7 @@ class WCourseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 32),
+      margin: const EdgeInsets.only(top: 16, bottom: 16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         color: Colors.white,
@@ -28,8 +28,8 @@ class WCourseCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 152,
+          AspectRatio(
+            aspectRatio: 16/9,
             child: ClipRRect(
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(16),
@@ -77,7 +77,7 @@ class WCourseCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                WCourseRating()
+                // const WCourseRating(),
               ],
             ),
           ),
