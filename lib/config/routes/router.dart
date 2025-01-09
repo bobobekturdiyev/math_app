@@ -92,7 +92,8 @@ class AppRouter extends $AppRouter {
           page: CostIncomeRoute.page,
           path: RoutePath.costIncome,
         ),
-        AutoRoute(
+        CustomRoute(
+          transitionsBuilder: TransitionsBuilders.noTransition,
           page: CourseDetailsRoute.page,
           path: RoutePath.courseDetails,
         ),

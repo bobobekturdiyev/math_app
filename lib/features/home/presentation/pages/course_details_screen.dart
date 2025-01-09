@@ -1,29 +1,32 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:math_app/core/error/exception_handler.dart';
 import 'package:math_app/core/resources/app_colors.dart';
-import 'package:math_app/core/widgets/w_button.dart';
-import 'package:math_app/core/widgets/w_lesson%20_tabbar.dart';
+import 'package:math_app/core/widgets/w_html.dart';
 import 'package:math_app/core/widgets/w_standard_tabbar.dart';
+import 'package:math_app/features/home/data/model/course/course_dto.dart';
+import 'package:math_app/features/home/presentation/manager/course_details/course_details_tab_provider.dart';
 import 'package:math_app/features/home/presentation/manager/course_details_screen_bloc/course_details_screen_bloc.dart';
-import 'package:math_app/features/home/presentation/widgets/w_course_about.dart';
-import 'package:math_app/features/home/presentation/widgets/w_course_card.dart';
-import 'package:math_app/features/home/presentation/widgets/w_course_rating.dart';
+import 'package:math_app/features/home/presentation/manager/module/course_module_bloc.dart';
+import 'package:math_app/features/home/presentation/widgets/categories_header_delagate.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/resources/app_icons.dart';
 import '../../../../core/resources/styles.dart';
-import '../widgets/w_course_content.dart';
+import '../../../../core/util/helpers.dart';
+import '../../../../core/widgets/w_button.dart';
+import '../../../../core/widgets/w_loader.dart';
+import '../widgets/w_cover_image.dart';
+import '../widgets/w_expansion.dart';
 
 @RoutePage()
 class CourseDetailsScreen extends StatefulWidget {
-  final String slug;
+  final CourseDto courseDto;
 
-  const CourseDetailsScreen({Key? key, required this.slug}) : super(key: key);
+  const CourseDetailsScreen({Key? key, required this.courseDto})
+      : super(key: key);
 
   @override
   State<CourseDetailsScreen> createState() => _CourseDetailsScreenState();
@@ -33,193 +36,251 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
   late CourseDetailsScreenBloc courseDetailsScreenBloc;
+  CourseDetailsTabProvider courseDetailsTabProvider =
+      CourseDetailsTabProvider();
+
+  CourseModuleBloc courseModuleBloc = CourseModuleBloc();
 
   @override
   void initState() {
     init();
     tabController = TabController(length: 2, vsync: this);
+    tabController.addListener(() {
+      if (tabController.indexIsChanging) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          courseDetailsTabProvider.setIndex(tabController.index);
+        });
+      }
+    });
     super.initState();
   }
 
   void init() {
-    courseDetailsScreenBloc = CourseDetailsScreenBloc(homeRepo: context.read());
-    // courseDetailsScreenBloc.add(GetCourseDetails(slug: widget.slug));
+    if (widget.courseDto.id != null) {
+      courseModuleBloc.add(LoadModules(courseId: widget.courseDto.id!));
+    }
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
   }
 
   String title = '';
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => courseDetailsScreenBloc,
-      child: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          automaticallyImplyLeading: false,
-          scrolledUnderElevation: 0,
-          title: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    context.router.maybePop();
-                  },
-                  child: SvgPicture.asset(AppIcons.arrowLeftBadge),
-                ),
-                const SizedBox(
-                  width: 4,
-                ),
-                Text(
-                  "DTM 2022",
-                  style: Styles.getCourseTitleStyle(),
-                )
-              ],
-            ),
-          ),
-        ),
-        body: BlocBuilder<CourseDetailsScreenBloc, CourseDetailsScreenState>(
-            builder: (context, state) {
-          // if(state is  CourseDetailsLoading){
-          //
-          //   return const Center(child: CircularProgressIndicator(),);
-          // }else if(state is CourseDetailsLoaded){
-          //   title=state.courseDetailsDto.title;
-          return CustomScrollView(
-            slivers: [
-              SliverFillRemaining(
-                hasScrollBody: true,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+    return BlocProvider<CourseModuleBloc>.value(
+      value: courseModuleBloc,
+      child: ChangeNotifierProvider<CourseDetailsTabProvider>(
+        create: (ctx) => courseDetailsTabProvider,
+        child: Scaffold(
+          backgroundColor: AppColors.backgroundColor,
+          body: SafeArea(
+            child: CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  floating: true,
+                  backgroundColor: Colors.white,
+                  automaticallyImplyLeading: false,
+                  scrolledUnderElevation: 0,
+                  titleSpacing: 16,
+                  title: Row(
                     children: [
-                      Column(
-                        children: [
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          SizedBox(
-                            height: 174,
-                            width: double.infinity,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
-                              child: CachedNetworkImage(
-                                imageUrl:
-                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-C_UAhXq9GfuGO452EEzfbKnh1viQB9EDBQ&s",
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          const WCourseRating(),
-                          const SizedBox(
-                            height: 18,
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                "152 000 so’m",
-                                style: Styles.getActivePriceStyle()
-                                    .copyWith(fontSize: 14),
-                              ),
-                              const SizedBox(
-                                width: 6,
-                              ),
-                              Text(
-                                "200 000 so’m",
-                                style: Styles.getDeActivePriceStyle(),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                "teacher".tr(),
-                                style: Styles.getTextStyle(fontSize: 12),
-                              ),
-                              const SizedBox(
-                                width: 6,
-                              ),
-                              Text(
-                                "Sardorxon Urfonxonov",
-                                style: Styles.getActivePriceStyle(),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 24,
-                          ),
-
-                          WStandardTabBar(
-                            // padding: const EdgeInsets.symmetric(horizontal: 24),
-                            tabController: tabController,
-                            tabs: [
-                              Tab(
-                                text: "details".tr(),
-                              ),
-                              Tab(
-                                text: "text_books".tr(),
-                              ),
-                            ],
-                          ),
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          context.router.maybePop();
+                        },
+                        child: SvgPicture.asset(AppIcons.arrowLeftBadge),
                       ),
-                      Expanded(
-                        child: TabBarView(
-                          controller: tabController,
-                          children: const [
-                            WCourseAbout(
-                              excerpt: '',
-                              description: "state.courseDetailsDto.description",
-                            ),
-                            WCourseContent(slug: '')
-                          ],
-                        ),
+                      const SizedBox(
+                        width: 4,
                       ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: WButton(
-                          text: "",
-                          borderRadius: 16,
-                          verticalPadding: 12,
-                          margin: const EdgeInsets.symmetric(vertical: 16),
-                          child: Row(
-                            children: [
-                              Text(
-                                "buy".tr(),
-                                style: Styles.getTextStyle(color: Colors.white),
-                              ),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              Text(
-                                "152 000 so’m",
-                                style: Styles.getTextStyle(color: Colors.white),
-                              ),
-                            ],
-                          ),
-                          onTap: () {},
-                        ),
+                      Text(
+                        widget.courseDto.title ?? "?title",
+                        style: Styles.getCourseTitleStyle(),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       )
                     ],
                   ),
                 ),
-              )
-            ],
-          );
-          // } else if(state is CourseDetailsError){
-          //   return const Center(child: Text("Error"),);
-          // } else{
-          //   return const SizedBox();
-          // }
-        }),
+                if (widget.courseDto.image != null) ...{
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: WCoverImage(
+                        image: widget.courseDto.image!,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(16)),
+                      ),
+                    ),
+                  ),
+                },
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 16),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  if (widget.courseDto.totalLessons !=
+                                      null) ...{
+                                    const Icon(
+                                      Icons.list_alt_rounded,
+                                      color: AppColors.grey,
+                                      size: 20,
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      "${widget.courseDto.totalLessons!.toString()} ta mavzu",
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
+                                    const SizedBox(width: 12),
+                                  },
+                                  if (widget.courseDto.totalVideos != null) ...{
+                                    const Icon(
+                                      Icons.video_file_outlined,
+                                      color: AppColors.grey,
+                                      size: 20,
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      "${widget.courseDto.totalVideos!.toString()} ta video",
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
+                                    const SizedBox(width: 12),
+                                  },
+                                  if (widget.courseDto.duration != null) ...{
+                                    const Icon(
+                                      Icons.video_collection_outlined,
+                                      color: AppColors.grey,
+                                      size: 20,
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      widget.courseDto.duration!,
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
+                                    const SizedBox(width: 12),
+                                  },
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        if (widget.courseDto.price != null &&
+                            widget.courseDto.price! > 0) ...{
+                          Text(
+                            Helper.priceFormat(widget.courseDto.price!),
+                            style: Styles.getActivePriceStyle(),
+                          ),
+                        },
+                      ],
+                    ),
+                  ),
+                ),
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: CategoriesHeaderDelegate(
+                    minHeight: 55,
+                    maxHeight: 55,
+                    child: Container(
+                      color: AppColors.white,
+                      child: WStandardTabBar(
+                        // padding: const EdgeInsets.symmetric(horizontal: 24),
+                        tabController: tabController,
+                        tabs: [
+                          Tab(
+                            text: "Darslar",
+                          ),
+                          Tab(
+                            text: "details".tr(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Consumer<CourseDetailsTabProvider>(builder: (_, model, child) {
+                  if (model.currentIndex == 1) {
+                    return SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: WHtml(
+                          htmlContent: widget.courseDto.description ?? "",
+                        ),
+                      ),
+                    );
+                  } else {
+                    return BlocBuilder<CourseModuleBloc, CourseModuleState>(
+                      builder: (context, state) {
+                        if (state is CourseModuleLoaded) {
+                          return SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) => Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    // context.router.push(
+                                    //     CourseDetailsRoute(
+                                    //         courseDto: state
+                                    //             .courses[index]));
+                                  },
+                                  child: WExpansionTile(
+                                    module: state.modules[index],
+                                    // lesson: state.lessons[index].lesson,
+                                    isLogin: false,
+                                  ),
+                                ),
+                              ),
+                              childCount: state.modules.length,
+                            ),
+                          );
+                        } else if (state is CourseModuleLoading) {
+                          return const SliverToBoxAdapter(
+                            child: Center(
+                              child: WLoader(),
+                            ),
+                          );
+                        } else if (state is CourseModuleError &&
+                            widget.courseDto.id != null) {
+                          return SliverToBoxAdapter(
+                            child: Column(
+                              children: [
+                                Text(state.message),
+                                WButton(
+                                  text: 'Qayta yuklash',
+                                  onTap: () {
+                                    courseModuleBloc.add(LoadModules(
+                                        courseId: widget.courseDto.id!));
+                                  },
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          return const SliverToBoxAdapter(
+                            child: SizedBox(),
+                          );
+                        }
+                      },
+                    );
+                  }
+                }),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

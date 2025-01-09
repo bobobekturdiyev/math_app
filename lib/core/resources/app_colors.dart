@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppColors {
+abstract class AppColors {
   //General
   static const Color primaryColor = Color(0xFF2EC4B6);
   static const Color primaryColorAccent = Color(0xFFD5F3F0);
@@ -55,8 +55,8 @@ class AppColors {
   static const Color removeColor = Color(0xFFFF002E);
 
   static const Color shimmerAnimate = Color(0xFF383838);
-  static const Color shimmerAnimateLight = Color(0xFFDFDFDF);
-  static const Color shimmerAnimatePrimaryLight = Color(0xFFDDECFF);
+  static const Color shimmerAnimateLight = Color(0xFFEEEEEE);
+  static const Color shimmerAnimatePrimaryLight = Color(0xFFFFFFFF);
 
   static const Color shimmerBack = Color(0xFF292929);
   static const Color shimmerBackLight = Color(0xFFFFFFFF);

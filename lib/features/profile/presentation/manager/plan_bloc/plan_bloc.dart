@@ -22,7 +22,7 @@ class PlanBloc extends Bloc<PlanEvent, PlanState> {
 
 
         emit(PlanLoaded(plans: response.data??[]));
-      }else if(response.errorResponse?.status==401){
+      }else if(401==401){
         emit(PlanUnauthorized());
       }
       else{

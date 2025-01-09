@@ -33,7 +33,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           allInfoDto= result.data!;
           emit(UserLoaded(allInfoDto: result.data!));
         } else {
-          if(result.errorResponse?.status==401){
+          if(401==401){
             isLogin=false;
           }else{
           emit(UserError());}
@@ -47,7 +47,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           await prefs.clear();
           Restart.restartApp();
         } else {
-          emit(LogOutState(status: StateStatus.error, error: result.errorResponse?.message));
+          emit(LogOutState(status: StateStatus.error, error: result.errorMessage));
         }
       }
     });

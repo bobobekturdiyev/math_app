@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
@@ -8,24 +7,21 @@ import 'package:math_app/features/home/data/model/lesson_by_course/lesson_by_cou
 import 'package:math_app/features/home/domain/repositories/home_repo.dart';
 
 part 'course_details_screen_event.dart';
+
 part 'course_details_screen_state.dart';
 
-class CourseDetailsScreenBloc extends Bloc<CourseDetailsScreenEvent, CourseDetailsScreenState> {
-  final HomeRepo homeRepo;
-  CourseDetailsScreenBloc({required this.homeRepo}) : super(CourseDetailsScreenInitial()) {
-    on<GetCourseDetails>((event, emit)async {
+class CourseDetailsScreenBloc
+    extends Bloc<CourseDetailsScreenEvent, CourseDetailsScreenState> {
+  CourseDetailsScreenBloc() : super(CourseDetailsScreenInitial()) {
+    on<GetCourseDetails>((event, emit) async {
       emit(CourseDetailsLoading());
 
-      final response=await homeRepo.getCourseDetails(slug: event.slug);
-      if(response is DataSuccess){
-        emit(CourseDetailsLoaded(courseDetailsDto: response.data!));
-      }else{
-        emit(CourseDetailsLoading());
-      }
-
-
-
+      // final response=await homeRepo.getCourseDetails(slug: event.slug);
+      // if(response is DataSuccess){
+      //   emit(CourseDetailsLoaded(courseDetailsDto: response.data!));
+      // }else{
+      //   emit(CourseDetailsLoading());
+      // }
     });
-
   }
 }

@@ -1,13 +1,17 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:math_app/core/resources/app_colors.dart';
-import 'package:math_app/core/resources/app_icons.dart';
 import 'package:math_app/core/resources/styles.dart';
-import 'package:math_app/features/home/presentation/widgets/w_course_rating.dart';
+import 'package:math_app/core/util/helpers.dart';
+import 'package:math_app/features/home/data/model/course/course_dto.dart';
+import 'package:math_app/features/home/presentation/widgets/w_cover_image.dart';
 
 class WCourseCard extends StatelessWidget {
-  const WCourseCard({super.key});
+  final CourseDto course;
+
+  const WCourseCard({
+    super.key,
+    required this.course,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,21 +32,11 @@ class WCourseCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AspectRatio(
-            aspectRatio: 16/9,
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(16),
-                topLeft: Radius.circular(16),
-              ),
-              child: CachedNetworkImage(
-                imageUrl:
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-C_UAhXq9GfuGO452EEzfbKnh1viQB9EDBQ&s",
-                fit: BoxFit.fitWidth,
-                width: double.infinity,
-              ),
+          if (course.image != null) ...{
+            WCoverImage(
+              image: course.image!,
             ),
-          ),
+          },
           Padding(
             padding: const EdgeInsets.only(left: 16),
             child: Column(
@@ -52,31 +46,78 @@ class WCourseCard extends StatelessWidget {
                   height: 16,
                 ),
                 Text(
-                  "DTM 2022 ",
+                  course.title ?? "?",
                   style: Styles.getCourseTitleStyle(),
                 ),
                 Text(
-                  "Siz Sardorxon Urfonxonovning “DTM 2022” kursini sotib oldingiz. ",
-                  style: Styles.getTextStyle(fontSize: 10),
+                  course.excerpt ?? "?",
+                  style: Styles.getTextStyle(fontSize: 12),
                 ),
                 const SizedBox(
                   height: 8,
                 ),
-                Row(
-                  children: [
-                    Text(
-                      "152 000 so’m",
-                      style: Styles.getActivePriceStyle(),
-                    ),
-                    const SizedBox(
-                      width: 6,
-                    ),
-                    Text(
-                      "200 000 so’m",
-                      style: Styles.getDeActivePriceStyle(),
-                    ),
-                  ],
+
+                Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            if (course.totalLessons != null) ...{
+                              const Icon(
+                                Icons.list_alt_rounded,
+                                color: AppColors.grey,
+                                size: 20,
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                "${course.totalLessons!.toString()} ta mavzu",
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                              const SizedBox(width: 12),
+                            },
+                            if (course.totalVideos != null) ...{
+                              const Icon(
+                                Icons.video_file_outlined,
+                                color: AppColors.grey,
+                                size: 20,
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                "${course.totalVideos!.toString()} ta video",
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                              const SizedBox(width: 12),
+                            },
+                            if (course.duration != null) ...{
+                              const Icon(
+                                Icons.video_collection_outlined,
+                                color: AppColors.grey,
+                                size: 20,
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                course.duration!,
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                              const SizedBox(width: 12),
+                            },
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
+                const SizedBox(height: 16),
+                if (course.price != null && course.price! > 0) ...{
+                  Text(
+                    Helper.priceFormat(course.price!),
+                    style: Styles.getActivePriceStyle(),
+                  ),
+                },
+
                 // const WCourseRating(),
               ],
             ),

@@ -32,11 +32,10 @@ class _Converter<T> implements JsonConverter<T, Object?> {
       switch (T) {
         case CourseDetailsDto:
           return CourseDetailsDto.fromJson(json) as T;
-          case ShowLessonDto:
+        case ShowLessonDto:
           return ShowLessonDto.fromJson(json) as T;
-          case AllInfoDto:
+        case AllInfoDto:
           return AllInfoDto.fromJson(json) as T;
-
       }
       return DataResponse<T>.fromJson(json) as T;
     }

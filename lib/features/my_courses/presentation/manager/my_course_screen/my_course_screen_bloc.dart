@@ -18,8 +18,8 @@ class MyCourseScreenBloc extends Bloc<MyCourseScreenEvent, MyCourseScreenState> 
       final result=await myCourseRepo.getMyCourses();
       if(result is DataSuccess){
         emit(MyCoursesLoaded(myCourses: result.data??[]));
-      }else{
-        if(result.errorResponse?.status==401){
+      }else if(result is DataError){
+        if(result.data ==401){
           emit(NoAuth());
         }else{
           emit(MyCoursesError());

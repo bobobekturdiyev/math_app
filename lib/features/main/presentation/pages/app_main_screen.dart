@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:math_app/config/routes/route_path.dart';
-import 'package:math_app/core/di/locator.dart';
 import 'package:math_app/core/resources/app_colors.dart';
 import 'package:math_app/core/resources/app_icons.dart';
 import 'package:math_app/core/state/bloc/bottom_nav_bar/bottom_nav_bar_bloc.dart';
 import 'package:math_app/core/widgets/w_bottom_bar_item.dart';
+
+import '../../../../core/di/locator.dart';
 
 @RoutePage()
 class AppMainScreen extends StatefulWidget {
@@ -53,7 +54,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
               },
               child: Scaffold(
                 backgroundColor: AppColors.white,
-                resizeToAvoidBottomInset: false,
+                resizeToAvoidBottomInset: true,
                 key: locator<GlobalKey<ScaffoldState>>(),
                 body: child,
                 bottomNavigationBar: Container(
@@ -77,8 +78,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               WBottomBarItem(
                                 icon: state.index == 0

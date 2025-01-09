@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:math_app/features/home/data/data_source/course_service.dart';
+import 'package:math_app/features/home/data/repositories/impl_course_repo.dart';
+import 'package:math_app/features/home/domain/repositories/course_repo.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -33,10 +36,16 @@ Future<void> setupLocator() async {
   dio.options.maxRedirects = 5;
   dio.options.contentType = 'application/json';
   dio.options.headers.addAll({
-    "X-Authorization":"Programmer Uz",
-
+    "X-Authorization": "Programmer Uz",
     "Authorization": "Bearer $token",
   });
 
   locator.registerSingleton<Dio>(dio);
+
+  locator.registerSingleton<CourseService>(CourseService(locator<Dio>()));
+  locator.registerSingleton<CourseRepo>(
+    ImplCourseRepo(
+      courseService: locator<CourseService>(),
+    ),
+  );
 }

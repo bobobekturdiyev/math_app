@@ -1,10 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:math_app/features/chat/data/models/user/get_chat_manager/user_dto.dart';
 
-import '../chat/chat_user.dart';
-
-
-
 part 'users_dto.g.dart';
 
 @JsonSerializable()
@@ -16,8 +12,10 @@ class UsersDto {
   @JsonKey(name: 'has_access')
   bool hasAccess;
   String? image;
+
   // List<ChatUserDto> chatUserDto;
   bool unread;
+
   UsersDto({
     required this.user,
     required this.role,

@@ -5,13 +5,9 @@ part 'error_response.g.dart';
 @JsonSerializable()
 class ErrorResponse {
   final String? message;
-  final List<String>? errors;
-  final int status;
 
   const ErrorResponse({
     this.message,
-    this.errors,
-    required this.status,
   });
 
   factory ErrorResponse.fromJson(Map<String, dynamic> json) =>

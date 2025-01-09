@@ -25,9 +25,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }else{
         emit(AboutState(
             status: StateStatus.error,
-            error: response.errorResponse?.message ??
-                response.errorResponse?.errors?[0] ??
-                "Nimadir xato bo'ldi"));
+            error: response.errorMessage,));
       }
 
     });
@@ -40,8 +38,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         }else{
           emit(SkillsState(
               status: StateStatus.error,
-              error: response.errorResponse?.message ??
-                  response.errorResponse?.errors?[0] ??
+              error: response.errorMessage ??
+                  "error" ??
                   "Nimadir xato bo'ldi"));
       }
       }
@@ -68,9 +66,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       }else{
         emit(LangState(
             status: StateStatus.error,
-            error: response.errorResponse?.message ??
-                response.errorResponse?.errors?[0] ??
-                "Nimadir xato bo'ldi"));
+            error: response.errorMessage,),);
       }
 
     });
@@ -87,8 +83,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       }else{
         emit(LangState(
             status: StateStatus.error,
-            error: response.errorResponse?.message ??
-                response.errorResponse?.errors?[0] ??
+            error: response.errorMessage ??
+                "error" ??
                 "Nimadir xato bo'ldi"));
       }
 

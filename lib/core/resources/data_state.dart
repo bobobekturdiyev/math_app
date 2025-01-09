@@ -1,9 +1,8 @@
-import '../error/error_response.dart';
-
 abstract class DataState<T> {
   final T? data;
-  final ErrorResponse? errorResponse;
-  const DataState({this.data, this.errorResponse});
+  final String? errorMessage;
+
+  const DataState({this.data, this.errorMessage});
 }
 
 class DataSuccess<T> extends DataState<T> {
@@ -11,6 +10,5 @@ class DataSuccess<T> extends DataState<T> {
 }
 
 class DataError<T> extends DataState<T> {
-  const DataError(ErrorResponse errorResponse)
-      : super(errorResponse: errorResponse);
+  const DataError(String? errorMessage) : super(errorMessage: errorMessage);
 }

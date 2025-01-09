@@ -11,6 +11,7 @@ import '../../../../../core/util/validator.dart';
 import '../../../domain/repositories/auth_repo.dart';
 
 part 'register_screen_event.dart';
+
 part 'register_screen_state.dart';
 
 class RegisterScreenBloc
@@ -25,12 +26,10 @@ class RegisterScreenBloc
     "email": "",
     "password": "",
   };
-  String value='';
+  String value = '';
 
   RegisterScreenBloc({required this.authRepo})
       : super(const RegisterScreenInitial()) {
-
-
     on<Back>((event, emit) {
       emit(const RegisterScreenInitial(status: StateStatus.normal));
     });
@@ -40,11 +39,8 @@ class RegisterScreenBloc
     on<VerifyCode>(_verifyCode);
   }
 
-
-
   Future<FutureOr<void>> _confirmEvent(
       ConfirmEvent event, Emitter<RegisterScreenState> emit) async {
-
     bool hasError = false;
 
     Map<String, String?> auth = {
@@ -78,25 +74,21 @@ class RegisterScreenBloc
       auth['password'] = 'password_not_valid'.tr();
     }
     if (!hasError) {
-      value= event.value;
+      value = event.value;
 
       emit(const RegisterScreenInitial(
         status: StateStatus.loading,
       ));
       final response = await authRepo.register(
           registerRequest: RegisterRequest(
-              name:event.name,
+              name: event.name,
               surname: event.surname,
-
               value: event.value.replaceAll("+", ''),
               password: event.password));
       if (response is DataSuccess) {
         emit(const VerificationState());
-
       } else {
-        auth['error'] = response.errorResponse?.errors?[0] ??
-            response.errorResponse?.message ??
-            "something_went_wrong".tr();
+        auth['error'] = response.errorMessage ?? "something_went_wrong".tr();
         emit(RegisterScreenInitial(
           status: StateStatus.error,
           errorData: auth,
@@ -137,23 +129,22 @@ class RegisterScreenBloc
 
   FutureOr<void> _verifyCode(
       VerifyCode event, Emitter<RegisterScreenState> emit) async {
-
     emit(const VerificationState(status: StateStatus.loading));
 
-    final response =
-    await authRepo.verifyCode(value: value.replaceAll("+", ''), code: event.code);
+    final response = await authRepo.verifyCode(
+        value: value.replaceAll("+", ''), code: event.code);
 
     if (response is DataSuccess) {
       emit(const VerificationState(status: StateStatus.success));
 
-      if (response.data!) {
-
-      }
-    } else{
-      emit(VerificationState(
+      if (response.data!) {}
+    } else {
+      emit(
+        VerificationState(
           status: StateStatus.error,
-          error: response.errorResponse?.errors?[0] ??
-              response.errorResponse?.message??"something_went_wrong".tr()));
+          error: "error",
+        ),
+      );
     }
   }
 }

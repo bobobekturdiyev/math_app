@@ -29,7 +29,7 @@ abstract class Styles {
 
   static TextStyle getActivePriceStyle() => const TextStyle(
         color: AppColors.primaryColor,
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: FontWeight.w600,
         fontFamily: "Poppins",
       );

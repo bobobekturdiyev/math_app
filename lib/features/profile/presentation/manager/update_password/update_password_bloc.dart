@@ -53,7 +53,7 @@ class UpdatePasswordBloc extends Bloc<UpdatePasswordEvent, UpdatePasswordState> 
         } else {
           emit(UpdatePasswordInitial(
             status: StateStatus.error,
-            error: result.errorResponse?.message ?? result.errorResponse?.errors?[0],
+            error: result.errorMessage ,
           ));
         }
       }

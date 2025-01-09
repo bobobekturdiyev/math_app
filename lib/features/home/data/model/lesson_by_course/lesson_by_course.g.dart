@@ -13,7 +13,7 @@ LessonByCourseDto _$LessonByCourseDtoFromJson(Map<String, dynamic> json) =>
       price: (json['price'] as num).toDouble(),
       position: (json['position'] as num?)?.toInt(),
       lesson: (json['lesson'] as List<dynamic>)
-          .map((e) => LessonDto.fromJson(e as Map<String, dynamic>))
+          .map((e) => LessonShortDto.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

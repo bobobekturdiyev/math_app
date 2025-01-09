@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:math_app/core/widgets/w_label.dart';
 
 import '../../../core/resources/app_colors.dart';
 import '../../../core/resources/styles.dart';
@@ -71,17 +70,16 @@ class WTextField extends StatefulWidget {
 
 class _WTextFieldState extends State<WTextField> {
   bool toggle = false;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
         Padding(
           padding: widget.margin,
           child: TextField(
             autofocus: widget.autoFocus,
-
             maxLines: widget.maxLines,
             readOnly: widget.readOnly,
             textAlign: widget.textAlign,
@@ -98,7 +96,6 @@ class _WTextFieldState extends State<WTextField> {
                       widget.errorTextPlacement == ErrorTextPlacement.bottom
                   ? widget.errorText
                   : null,
-
               prefixIcon: widget.prefixIcon,
               suffixIcon: widget.isObscure
                   ? IconButton(
@@ -125,7 +122,7 @@ class _WTextFieldState extends State<WTextField> {
                     )
                   : widget.suffixIcon,
               filled: true,
-              fillColor: widget.errorText==null
+              fillColor: widget.errorText == null
                   ? AppColors.fieldColor
                   : Colors.transparent,
               border: getBorder(),
@@ -160,7 +157,6 @@ class _WTextFieldState extends State<WTextField> {
 
   getBorder({Color? color}) => OutlineInputBorder(
         gapPadding: 0,
-
         borderSide: BorderSide(color: color ?? AppColors.borderColor, width: 1),
         borderRadius: BorderRadius.circular(16),
       );

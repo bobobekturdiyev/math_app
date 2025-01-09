@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:math_app/features/home/data/model/course/lesson_dto.dart';
 
-import '../lesson/lesson_dto.dart';
 
 part 'lesson_by_course.g.dart';
 
@@ -10,7 +10,7 @@ class LessonByCourseDto{
     final String name;
     final double price;
     final int? position;
-    final List<LessonDto> lesson;
+    final List<LessonShortDto> lesson;
 
 
   factory LessonByCourseDto.fromJson(Map<String, dynamic> json) =>

@@ -13,7 +13,7 @@ class _ProfileService implements ProfileService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://192.168.0.178:8000/api/v1';
+    baseUrl ??= 'http://192.168.0.104:8000/api/v1';
   }
 
   final Dio _dio;
