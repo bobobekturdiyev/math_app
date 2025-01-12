@@ -10,7 +10,8 @@ import '../../../../../core/resources/state_status.dart';
 import '../../../../../core/util/validator.dart';
 import '../../../domain/repositories/auth_repo.dart';
 
-part 'forgot_password_event.dart';part 'forgot_password_state.dart';
+part 'forgot_password_event.dart';
+part 'forgot_password_state.dart';
 
 class ForgotPasswordBloc
     extends Bloc<ForgotPasswordEvent, ForgotPasswordState> {
@@ -52,17 +53,17 @@ class ForgotPasswordBloc
           forgotTwoReq: ForgotTwoReq(
               value: int.parse(email), code: int.parse(event.code)));
 
-      if (result is DataSuccess && result.data?.code == 200) {
-        emit(const FinalState());
-      } else {
-        emit(
-          Verification(
-            email: email,
-            status: StateStatus.error,
-            error: result.data?.message ?? 'incorrect_code'.tr(),
-          ),
-        );
-      }
+      // if (result is DataSuccess && result.data?.code == 200) {
+      //   emit(const FinalState());
+      // } else {
+      //   emit(
+      //     Verification(
+      //       email: email,
+      //       status: StateStatus.error,
+      //       error: result.data?.message ?? 'incorrect_code'.tr(),
+      //     ),
+      //   );
+      // }
     });
 
     on<ResendCode>((event, emit) async {

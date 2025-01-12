@@ -1,7 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:math_app/config/routes/router.gr.dart';
+import 'package:math_app/core/di/locator.dart';
 import 'package:math_app/core/resources/app_icons.dart';
 import 'package:math_app/core/resources/styles.dart';
+import 'package:math_app/core/util/helpers.dart';
+import 'package:math_app/core/widgets/w_button.dart';
 import 'package:math_app/core/widgets/w_circle_index_card.dart';
 import 'package:math_app/features/home/data/model/course/module_dto.dart';
 
@@ -11,14 +16,15 @@ class WExpansionTile extends StatefulWidget {
   final ModuleDto module;
 
   // final List<LessonDto> lesson;
-  final bool isLogin;
+  final bool courseAccess;
+  final bool moduleAccess;
 
-  const WExpansionTile(
-      {Key? key,
-      required this.module,
-      // required this.lesson,
-      required this.isLogin})
-      : super(key: key);
+  const WExpansionTile({
+    Key? key,
+    required this.module,
+    required this.courseAccess,
+    this.moduleAccess = true,
+  }) : super(key: key);
 
   @override
   State<WExpansionTile> createState() => _WExpansionTileState();
@@ -53,7 +59,18 @@ class _WExpansionTileState extends State<WExpansionTile> {
         children: List.generate(
           module.lessons?.length ?? 0,
           (index) => GestureDetector(
-            onTap: () {},
+            onTap: () {
+              if (widget.courseAccess && widget.moduleAccess ||
+                  (widget.module.lessons![index].isOpen ?? false)) {
+                context.router.push(
+                  LessonRoute(
+                    lessonDto: module.lessons![index],
+                  ),
+                );
+              } else {
+                _showLogin(context);
+              }
+            },
             child: Container(
               margin: const EdgeInsets.only(bottom: 16),
               decoration: BoxDecoration(
@@ -97,14 +114,41 @@ class _WExpansionTileState extends State<WExpansionTile> {
                       ],
                     ),
                   ),
-                  SvgPicture.asset(module.lessons![index].isOpen ?? false
-                      ? AppIcons.playRoundDis
-                      : AppIcons.lock),
+                  SvgPicture.asset(
+                      (widget.courseAccess && widget.moduleAccess ||
+                              (module.lessons![index].isOpen ?? false))
+                          ? AppIcons.playRoundDis
+                          : AppIcons.lock),
                 ],
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  void _showLogin(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        content: Text(
+          "Dastlab tizimga kirishingiz lozim",
+          style: locator<ThemeData>()
+              .textTheme
+              .headlineMedium
+              ?.copyWith(fontSize: 18),
+          textAlign: TextAlign.center,
+        ),
+        actionsAlignment: MainAxisAlignment.center,
+        actions: [
+          WButton(
+            text: "Tizimga kirish",
+            onTap: () {
+              Helper.openLogin(context);
+            },
+          ),
+        ],
       ),
     );
   }

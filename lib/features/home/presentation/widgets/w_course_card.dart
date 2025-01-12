@@ -62,47 +62,61 @@ class WCourseCard extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                        child: Wrap(
                           children: [
                             if (course.totalLessons != null) ...{
-                              const Icon(
-                                Icons.list_alt_rounded,
-                                color: AppColors.grey,
-                                size: 20,
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(
+                                    Icons.list_alt_rounded,
+                                    color: AppColors.grey,
+                                    size: 20,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    "${course.totalLessons!.toString()} ta mavzu",
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
+                                  const SizedBox(width: 12),
+                                ],
                               ),
-                              const SizedBox(width: 4),
-                              Text(
-                                "${course.totalLessons!.toString()} ta mavzu",
-                                style: const TextStyle(fontSize: 12),
-                              ),
-                              const SizedBox(width: 12),
                             },
                             if (course.totalVideos != null) ...{
-                              const Icon(
-                                Icons.video_file_outlined,
-                                color: AppColors.grey,
-                                size: 20,
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(
+                                    Icons.video_file_outlined,
+                                    color: AppColors.grey,
+                                    size: 20,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    "${course.totalVideos!.toString()} ta video",
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
+                                  const SizedBox(width: 12),
+                                ],
                               ),
-                              const SizedBox(width: 4),
-                              Text(
-                                "${course.totalVideos!.toString()} ta video",
-                                style: const TextStyle(fontSize: 12),
-                              ),
-                              const SizedBox(width: 12),
                             },
                             if (course.duration != null) ...{
-                              const Icon(
-                                Icons.video_collection_outlined,
-                                color: AppColors.grey,
-                                size: 20,
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(
+                                    Icons.video_collection_outlined,
+                                    color: AppColors.grey,
+                                    size: 20,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    course.duration!,
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
+                                  const SizedBox(width: 12),
+                                ],
                               ),
-                              const SizedBox(width: 4),
-                              Text(
-                                course.duration!,
-                                style: const TextStyle(fontSize: 12),
-                              ),
-                              const SizedBox(width: 12),
                             },
                           ],
                         ),

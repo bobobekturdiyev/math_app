@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,7 +42,7 @@ class _SkillsScreenState extends State<SkillsScreen> {
             children: [
               GestureDetector(
                 onTap: () {
-                  context.router.pop();
+                  context.router.maybePop();
                 },
                 child: SvgPicture.asset(AppIcons.arrowLeft),
               ),
@@ -55,16 +54,16 @@ class _SkillsScreenState extends State<SkillsScreen> {
       ),
       body: BlocListener<ProfileBloc, ProfileState>(
         listener: (context, state) {
-        if (state is SkillsState) {
+          if (state is SkillsState) {
             if (state.status == StateStatus.success) {
               context.read<UserBloc>().add(GetUserData());
-              context.router.pop();
+              context.router.maybePop();
             }
           }
         },
         child: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, state) {
-          if (state is SkillsState) {
+            if (state is SkillsState) {
               return SingleChildScrollView(
                 child: Column(
                   children: [
@@ -94,24 +93,25 @@ class _SkillsScreenState extends State<SkillsScreen> {
         height: 80,
         padding: const EdgeInsets.symmetric(horizontal: 20),
         margin:
-        EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         decoration:
-        const BoxDecoration(border: Border(top: BorderSide(width: 1))),
+            const BoxDecoration(border: Border(top: BorderSide(width: 1))),
         child: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, state) {
-           if (state is SkillsState) {
+            if (state is SkillsState) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   WTextLink(
                       text: "BEKOR QILISH",
                       onTap: () {
-                        context.router.pop();
+                        context.router.maybePop();
                       }),
                   WButton(
                       text: "SAQLASH",
                       onTap: () {
-                        context.read<ProfileBloc>().add(SkillsAdd(status: StateStatus.loaded,tags: skills));
+                        context.read<ProfileBloc>().add(SkillsAdd(
+                            status: StateStatus.loaded, tags: skills));
                       })
                 ],
               );

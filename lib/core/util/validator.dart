@@ -5,6 +5,12 @@ abstract class Validator {
     return emailRegex.hasMatch(email);
   }
 
+  // Method to validate 6-digit OTP
+  static bool validateCode(String code) {
+    final RegExp codeRegex = RegExp(r'^\d{6}$'); // Only 6 digits
+    return codeRegex.hasMatch(code);
+  }
+
   static bool validatePassword(String password) {
     // Regular expression for password validation
     final RegExp passwordRegex =

@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:math_app/features/auth/data/models/login_dto.dart';
+import 'package:math_app/features/auth/domain/entities/check_token_request.dart';
 import 'package:math_app/features/auth/domain/entities/forgot_req/forgot_req1.dart';
 import 'package:math_app/features/auth/domain/entities/forgot_req/forgot_req2.dart';
 import 'package:math_app/features/auth/domain/entities/forgot_req/forgot_request.dart';
 import 'package:math_app/features/auth/domain/entities/login_request.dart';
+import 'package:math_app/features/auth/domain/entities/login_telegram_request.dart';
 import 'package:math_app/features/auth/domain/entities/register_request.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,6 +30,7 @@ class ImplAuthRepo extends AuthRepo {
   void initialize() async {
     preferences = await SharedPreferences.getInstance();
   }
+
   //
   // @override
   // Future<DataState> step1({required RegisterRequest request}) async {
@@ -44,17 +47,10 @@ class ImplAuthRepo extends AuthRepo {
   Future<DataState> verifyCode({
     required String value,
     required String code,
-
   }) async {
     try {
-      final response = await authService.verifyCode(reqBody: {
-        "verify_code":int.parse(code),
-        "value":value
-      }
-
-
-
-      );
+      final response = await authService.verifyCode(
+          reqBody: {"verify_code": int.parse(code), "value": value});
       final String token = response.data.data?.token as String;
       locator<Dio>().options.headers['Authorization'] = 'Bearer $token';
       preferences.setString(AppKeys.token, token);
@@ -66,16 +62,14 @@ class ImplAuthRepo extends AuthRepo {
   }
 
   @override
-  Future<DataState<RegisterDto>> register({required RegisterRequest registerRequest}) async {
+  Future<DataState<RegisterDto>> register(
+      {required RegisterRequest registerRequest}) async {
     try {
       final response = await authService.register(
-   registerRequest: registerRequest,
+        registerRequest: registerRequest,
       );
 
-
-
-
-      return  DataSuccess<RegisterDto>(data: response.data);
+      return DataSuccess<RegisterDto>(data: response.data);
     } catch (e) {
       print(e);
       return _getError<RegisterDto>(e);
@@ -84,67 +78,120 @@ class ImplAuthRepo extends AuthRepo {
 
   _getError<T>(dynamic exception) => DataException.getError<T>(exception);
 
-  @override
-  Future<DataState<LoginDto>> login({required LoginRequest loginRequest}) async {
-    final response=await authService.login(loginRequest: loginRequest);
+  //
+  // @override
+  // Future<DataState<UserDto>> login(
+  //     {required LoginRequest loginRequest}) async {
+  //   final response = await authService.login(loginRequest: loginRequest);
+  //   //
+  //   // try {
+  //   //   if (response.data.data != null) {
+  //   //     saveToken(response.data.data!.authorization.token);
+  //   //   }
+  //   //   return DataSuccess<UserDto>(data: response.data);
+  //   // } catch (e) {
+  //   //   print(e);
+  //   //   return _getError<UserDto>(e);
+  //   // }
+  // }
 
-    try{
-      if(response.data.data!=null) {
-        saveToken(response.data.data!.authorization.token);
-      }
-      return DataSuccess<LoginDto>(data: response.data);
+  // @override
+  // Future<DataState<UserDto>> resetPassword(
+  //     {required ForgotReq forgotReq}) async {
+  //   try {
+  //     final response = await authService.resetPassword(forgotReq: forgotReq);
+  //     if (response.data.data != null) {
+  //       saveToken(response.data.data!.authorization.token);
+  //     }
+  //
+  //     return DataSuccess<UserDto>(data: response.data);
+  //   } catch (e) {
+  //     return _getError<UserDto>(e);
+  //   }
+  // }
 
-    }catch(e){
-      print(e);
-      return _getError<LoginDto>(e);
-
-    }
-
-  }
-
-  @override
-  Future<DataState<LoginDto>> resetPassword({required ForgotReq forgotReq})async {
-      try{
-        final response=await authService.resetPassword(forgotReq: forgotReq);
-       if(response.data.data!=null) {
-         saveToken(response.data.data!.authorization.token);
-      }
-
-      return DataSuccess<LoginDto>(data: response.data);
-      }catch(e){
-        return _getError<LoginDto>(e);
-
-      }
-  }
-
-  saveToken( String token){
+  saveToken(String token) {
     locator<Dio>().options.headers['Authorization'] = 'Bearer $token';
     preferences.setString(AppKeys.token, token);
-
   }
 
   @override
-  Future<DataState<LoginDto>> revokePassword({required  ForgotOneReq forgotOneReq})async {
-    try{
-      final response=await authService.revokePassword(forgotOneReq: forgotOneReq);
-      return DataSuccess<LoginDto>(data: response.data);
-    }catch(e){
-      return _getError<LoginDto>(e);
-
-
+  Future<DataState<UserDto>> revokePassword(
+      {required ForgotOneReq forgotOneReq}) async {
+    try {
+      final response =
+          await authService.revokePassword(forgotOneReq: forgotOneReq);
+      return DataSuccess<UserDto>(data: response.data);
+    } catch (e) {
+      return _getError<UserDto>(e);
     }
   }
 
   @override
-  Future<DataState<LoginDto>> checkVerifyCode({required ForgotTwoReq forgotTwoReq})async {
-      try{
-        final response=await authService.checkVerifyPassword(forgotTwoReq: forgotTwoReq);
-        return DataSuccess<LoginDto>(data: response.data);
-
-      }catch(e){
-        return _getError<LoginDto>(e);
-      }
+  Future<DataState<UserDto>> checkVerifyCode(
+      {required ForgotTwoReq forgotTwoReq}) async {
+    try {
+      final response =
+          await authService.checkVerifyPassword(forgotTwoReq: forgotTwoReq);
+      return DataSuccess<UserDto>(data: response.data);
+    } catch (e) {
+      return _getError<UserDto>(e);
+    }
   }
 
+  @override
+  Future<DataState<bool>> logout() {
+    // TODO: implement logout
+    throw UnimplementedError();
+  }
 
+  @override
+  Future<DataState<UserDto>> loginWithTelegram(
+      {required LoginTelegramRequest loginTelegramRequest}) async {
+    try {
+      final result = await authService.loginTelegram(
+          loginTelegramRequest: loginTelegramRequest);
+
+      if (result.response.statusCode == 200) {
+        final data = result.data;
+
+        final prefs = await SharedPreferences.getInstance();
+
+        prefs.setString(AppKeys.token, data.token);
+        locator<Dio>().options.headers['Authorization'] =
+            'Bearer ${data.token}';
+
+        return DataSuccess<UserDto>(data: result.data);
+      } else {
+        return DataError<UserDto>(result.response.statusMessage);
+      }
+    } catch (e) {
+      return _getError<UserDto>(e);
+    }
+  }
+
+  @override
+  Future<DataState<UserDto>> checkToken(
+      {required CheckTokenRequest checkTokenRequest}) async {
+    try {
+      final result =
+          await authService.checkToken(checkTokenRequest: checkTokenRequest);
+
+      return DataSuccess<UserDto>(data: result.data);
+    } catch (e) {
+      return _getError<UserDto>(e);
+    }
+  }
+
+  @override
+  Future<DataState<UserDto>> login({required LoginRequest loginRequest}) {
+    // TODO: implement login
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<DataState<UserDto>> resetPassword({required ForgotReq forgotReq}) {
+    // TODO: implement resetPassword
+    throw UnimplementedError();
+  }
 }

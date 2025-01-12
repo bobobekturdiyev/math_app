@@ -27,15 +27,16 @@ class WCoverImage extends StatelessWidget {
           fit: BoxFit.fitWidth,
           width: double.infinity,
           errorWidget: (ctx, str, obj) => Container(
-              decoration: const BoxDecoration(
-                color: AppColors.shimmerAnimateLight,
+            decoration: const BoxDecoration(
+              color: AppColors.shimmerAnimateLight,
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.image,
+                color: AppColors.grey,
               ),
-              child: const Center(
-                child: Icon(
-                  Icons.image,
-                  color: AppColors.grey,
-                ),
-              )),
+            ),
+          ),
         ),
       ),
     );

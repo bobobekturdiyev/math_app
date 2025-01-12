@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,7 +43,7 @@ class _AboutAddScreenState extends State<AboutAddScreen> {
             children: [
               GestureDetector(
                 onTap: () {
-                  context.router.pop();
+                  context.router.maybePop();
                 },
                 child: SvgPicture.asset(AppIcons.arrowLeft),
               ),
@@ -59,27 +58,25 @@ class _AboutAddScreenState extends State<AboutAddScreen> {
           if (state is AboutState) {
             if (state.status == StateStatus.success) {
               context.read<UserBloc>().add(GetUserData());
-              context.router.pop();
+              context.router.maybePop();
             }
           }
         },
         child: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, state) {
-
-         return   Column(
-           children: [
-             Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: WTextField(
-                controller: controller,
-                label: "About",
-                maxLines: 12,
-                  errorText:(state is AboutState)?state.error:null ,
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: WTextField(
+                    controller: controller,
+                    label: "About",
+                    maxLines: 12,
+                    errorText: (state is AboutState) ? state.error : null,
+                  ),
                 ),
-                ),
-           ],
-         );
-
+              ],
+            );
           },
         ),
       ),
@@ -96,7 +93,7 @@ class _AboutAddScreenState extends State<AboutAddScreen> {
             WTextLink(
                 text: "BEKOR QILISH",
                 onTap: () {
-                  context.router.pop();
+                  context.router.maybePop();
                 }),
             WButton(
                 text: "SAQLASH",

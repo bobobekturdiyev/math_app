@@ -1,7 +1,3 @@
-import 'dart:io';
-
-import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,8 +5,6 @@ import 'package:flutter/services.dart';
 import 'config/routes/router.dart';
 import 'core/di/injector.dart';
 import 'core/di/locator.dart';
-import 'features/chat/data/websocket/socket_instance.dart';
-import 'firebase_options.dart';
 
 // BACKGROUND HANDLER FOR NOTIFICATION
 
@@ -25,6 +19,8 @@ void main() async {
   // HttpOverrides.global = MyHttpOverrides();
 
   WidgetsFlutterBinding.ensureInitialized();
+  await setupLocator();
+
   // // await NotificationService().initNotification();
   // FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   //
@@ -37,16 +33,8 @@ void main() async {
   //   (SocketInstanse()),
   // );
 
-  setupLocator();
   runApp(
-    EasyLocalization(
-        supportedLocales: const [
-          Locale('uz', 'UZ'),
-        ],
-        path: 'assets/translations',
-        saveLocale: true,
-        startLocale: const Locale('uz', "UZ"),
-        child: Injector(child: MyApp())),
+    Injector(child: MyApp()),
   );
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -72,19 +60,17 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+
     // getToken();
   }
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData themeData = locator<ThemeData>();
+
     return MaterialApp.router(
-      locale: context.locale,
-      supportedLocales: context.supportedLocales,
-      localizationsDelegates: context.localizationDelegates,
       title: 'Matematika kursi',
-      theme: ThemeData(
-        useMaterial3: true,
-      ),
+      theme: themeData,
       debugShowCheckedModeBanner: false,
       routerConfig: _router.config(),
     );

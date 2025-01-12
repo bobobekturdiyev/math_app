@@ -66,11 +66,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                       step: state,
                       isForgot: true,
                       isLogin: false,
-                      windowHeight: windowHeight-scaleHeight(28),
                       scaleFactor: scalingFactor(),
                       formElements: [
-
-
                         BlocListener<ForgotPasswordBloc, ForgotPasswordState>(
                           listener: (context, state) {
                             if (state is ForgotPasswordInitial &&
@@ -114,11 +111,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                       children: [
                                         Text(
                                           "reset_password".tr(),
-                                          style: Styles.getTextStyle(fontSize: scaleSize(22),fontWeight: FontWeight.w500),
+                                          style: Styles.getTextStyle(
+                                              fontSize: scaleSize(22),
+                                              fontWeight: FontWeight.w500),
                                         ),
                                         Text(
                                           "forgot_sub".tr(),
-                                          style: Styles.getTextStyle(color: AppColors.subTextColor),
+                                          style: Styles.getTextStyle(
+                                              color: AppColors.subTextColor),
                                         ),
                                         // Otp(),
 
@@ -141,8 +141,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                         ),
                                       ],
                                     ),
-                                    if (state ==
-                                        StateStatus.loading) ...{
+                                    if (state == StateStatus.loading) ...{
                                       const WFormLoader(),
                                     },
                                     // Align(
@@ -188,7 +187,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                       children: [
                                         Text(
                                           "input_code".tr(),
-                                          style: Styles.getTextStyle(fontSize: scaleSize(22),fontWeight: FontWeight.w500),
+                                          style: Styles.getTextStyle(
+                                              fontSize: scaleSize(22),
+                                              fontWeight: FontWeight.w500),
                                         ),
                                         // Text(
                                         //   "forgot_sub".tr(),
@@ -220,7 +221,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-
                                             const SizedBox(width: 8),
                                             WTextLink(
                                               text: "resend".tr(),
@@ -254,31 +254,36 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                       children: [
                                         Text(
                                           "new_password".tr(),
-                                          style: Styles.getTextStyle(fontSize: scaleSize(22),fontWeight: FontWeight.w500),
+                                          style: Styles.getTextStyle(
+                                              fontSize: scaleSize(22),
+                                              fontWeight: FontWeight.w500),
                                         ),
-                                        const SizedBox(height: 5,),
-                                        WTextField(
-                                          focusNode: passwordFocusNode,
-                                          controller: passwordController,
-                                          label: 'input_password'.tr(),
-                                          hint: 'input_password'.tr(),
-                                          isObscure: true,
-                                          keyboardType:
-                                              TextInputType.visiblePassword,
-                                          errorText:null
-                                              // "state.errorData?['password']",
+                                        const SizedBox(
+                                          height: 5,
                                         ),
                                         WTextField(
-                                          focusNode: confirmPasswordFocusNode,
-                                          controller: confirmPasswordController,
-                                          label: 'repeat_password'.tr(),
-                                          hint: 'repeat_password'.tr(),
-                                          isObscure: true,
-                                          keyboardType:
-                                              TextInputType.visiblePassword,
-                                          errorText:null
-                                              // "state.errorData?['confirm_password']",
-                                        ),
+                                            focusNode: passwordFocusNode,
+                                            controller: passwordController,
+                                            label: 'input_password'.tr(),
+                                            hint: 'input_password'.tr(),
+                                            isObscure: true,
+                                            keyboardType:
+                                                TextInputType.visiblePassword,
+                                            errorText: null
+                                            // "state.errorData?['password']",
+                                            ),
+                                        WTextField(
+                                            focusNode: confirmPasswordFocusNode,
+                                            controller:
+                                                confirmPasswordController,
+                                            label: 'repeat_password'.tr(),
+                                            hint: 'repeat_password'.tr(),
+                                            isObscure: true,
+                                            keyboardType:
+                                                TextInputType.visiblePassword,
+                                            errorText: null
+                                            // "state.errorData?['confirm_password']",
+                                            ),
                                       ],
                                     ),
                                     if (StateStatus.normal ==
@@ -318,8 +323,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                               return SizedBox(
                                 width: double.infinity,
                                 child: WButton(
-
-                                      // state.status == StateStatus.loading,
+                                  // state.status == StateStatus.loading,
                                   text: 'get_code'.tr(),
                                   onTap: () {
                                     _callBloc(
@@ -355,9 +359,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                           },
                         ),
                         SizedBox(height: scaleSize(24)),
-
-
-
                       ],
                     );
                   },

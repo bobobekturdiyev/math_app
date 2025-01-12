@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:math_app/core/resources/state_status.dart';
-import 'package:math_app/core/widgets/w_date.dart';
 import 'package:math_app/core/widgets/w_form_loader.dart';
 import 'package:math_app/core/widgets/w_textfield.dart';
 import 'package:math_app/features/profile/domain/entity/protfolio_reqs/award_req/award_req.dart';
@@ -29,7 +28,6 @@ class _AwardScreenState extends State<AwardScreen> {
   late TextEditingController descController;
   late TextEditingController linkController;
   late AwardBloc awardBloc;
-
 
   @override
   void initState() {
@@ -70,7 +68,7 @@ class _AwardScreenState extends State<AwardScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    context.router.pop();
+                    context.router.maybePop();
                   },
                   child: SvgPicture.asset(AppIcons.arrowLeft),
                 ),
@@ -80,13 +78,11 @@ class _AwardScreenState extends State<AwardScreen> {
             ),
           ),
         ),
-
-
         body: BlocConsumer<AwardBloc, AwardState>(
           listener: (context, state) {
-            if(state is AwardSuccess){
+            if (state is AwardSuccess) {
               context.read<UserBloc>().add(GetUserData());
-              context.router.pop();
+              context.router.maybePop();
             }
           },
           builder: (context, state) {
@@ -111,7 +107,7 @@ class _AwardScreenState extends State<AwardScreen> {
                       ),
                     ],
                   ),
-                  if(state.status==StateStatus.loading)...{
+                  if (state.status == StateStatus.loading) ...{
                     const WFormLoader()
                   }
                 ],
@@ -119,15 +115,15 @@ class _AwardScreenState extends State<AwardScreen> {
             );
           },
         ),
-        bottomNavigationBar: WBottomButtons(onTap: () {
-          if (widget.id == null) {
-            awardBloc.add(AddAward(
-                awardReq: AwardReq(
-                    title: controller.text,
-
-                    link: linkController.text, description: descController.text)));
-          }
-          else {
+        bottomNavigationBar: WBottomButtons(
+          onTap: () {
+            if (widget.id == null) {
+              awardBloc.add(AddAward(
+                  awardReq: AwardReq(
+                      title: controller.text,
+                      link: linkController.text,
+                      description: descController.text)));
+            } else {
               awardBloc.add(EditAward(
                   awardReq: AwardReq(
                       title: controller.text,
@@ -135,7 +131,8 @@ class _AwardScreenState extends State<AwardScreen> {
                       description: descController.text),
                   id: widget.id!));
             }
-        },),
+          },
+        ),
       ),
     );
   }

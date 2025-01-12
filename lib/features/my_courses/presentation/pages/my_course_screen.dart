@@ -1,20 +1,22 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:math_app/config/routes/route_path.dart';
 import 'package:math_app/config/routes/router.gr.dart';
+import 'package:math_app/core/di/locator.dart';
 import 'package:math_app/core/resources/app_colors.dart';
-import 'package:math_app/core/resources/app_icons.dart';
-import 'package:math_app/core/resources/styles.dart';
-import 'package:math_app/core/widgets/w_tabbar.dart';
+import 'package:math_app/core/state/bloc/bottom_nav_bar/bottom_nav_bar_bloc.dart';
+import 'package:math_app/core/widgets/w_button.dart';
+import 'package:math_app/core/widgets/w_loader.dart';
+import 'package:math_app/core/widgets/w_non_auth.dart';
 import 'package:math_app/features/my_courses/presentation/manager/my_course_screen/my_course_screen_bloc.dart';
-import 'package:math_app/features/my_courses/presentation/widgets/w_my_course_item.dart';
+
+import '../../../home/presentation/widgets/w_category.dart';
+import '../widgets/w_my_course_item.dart';
 
 @RoutePage()
 class MyCoursesScreen extends StatefulWidget {
-  const MyCoursesScreen({Key? key}) : super(key: key);
+  const MyCoursesScreen({super.key});
 
   @override
   State<MyCoursesScreen> createState() => _MyCoursesScreenState();
@@ -23,6 +25,7 @@ class MyCoursesScreen extends StatefulWidget {
 class _MyCoursesScreenState extends State<MyCoursesScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
+  MyCourseScreenBloc myCourseScreenBloc = MyCourseScreenBloc();
 
   @override
   void initState() {
@@ -30,99 +33,132 @@ class _MyCoursesScreenState extends State<MyCoursesScreen>
     super.initState();
   }
 
+  Function? onRefresh;
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MyCourseScreenBloc(myCourseRepo: context.read()),
+    return BlocProvider<MyCourseScreenBloc>.value(
+      value: myCourseScreenBloc,
       child: Scaffold(
-          backgroundColor: AppColors.white,
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            centerTitle: true,
-            toolbarHeight: 72,
-            scrolledUnderElevation: 0,
-            backgroundColor: AppColors.backgroundColor,
-            title: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "my_courses".tr(),
-                    style: Styles.getTextStyle(
-                        fontSize: 16, fontWeight: FontWeight.w600),
+          backgroundColor: AppColors.backgroundColor,
+          body: RefreshIndicator(
+            color: AppColors.primaryColor,
+            backgroundColor: AppColors.white,
+            onRefresh: () async {
+              if (onRefresh == null) {
+                myCourseScreenBloc.add(GetMyCourses());
+              } else {
+                // onRefresh!();
+              }
+            },
+            child: CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  pinned: true,
+                  floating: true,
+                  elevation: 0,
+                  scrolledUnderElevation: 0,
+                  backgroundColor: AppColors.white,
+                  title: Text(
+                    'Mening kurslarim',
+                    style: Theme.of(context).textTheme.headlineMedium,
                   ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: SvgPicture.asset(
-                      AppIcons.dotsBadge,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              WTabBar(
-
-                tabController: tabController,
-                tabs: [
-                  Tab(
-                    text: 'all'.tr(),
-                  ),
-                  Tab(
-                    text: 'in_process'.tr(),
-                  ),
-                  Tab(
-                    text: 'complete'.tr(),
-                  ),
-                ],
-              ),
-              Expanded(
-                child: TabBarView(
-                  controller: tabController,
-                  children: [
-                    ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        itemCount: 10,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                              onTap: (){
-                                context.router.push(ShowLessonRoute(slug: 'slug'));
-                              },
-                              child: WMyCourseItem());
-                        }),
-                    SizedBox(),
-                    SizedBox(),
-                  ],
                 ),
-              ),
-            ],
+                BlocBuilder<MyCourseScreenBloc, MyCourseScreenState>(
+                  builder: (context, state) {
+                    if (state is MyCoursesLoaded) {
+                      return SliverList(
+                        delegate: SliverChildListDelegate(
+                          [
+                            Container(
+                              decoration: const BoxDecoration(
+                                color: AppColors.white,
+                              ),
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    SizedBox(width: 16),
+                                    WCategory(
+                                      onTap: () {},
+                                      text: "Barcha kurslar",
+                                      isActive: true,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 16),
+                            ListView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, index) => Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16.0),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          context.router.push(
+                                              CourseDetailsRoute(
+                                                  courseDto:
+                                                      state.courses[index]));
+                                        },
+                                        child: WMyCourseItem(
+                                          course: state.courses[index],
+                                        ),
+                                        // child: WCourseCard(
+                                        //   course: state.courses[index],
+                                        // ),
+                                      ),
+                                    ),
+                                itemCount: state.courses.length)
+                          ],
+                        ),
+                      );
+                    } else if (state is MyCourseLoading) {
+                      return const SliverToBoxAdapter(
+                        child: Center(
+                          child: WLoader(),
+                        ),
+                      );
+                    } else if (state is MyCoursesError) {
+                      if (state.code != null && state.code == 401) {
+                        return SliverList(
+                          delegate: SliverChildListDelegate([
+                            WNonAuth(
+                              text:
+                                  "Kurslar ochilishi uchun, dastlab, tizimga kirgan bo'lishingiz kerak",
+                              onLoginTap: () {
+                                locator<BottomNavBarBloc>()
+                                    .add(OpenPage(path: RoutePath.profile));
+                              },
+                            )
+                          ]),
+                        );
+                      }
+
+                      return SliverToBoxAdapter(
+                        child: Column(
+                          children: [
+                            Text(state.message),
+                            WButton(
+                              text: 'Qayta yuklash',
+                              onTap: () {
+                                myCourseScreenBloc.add(GetMyCourses());
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return const SliverToBoxAdapter(
+                        child: SizedBox(),
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
           )),
     );
   }
 }
-
-// BlocBuilder<MyCourseScreenBloc, MyCourseScreenState>(
-// builder: (context, state) {
-// if (state is MyCourseLoading) {
-// return const Center(child: CircularProgressIndicator(),);
-// } else if (state is MyCoursesLoaded) {
-// return ListView.builder(
-// padding: const EdgeInsets.symmetric(horizontal: 20),
-// itemCount: state.myCourses.length,
-// itemBuilder: (context, index) {
-// return  WMyCourseItem(myCourse: state.myCourses[index],);
-// });
-// } else if (state is MyCoursesError) {
-// return const Center(child: Text("Error"),);
-// } else if (state is NoAuth) {
-// return Center(child: WButton(text: "Kirish", onTap: () {
-// context.router.replaceNamed(RoutePath.login);
-// }),);
-// } else {
-// return const SizedBox();
-// }
-// })

@@ -1,6 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:math_app/config/theme.dart';
+import 'package:math_app/core/state/bloc/auth/auth_bloc.dart';
+import 'package:math_app/core/state/bloc/bottom_nav_bar/bottom_nav_bar_bloc.dart';
+import 'package:math_app/features/auth/data/data_sources/auth_service.dart';
+import 'package:math_app/features/auth/data/repositories/impl_auth_repo.dart';
+import 'package:math_app/features/auth/domain/repositories/auth_repo.dart';
 import 'package:math_app/features/home/data/data_source/course_service.dart';
 import 'package:math_app/features/home/data/repositories/impl_course_repo.dart';
 import 'package:math_app/features/home/domain/repositories/course_repo.dart';
@@ -38,9 +44,18 @@ Future<void> setupLocator() async {
   dio.options.headers.addAll({
     "X-Authorization": "Programmer Uz",
     "Authorization": "Bearer $token",
+    "Accept": "application/json",
   });
 
   locator.registerSingleton<Dio>(dio);
+
+  locator.registerSingleton<ThemeData>(AppTheme.light());
+  locator.registerSingleton<BottomNavBarBloc>(BottomNavBarBloc());
+
+  locator.registerSingleton<AuthService>(AuthService(locator<Dio>()));
+  locator.registerSingleton<AuthRepo>(
+      ImplAuthRepo(authService: locator<AuthService>()));
+  locator.registerSingleton<AuthBloc>(AuthBloc());
 
   locator.registerSingleton<CourseService>(CourseService(locator<Dio>()));
   locator.registerSingleton<CourseRepo>(

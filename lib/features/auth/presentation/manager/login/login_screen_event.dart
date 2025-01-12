@@ -16,3 +16,14 @@ class SendCredentials extends LoginScreenEvent {
   @override
   List<Object?> get props => [value, password];
 }
+
+class SendTelegramCredentials extends LoginScreenEvent {
+  final String value;
+
+  const SendTelegramCredentials({
+    required this.value,
+  });
+
+  @override
+  List<Object?> get props => [value];
+}

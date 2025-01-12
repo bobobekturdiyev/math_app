@@ -37,7 +37,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter(
-      routes: context.read<BottomNavBarBloc>().getRoutes(),
+      routes: locator<BottomNavBarBloc>().getRoutes(),
       transitionBuilder: (context, child, animation) {
         return child;
       },
@@ -120,7 +120,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
   }
 
   _openPage(String path) {
-    context.read<BottomNavBarBloc>().add(OpenPage(path: path));
+    locator<BottomNavBarBloc>().add(OpenPage(path: path));
     context.router.maybePop();
   }
 }

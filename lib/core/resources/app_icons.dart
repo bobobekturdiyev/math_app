@@ -1,6 +1,8 @@
 abstract class AppIcons {
   AppIcons._();
+
   static const _imgPath = "assets/svg";
+
   //   BOTTOM BAR ICONS
   // ============================================
   static const String homeDis = "$_imgPath/home_disabled.svg";
@@ -11,17 +13,21 @@ abstract class AppIcons {
   static const String chatEn = "$_imgPath/chat_enabled.svg";
   static const String profileDis = "$_imgPath/profile_disabled.svg";
   static const String profileEn = "$_imgPath/profile_enabled.svg";
+
   // ============================================
 
-
-  static const String variantCheckSuccess = "$_imgPath/variant_check_success.svg";
-  static const String variantCheckFailure= "$_imgPath/variant_check_failure.svg";
+  static const String variantCheckSuccess =
+      "$_imgPath/variant_check_success.svg";
+  static const String variantCheckFailure =
+      "$_imgPath/variant_check_failure.svg";
   static const String bubbleSuccess = "$_imgPath/bubble_success.svg";
   static const String bubbleFailure = "$_imgPath/bubble_failure.svg";
   static const String arrowRight = "$_imgPath/arrow_right.svg";
+  static const String arrowRightRounded = "$_imgPath/arrow_right_rounded.svg";
   static const String pause = "$_imgPath/pause.svg";
   static const String checkRoundBadge = "$_imgPath/check_round_badge.svg";
-  static const String exclamationRoundBadge = "$_imgPath/exclamation_round_badge.svg";
+  static const String exclamationRoundBadge =
+      "$_imgPath/exclamation_round_badge.svg";
   static const String checkCircle = "$_imgPath/check_circle.svg";
   static const String dotsBadge = "$_imgPath/dots_badge.svg";
   static const String plus = "$_imgPath/plus.svg";
@@ -31,7 +37,7 @@ abstract class AppIcons {
   static const String star = "$_imgPath/star.svg";
   static const String lists = "$_imgPath/list.svg";
   static const String filter = "$_imgPath/filter.svg";
-  static const String videoPlay  = "$_imgPath/play_round_disabled.svg";
+  static const String videoPlay = "$_imgPath/play_round_disabled.svg";
   static const String comment = "$_imgPath/comment.svg";
   static const String profile = "$_imgPath/profile.svg";
   static const String award = "$_imgPath/award.svg";
@@ -68,5 +74,13 @@ abstract class AppIcons {
   static const String add = "$_imgPath/add.svg";
   static const String delete = "$_imgPath/delete.svg";
 
-
+  static const String faq = "$_imgPath/faq.svg";
+  static const String info = "$_imgPath/info.svg";
+  static const String logout = "$_imgPath/logout.svg";
+  static const String notificationSettings =
+      "$_imgPath/notification_settings.svg";
+  static const String password = "$_imgPath/password.svg";
+  static const String privacy = "$_imgPath/privacy.svg";
+  static const String security = "$_imgPath/security.svg";
+  static const String settings = "$_imgPath/settings.svg";
 }

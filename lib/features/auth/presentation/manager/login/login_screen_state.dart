@@ -17,7 +17,21 @@ class LoginScreenInitial extends LoginScreenState {
   List<Object> get props => [status];
 }
 
+class LoginScreenLoading extends LoginScreenState {
+  @override
+  List<Object> get props => [];
+}
+
 class Success extends LoginScreenState {
   @override
   List<Object> get props => [];
+}
+
+class LoginError extends LoginScreenState {
+  final String message;
+
+  const LoginError({required this.message});
+
+  @override
+  List<Object> get props => [message];
 }

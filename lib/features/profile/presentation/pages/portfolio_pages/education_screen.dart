@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,7 +11,6 @@ import 'package:math_app/features/profile/presentation/widgets/w_bottom_buttons.
 
 import '../../../../../core/resources/app_icons.dart';
 import '../../../../../core/resources/styles.dart';
-import '../../../../../core/widgets/w_date.dart';
 import '../../manager/user_bloc/user_bloc.dart';
 
 @RoutePage()
@@ -31,7 +29,6 @@ class _EducationScreenState extends State<EducationScreen> {
   late EducationBloc eduBloc;
   String? fromDate;
   String? toDate;
-
 
   @override
   void initState() {
@@ -72,7 +69,7 @@ class _EducationScreenState extends State<EducationScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    context.router.pop();
+                    context.router.maybePop();
                   },
                   child: SvgPicture.asset(AppIcons.arrowLeft),
                 ),
@@ -84,29 +81,29 @@ class _EducationScreenState extends State<EducationScreen> {
         ),
         body: BlocConsumer<EducationBloc, EducationState>(
           listener: (context, state) {
-            if(state is EduState){
+            if (state is EduState) {
               context.read<UserBloc>().add(GetUserData());
-              context.router.pop();
+              context.router.maybePop();
             }
-            },
+          },
           builder: (context, state) {
-
-            if(state is EduState){
-              return         SingleChildScrollView(
+            if (state is EduState) {
+              return SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Stack(
                   children: [
                     Column(
                       children: [
-                        WTextField(controller: controller,
+                        WTextField(
+                          controller: controller,
                           label: "Title",
                           hint: "Ex: Programmer Uz",
                           errorText: state.errorData?['university'],
                         ),
-
-                        WTextField(controller: linkController,
+                        WTextField(
+                          controller: linkController,
                           label: "link",
-                          errorText:  state.errorData?['website'],
+                          errorText: state.errorData?['website'],
                         ),
                         Row(
                           mainAxisSize: MainAxisSize.min,
@@ -118,29 +115,28 @@ class _EducationScreenState extends State<EducationScreen> {
                             //   date: fromDate,
                             //   errorText: state.errorData?['fromDate'],
                             // )),
-                            const SizedBox(width: 16,),
+                            const SizedBox(
+                              width: 16,
+                            ),
                             // Expanded(child: WDate(onDateChange: (onDateChange) {
                             //   toDate =
                             //       DateFormat("yyyy-MM-dd").format(onDateChange);
                             // }, date: toDate,
                             //   errorText: state.errorData?['toDate'],
                             // )),
-
                           ],
                         ),
                       ],
                     ),
-                    if(state.status==StateStatus.loading)...{
+                    if (state.status == StateStatus.loading) ...{
                       const WFormLoader()
                     }
                   ],
-
                 ),
               );
-            }else{
+            } else {
               return const SizedBox();
             }
-
           },
         ),
         bottomNavigationBar: WBottomButtons(
@@ -152,8 +148,7 @@ class _EducationScreenState extends State<EducationScreen> {
                       fromDate: fromDate ?? '',
                       toDate: toDate ?? "",
                       website: linkController.text)));
-            }
-            else {
+            } else {
               eduBloc.add(EditEdu(
                   eduReq: EduReq(
                       university: controller.text,

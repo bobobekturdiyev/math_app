@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class WHtml extends StatelessWidget {
   final String htmlContent;
@@ -25,24 +26,58 @@ class WHtml extends StatelessWidget {
   _htmlWidget() => HtmlWidget(
         htmlContent,
         customStylesBuilder: (element) {
+          // Style for elements with the class 'foo'
           if (element.classes.contains('foo')) {
-            return {'color': 'red'};
+            return {
+              'color': 'red',
+              'font-weight': 'bold',
+              'font-size': '16px',
+              'text-decoration': 'underline',
+            };
           }
+
+          // Style for links (anchor tags)
+          if (element.localName == 'a') {
+            return {
+              'color': 'blue',
+              'text-decoration': 'none',
+              'font-weight': 'normal',
+            };
+          }
+
+          // Other styles for paragraphs, headings, etc.
+          if (element.localName == 'p') {
+            return {
+              'font-size': '16px',
+              'line-height': '1.6',
+              'color': '#333',
+              'margin': '10px 0',
+            };
+          }
+          // (Add other custom styles here)
 
           return null;
         },
-        // this callback will be triggered when user taps a link
-        onTapUrl: (url) => true,
 
-        // select the render mode for HTML body
-        // by default, a simple `Column` is rendered
-        // consider using `ListView` or `SliverList` for better performance
+        // Callback for when a user taps a URL
+        onTapUrl: (url) async {
+          // Use url_launcher to open the URL
+          if (!await launchUrl(Uri.parse(url))) {
+            return false;
+          }
+          return true; // Return true to handle the URL tap
+        },
+
+        // Render mode for HTML body
         renderMode: RenderMode.column,
 
-        // set the default styling for text
+        // Default styling for text
         textStyle: TextStyle(
           fontSize: 14,
           fontFamily: 'Bornia',
+          color: Colors.black,
+          letterSpacing: 0.5,
+          height: 1.5,
         ),
       );
 }

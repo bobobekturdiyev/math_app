@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +48,7 @@ class _PlanScreenState extends State<PlanScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      context.router.pop();
+                      context.router.maybePop();
                     },
                     child: SvgPicture.asset(AppIcons.arrowLeft),
                   ),
@@ -105,7 +104,9 @@ class _PlanScreenState extends State<PlanScreen> {
                       ),
                       WPlanItem(
                         onTap: () {
-                          showToPay(price: state.plans[0].price, id: state.plans[0].id);
+                          showToPay(
+                              price: state.plans[0].price,
+                              id: state.plans[0].id);
                         },
                         plan: state.plans[0],
                         colors: const [
@@ -118,7 +119,9 @@ class _PlanScreenState extends State<PlanScreen> {
                       ),
                       WPlanItem(
                         onTap: () {
-                          showToPay(price: state.plans[1].price, id: state.plans[1].id);
+                          showToPay(
+                              price: state.plans[1].price,
+                              id: state.plans[1].id);
                         },
                         plan: state.plans[1],
                         isYear: true,
@@ -145,7 +148,7 @@ class _PlanScreenState extends State<PlanScreen> {
     );
   }
 
-  showToPay({required double price,required int id}) {
+  showToPay({required double price, required int id}) {
     return showModalBottomSheet(
         isScrollControlled: true,
         context: locator<GlobalKey<ScaffoldState>>().currentContext!,
@@ -163,7 +166,7 @@ class _PlanScreenState extends State<PlanScreen> {
                       listener: (context, state) {
                         if (state is PaySuccess) {
                           AppToast.show(context: context, message: "To'landi");
-                          context.router.pop();
+                          context.router.maybePop();
                         }
                       },
                       child: BlocBuilder<PaymeBloc, PaymeState>(

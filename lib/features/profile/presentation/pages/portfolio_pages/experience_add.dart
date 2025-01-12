@@ -1,10 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:math_app/core/resources/state_status.dart';
-import 'package:math_app/core/widgets/w_date.dart';
 import 'package:math_app/core/widgets/w_form_loader.dart';
 import 'package:math_app/core/widgets/w_textfield.dart';
 import 'package:math_app/features/profile/domain/entity/protfolio_reqs/exp_req/exp_req.dart';
@@ -33,11 +31,9 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
   String? fromDate;
   String? toDate;
 
-
-
   @override
   void initState() {
-    expBloc=ExperienceBloc(profileRepo: context.read());
+    expBloc = ExperienceBloc(profileRepo: context.read());
     init();
     super.initState();
   }
@@ -64,7 +60,7 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>expBloc,
+      create: (context) => expBloc,
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -76,7 +72,7 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    context.router.pop();
+                    context.router.maybePop();
                   },
                   child: SvgPicture.asset(AppIcons.arrowLeft),
                 ),
@@ -86,30 +82,28 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
             ),
           ),
         ),
-        body:  BlocConsumer<ExperienceBloc, ExperienceState>(
+        body: BlocConsumer<ExperienceBloc, ExperienceState>(
           listener: (context, state) {
-            if(state is ExpSuccess){
+            if (state is ExpSuccess) {
               context.read<UserBloc>().add(GetUserData());
-              context.router.pop();
+              context.router.maybePop();
             }
-
           },
           builder: (context, state) {
-
-            if(state is ExpState){
-            return  SingleChildScrollView(
+            if (state is ExpState) {
+              return SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Stack(
                   children: [
                     Column(
                       children: [
-                        WTextField(controller: controller,
+                        WTextField(
+                          controller: controller,
                           label: "Title",
                           hint: "Ex: Programmer Uz",
                           errorText: state.errorData?['title'],
                         ),
-
-                          Row(
+                        Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             // Expanded(child: WDate(onDateChange: (onDateChange) {
@@ -118,7 +112,9 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
                             //   date: fromDate,
                             // errorText: state.errorData?['fromDate'],
                             // )),
-                            const SizedBox(width: 16,),
+                            const SizedBox(
+                              width: 16,
+                            ),
                             // Expanded(child: WDate(onDateChange: (onDateChange) {
                             //   toDate =
                             //       DateFormat("yyyy-MM-dd").format(onDateChange);
@@ -127,53 +123,53 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
                             // )),
                           ],
                         ),
-                        WTextField(controller: compController,
+                        WTextField(
+                          controller: compController,
                           label: "Company",
                           hint: "Ex: Programmer Uz",
                           errorText: state.errorData?['company'],
                         ),
-                        WTextField(controller: descController,
+                        WTextField(
+                          controller: descController,
                           label: "Description",
                           maxLines: 10,
                           errorText: state.errorData?['description'],
                         ),
                       ],
                     ),
-                    if(state.status==StateStatus.loading)...{
+                    if (state.status == StateStatus.loading) ...{
                       const WFormLoader()
                     }
                   ],
                 ),
               );
-
-            }else{
+            } else {
               return const SizedBox();
             }
-
           },
         ),
-        bottomNavigationBar: WBottomButtons(onTap: () {
-          if(widget.id==null){
-            expBloc.add(AddExp(
+        bottomNavigationBar: WBottomButtons(
+          onTap: () {
+            if (widget.id == null) {
+              expBloc.add(AddExp(
                   expReq: ExpReq(
                       title: controller.text,
-                      fromDate: fromDate??'',
-                      toDate: toDate??"",
+                      fromDate: fromDate ?? '',
+                      toDate: toDate ?? "",
                       compName: compController.text,
                       description: descController.text)));
+            } else {
+              expBloc.add(EditExp(
+                  expReq: ExpReq(
+                      title: controller.text,
+                      fromDate: fromDate ?? '',
+                      toDate: toDate ?? "",
+                      compName: compController.toString(),
+                      description: descController.text),
+                  id: widget.id!));
             }
-          else{
-            expBloc.add(EditExp(
-                expReq: ExpReq(
-                    title: controller.text,
-                    fromDate: fromDate??'',
-                    toDate: toDate??"",
-                    compName: compController.toString(),
-                    description: descController.text), id: widget.id!));
-          }
-
-
-        },),
+          },
+        ),
       ),
     );
   }

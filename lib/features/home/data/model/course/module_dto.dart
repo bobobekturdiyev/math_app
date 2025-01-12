@@ -3,7 +3,7 @@ import 'package:math_app/features/home/data/model/course/lesson_dto.dart';
 class ModuleDto {
   int? id;
   String? name;
-  List<LessonShortDto>? lessons;
+  List<LessonDto>? lessons;
 
   ModuleDto({id, name, lessons});
 
@@ -11,15 +11,15 @@ class ModuleDto {
     id = json['id'];
     name = json['name'];
     if (json['lessons'] != null) {
-      lessons = <LessonShortDto>[];
+      lessons = <LessonDto>[];
       json['lessons'].forEach((v) {
-        lessons!.add(LessonShortDto.fromJson(v));
+        lessons!.add(LessonDto.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =<String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
     if (lessons != null) {

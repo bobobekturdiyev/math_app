@@ -7,20 +7,32 @@ class MyCourseScreenInitial extends MyCourseScreenState {
   @override
   List<Object?> get props => [];
 }
+
 class MyCourseLoading extends MyCourseScreenState {
   @override
   List<Object?> get props => [];
 }
-class MyCoursesLoaded extends MyCourseScreenState {
-  final List<MyCourseDto> myCourses;
 
-  MyCoursesLoaded({required this.myCourses});
+class MyCoursesLoaded extends MyCourseScreenState {
+  final List<CourseDto> courses;
+
+  MyCoursesLoaded({required this.courses});
+
   @override
-  List<Object?> get props => [myCourses];
+  List<Object?> get props => [courses];
 }
+
 class MyCoursesError extends MyCourseScreenState {
+  final String message;
+  final int? code;
+
+  MyCoursesError({
+    required this.message,
+    this.code,
+  });
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [message];
 }
 
 class NoAuth extends MyCourseScreenState {

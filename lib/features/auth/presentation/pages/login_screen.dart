@@ -1,19 +1,16 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restart_app/restart_app.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:math_app/config/routes/router.gr.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../config/routes/route_path.dart';
 import '../../../../core/resources/app_colors.dart';
 import '../../../../core/resources/app_dimension.dart';
-import '../../../../core/resources/state_status.dart';
 import '../../../../core/resources/styles.dart';
 import '../../../../core/widgets/unfocus.dart';
 import '../../../../core/widgets/w_button.dart';
-import '../../../../core/widgets/w_form_loader.dart';
-import '../../../../core/widgets/w_text_link.dart';
-import '../../../../core/widgets/w_textfield.dart';
 import '../manager/login/login_screen_bloc.dart';
 import '../widgets/w_auth_holder.dart';
 
@@ -25,10 +22,14 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
+enum LoginWithState { defaultLogin, telegram }
+
 class _LoginScreenState extends State<LoginScreen> with AppDimension {
   TextEditingController controller = TextEditingController();
+  TextEditingController codeController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  LoginWithState loginWithState = LoginWithState.telegram;
   FocusNode focusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
 
@@ -38,170 +39,141 @@ class _LoginScreenState extends State<LoginScreen> with AppDimension {
   void initState() {
     controllers = [
       controller,
+      codeController,
       passwordController,
     ];
     super.initState();
   }
 
-  late BuildContext ctx;
+  LoginScreenBloc loginScreenBloc = LoginScreenBloc();
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginScreenBloc(authRepo: context.read() ),
+    return BlocProvider<LoginScreenBloc>.value(
+      value: loginScreenBloc,
       child: Unfocus(
         child: Scaffold(
           backgroundColor: AppColors.white,
-          body: SingleChildScrollView(
-            child: SizedBox(
-              height: windowHeight,
-              child: WAuthHolder(
-                windowHeight: windowHeight,
-                scaleFactor: scalingFactor(),
-                formElements: [
-                  Text(
-                    "login".tr(),
-                    style: Styles.getTextStyle(fontSize: scaleSize(22),fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    "email_password".tr(),
-                    style: Styles.getTextStyle(color: AppColors.subTextColor),
-                  ),
-                  SizedBox(height: scaleHeight(12),),
-                  BlocListener<LoginScreenBloc, LoginScreenState>(
-                    listener: (context, state) {
-                      if (state is LoginScreenInitial &&
-                          state.status == StateStatus.error) {
-                        if (state.errorData?['value'] != null) {
-                          setFocus(focusNode);
-                        } else if (state.errorData?['password'] != null) {
-                          setFocus(passwordFocusNode);
-                        }
-                      }
-
-                      if (state is Success) {
-                        Restart.restartApp();
-
-                      }
-                    },
-                    child: BlocBuilder<LoginScreenBloc, LoginScreenState>(
-                      builder: (context, state) {
-                        ctx = context;
-                        if (state is LoginScreenInitial) {
-                          return Stack(
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+          body: BlocBuilder<LoginScreenBloc, LoginScreenState>(
+            builder: (context, state) {
+              return BlocListener<LoginScreenBloc, LoginScreenState>(
+                listener: (context, state) {
+                  if (state is Success) {
+                    context.router.replaceAll([SplashRoute()]);
+                  }
+                },
+                child: SingleChildScrollView(
+                  child: KeyboardVisibilityBuilder(
+                      builder: (context, isKeyboardVisible) {
+                    return ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: isKeyboardVisible
+                            ? MediaQuery.sizeOf(context).height / 2
+                            : MediaQuery.sizeOf(context).height -
+                                100, // Account for keyboard height
+                      ),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: WAuthHolder(
+                          scaleFactor: scalingFactor(),
+                          formElements: [
+                            Text(
+                              "Tizimga kirish",
+                              style: Styles.getTextStyle(
+                                  fontSize: scaleSize(22),
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            Text.rich(
+                              TextSpan(
                                 children: [
-                                  if (state.errorData != null &&
-                                      state.errorData!['error'] != null) ...{
-                                    Text(
-                                      state.errorData!['error']!,
-                                      style: Styles.getTextStyle(
-                                        fontSize: 14,
-                                        color: AppColors.danger,
-                                      ),
+                                  TextSpan(
+                                    text: "@programmeruzbot",
+                                    style: TextStyle(
+                                      color: AppColors.primaryColor,
+                                      decoration: TextDecoration.underline,
+                                      fontSize: 14,
                                     ),
-                                  },
-                                  WTextField(
-                                    label: 'email'.tr(),
-                                    focusNode: focusNode,
-                                    controller: controller,
-                                    hint: "example@gmail.com",
-
-                                    keyboardType: TextInputType.emailAddress,
-                                    errorText: state.errorData?['value'],
-                                  ),
-                                  // SizedBox(height: scaleSize(4)),
-                                  WTextField(
-                                    label: 'password'.tr(),
-                                    focusNode: passwordFocusNode,
-                                    hint: '*********',
-                                    controller: passwordController,
-                                    isObscure: true,
-                                    keyboardType: TextInputType.visiblePassword,
-                                    errorText: state.errorData?['password'],
-                                    onSubmitted: (str) {
-                                      _callBloc(
-                                        context: context,
-                                        event: SendCredentials(
-                                          value: controller.text,
-                                          password: passwordController.text,
-                                        ),
-                                      );
-                                    },
-                                  ),
-
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: WTextLink(
-                                      text: "forgot_password".tr(),
-                                      onTap: () {
-                                        context.router.replaceNamed(RoutePath.forgotPassword);
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () async {
+                                        final url =
+                                            'https://t.me/programmeruzbot';
+                                        await _launchUrl(url);
                                       },
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        " telegram botimiz orqali 1 daqiqalik kod olib, quyida yozing: ",
+                                    style: TextStyle(
+                                      color: AppColors.grey,
+                                      fontSize: 14,
                                     ),
                                   ),
-                                  SizedBox(height: scaleSize(8)),
                                 ],
                               ),
-                              if (state.status == StateStatus.loading) ...{
-                                const WFormLoader(),
-                              }
-                            ],
-                          );
-                        } else {
-                          return const SizedBox();
-                        }
-                      },
-                    ),
-                  ),
-                ],
-                footerElements: [
-                  SizedBox(
-                    width: double.infinity,
-                    child: WButton(
-                      text: 'login'.tr(),
-                      onTap: () {
-                        _callBloc(
-                            context: ctx,
-                            event: SendCredentials(
-                              value: controller.text,
-                              password: passwordController.text,
-                            ));
-                      },
-                    ),
-                  ),
-                  SizedBox(height: scaleSize(8)),
-
-                  Align(
-                    alignment: Alignment.center,
-                    child:Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                         Text("Sizda akkount mavjudmi?",style: Styles.getTextStyle(color: AppColors.subTextColor),),
-                        const SizedBox(width: 8,),
-                        WTextLink(
-                          text: "register".tr(),
-                          onTap: () {
-                            context.router.replaceNamed(RoutePath.register);
-                          },
+                            ),
+                            SizedBox(
+                              height: scaleHeight(12),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                TextField(
+                                  controller: codeController,
+                                  decoration: InputDecoration(
+                                      hintText: 'Kodni kiriting',
+                                      counterText: "",
+                                      errorText: state is LoginScreenInitial
+                                          ? (state.errorData?['value'])
+                                          : null),
+                                  cursorColor: AppColors.primaryColor,
+                                  maxLength: 6,
+                                  keyboardType: TextInputType.number,
+                                ),
+                                if (state is LoginError) ...{
+                                  SizedBox(height: 8),
+                                  Text(
+                                    state.message,
+                                    style: Styles.getTextStyle(
+                                      fontSize: 14,
+                                      color: AppColors.danger,
+                                    ),
+                                  ),
+                                  SizedBox(height: 16),
+                                },
+                                SizedBox(
+                                  height: scaleSize(8),
+                                ),
+                              ],
+                            )
+                          ],
+                          footerElements: [
+                            SizedBox(
+                              width: double.infinity,
+                              child: WButton(
+                                text: 'Tizimga kirish',
+                                showLoader: state is LoginScreenLoading,
+                                onTap: () {
+                                  final code = codeController.text.trim();
+                                  if (code.isNotEmpty && code != "") {
+                                    loginScreenBloc.add(
+                                        SendTelegramCredentials(value: code));
+                                  }
+                                },
+                              ),
+                            ),
+                            SizedBox(height: scaleSize(8)),
+                          ],
                         ),
-                      ],
-                    )
-                  ),
-                  SizedBox(height: scaleSize(28)),
-                ],
-              ),
-            ),
+                      ),
+                    );
+                  }),
+                ),
+              );
+            },
           ),
         ),
       ),
     );
-  }
-
-  _callBloc({required BuildContext context, required LoginScreenEvent event}) {
-    FocusScope.of(context).unfocus();
-    context.read<LoginScreenBloc>().add(event);
   }
 
   void setFocus(FocusNode focusNode) {
@@ -214,6 +186,12 @@ class _LoginScreenState extends State<LoginScreen> with AppDimension {
       i.dispose();
     }
     super.dispose();
+  }
+
+  Future<void> _launchUrl(String url) async {
+    if (!await launchUrl(Uri.parse(url))) {
+      throw Exception('Could not launch $url');
+    }
   }
 
   @override

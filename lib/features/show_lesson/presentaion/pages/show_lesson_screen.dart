@@ -4,14 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:math_app/config/routes/route_path.dart';
-import 'package:math_app/core/error/exception_handler.dart';
-import 'package:math_app/core/extensions/integer_extensions.dart';
 import 'package:math_app/core/resources/app_icons.dart';
 import 'package:math_app/core/resources/styles.dart';
 import 'package:math_app/core/widgets/w_button.dart';
 import 'package:math_app/core/widgets/w_circle_index_card.dart';
 import 'package:math_app/features/home/presentation/widgets/w_course_rating.dart';
-import 'package:math_app/features/show_lesson/presentaion/widgets/w_pod_controller.dart';
 
 import '../../../../core/resources/app_colors.dart';
 import '../manager/lesson_show_bloc.dart';
@@ -52,7 +49,7 @@ class _ShowLessonScreenState extends State<ShowLessonScreen> {
           children: [
             WChewiePlayer(
                 url:
-                    'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
+                'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
                 isOpen: true),
             Expanded(
               child: SingleChildScrollView(
@@ -86,56 +83,60 @@ class _ShowLessonScreenState extends State<ShowLessonScreen> {
                       children: [
                         ...List.generate(
                           2,
-                          (index) => GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              margin: const EdgeInsets.only(bottom: 16),
-                              decoration: BoxDecoration(
-                                color:index==1? AppColors.currentCourseCardColor:AppColors.white,
-                                borderRadius: BorderRadius.circular(16),
-                                boxShadow: [
-                                  BoxShadow(
-                                    spreadRadius: 0,
-                                    blurRadius: 15,
-                                    offset: const Offset(0, 10),
-                                    color: Colors.black.withOpacity(0.05),
-                                  ),
-                                ],
-                              ),
-                              padding: const EdgeInsets.all(16),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      WCircleIndexCard(index: index),
-                                      const SizedBox(
-                                        width: 12,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "DTM 2022 1-DARS",
-                                            style: Styles.getLessonTitle(),
-                                          ),
-                                          Text(
-                                            "Video - 15:22 min",
-                                            style: Styles.getLessonSubTitle(),
-                                          ),
-                                        ],
+                              (index) =>
+                              GestureDetector(
+                                onTap: () {},
+                                child: Container(
+                                  margin: const EdgeInsets.only(bottom: 16),
+                                  decoration: BoxDecoration(
+                                    color: index == 1 ? AppColors
+                                        .currentCourseCardColor : AppColors
+                                        .white,
+                                    borderRadius: BorderRadius.circular(16),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        spreadRadius: 0,
+                                        blurRadius: 15,
+                                        offset: const Offset(0, 10),
+                                        color: Colors.black.withOpacity(0.05),
                                       ),
                                     ],
                                   ),
-                                    SvgPicture.asset(index == 0
-                                      ? AppIcons.checkCircle
-                                      : AppIcons.pause),
-                                ],
+                                  padding: const EdgeInsets.all(16),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          WCircleIndexCard(index: index),
+                                          const SizedBox(
+                                            width: 12,
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "DTM 2022 1-DARS",
+                                                style: Styles.getLessonTitle(),
+                                              ),
+                                              Text(
+                                                "Video - 15:22 min",
+                                                style: Styles
+                                                    .getLessonSubTitle(),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      SvgPicture.asset(index == 0
+                                          ? AppIcons.checkCircle
+                                          : AppIcons.pause),
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
                         ),
                         SizedBox(
                           width: double.infinity,
@@ -157,33 +158,33 @@ class _ShowLessonScreenState extends State<ShowLessonScreen> {
           ],
         )
 
-        // BlocProvider(
-        //   create: (context) => _lessonShowBloc,
-        //   child: BlocBuilder<LessonShowBloc, LessonShowState>(
-        //     builder: (context, state) {
-        //       if (state is LessonShowInitial) {
-        //         return const Center(child: CircularProgressIndicator());
-        //       } else if (state is LessonShowLoaded) {
-        //         return Column(
-        //           mainAxisAlignment: MainAxisAlignment.start,
-        //           crossAxisAlignment: CrossAxisAlignment.center,
-        //           children: [
-        //             state.req.videoFiles[0].status == "main"
-        //                 ? WChewiePlayer(url:  state.req.videoFiles[0].fileUrl,isOpen: state.req.isOpen=='open')
-        //                 :   WPodController(url: state.req.videoFiles[0].fileUrl, isOpen: state.req.isOpen=='open',)
-        //
-        //           ],
-        //         );
-        //       }  else if(state is LessonShowError){
-        //
-        //       return  const Center(child: Text("error"),);
-        //       } else {
-        //
-        //         return const SizedBox();
-        //       }
-        //     },
-        //   ),
-        // ),
-        );
+      // BlocProvider(
+      //   create: (context) => _lessonShowBloc,
+      //   child: BlocBuilder<LessonShowBloc, LessonShowState>(
+      //     builder: (context, state) {
+      //       if (state is LessonShowInitial) {
+      //         return const Center(child: CircularProgressIndicator());
+      //       } else if (state is LessonShowLoaded) {
+      //         return Column(
+      //           mainAxisAlignment: MainAxisAlignment.start,
+      //           crossAxisAlignment: CrossAxisAlignment.center,
+      //           children: [
+      //             state.req.videoFiles[0].status == "main"
+      //                 ? WChewiePlayer(url:  state.req.videoFiles[0].fileUrl,isOpen: state.req.isOpen=='open')
+      //                 :   WPodController(url: state.req.videoFiles[0].fileUrl, isOpen: state.req.isOpen=='open',)
+      //
+      //           ],
+      //         );
+      //       }  else if(state is LessonShowError){
+      //
+      //       return  const Center(child: Text("error"),);
+      //       } else {
+      //
+      //         return const SizedBox();
+      //       }
+      //     },
+      //   ),
+      // ),
+    );
   }
 }

@@ -1,28 +1,20 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:math_app/features/auth/data/models/data_dto.dart';
+import 'package:math_app/features/auth/data/models/user.dart';
 
 part 'login_dto.g.dart';
 
-
 @JsonSerializable()
-class LoginDto{
+class UserDto {
+  final String token;
+  final User user;
 
-  final bool success;
-  final String? message;
-  final DataDto? data;
-  final int code;
-
-
-
-  const LoginDto({
-    required this.success,
-    required this.message,
-    this.data,
-    required this.code,
+  const UserDto({
+    required this.token,
+    required this.user,
   });
 
-  factory LoginDto.fromJson(Map<String, dynamic> json) =>
-      _$LoginDtoFromJson(json);
+  factory UserDto.fromJson(Map<String, dynamic> json) =>
+      _$UserDtoFromJson(json);
 
-  Map<String, dynamic> toJson() => _$LoginDtoToJson(this);
+  Map<String, dynamic> toJson() => _$UserDtoToJson(this);
 }

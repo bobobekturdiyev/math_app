@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/w_button.dart';
 import '../../../../core/widgets/w_text_link.dart';
+
 class WBottomButtons extends StatelessWidget {
   final GestureTapCallback onTap;
 
@@ -22,11 +23,12 @@ class WBottomButtons extends StatelessWidget {
           WTextLink(
               text: "BEKOR QILISH",
               onTap: () {
-                context.router.pop();
+                context.router.maybePop();
               }),
           WButton(
-              text: "SAQLASH",
-              onTap: onTap,)
+            text: "SAQLASH",
+            onTap: onTap,
+          )
         ],
       ),
     );

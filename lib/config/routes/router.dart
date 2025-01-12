@@ -6,13 +6,19 @@ import 'route_path.dart';
 @AutoRouterConfig(
   replaceInRouteName: 'Screen,Route',
 )
-class AppRouter extends $AppRouter {
+class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
         //AUTH
         AutoRoute(
           page: LoginRoute.page,
           path: "/login",
+          // initial: true
+        ),
+        AutoRoute(
+          page: SplashRoute.page,
+          path: "/splash",
+          initial: true,
           // initial: true
         ),
         AutoRoute(
@@ -33,7 +39,6 @@ class AppRouter extends $AppRouter {
             AutoRoute(
               page: RootHome.page,
               path: RoutePath.home,
-              initial: true,
               children: [
                 AutoRoute(
                   page: HomeRoute.page,
@@ -56,7 +61,7 @@ class AppRouter extends $AppRouter {
               path: RoutePath.chat,
               children: [
                 AutoRoute(
-                  page: ChatListRoute.page,
+                  page: ChatRoute.page,
                   path: "",
                 ),
               ],
@@ -96,6 +101,11 @@ class AppRouter extends $AppRouter {
           transitionsBuilder: TransitionsBuilders.noTransition,
           page: CourseDetailsRoute.page,
           path: RoutePath.courseDetails,
+        ),
+        CustomRoute(
+          transitionsBuilder: TransitionsBuilders.noTransition,
+          page: LessonRoute.page,
+          path: RoutePath.lesson,
         ),
 
         AutoRoute(

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:math_app/core/network/dio_manager.dart';
+import 'package:math_app/core/state/bloc/auth/auth_bloc.dart';
 import 'package:math_app/features/auth/data/data_sources/auth_service.dart';
 import 'package:math_app/features/auth/data/repositories/impl_auth_repo.dart';
 import 'package:math_app/features/auth/domain/repositories/auth_repo.dart';
@@ -50,7 +51,10 @@ class Injector extends StatelessWidget {
       ],
       child: MultiBlocProvider(providers: [
         BlocProvider<BottomNavBarBloc>(
-          create: (_) => BottomNavBarBloc(),
+          create: (_) => locator<BottomNavBarBloc>(),
+        ),
+        BlocProvider<AuthBloc>(
+          create: (_) => locator<AuthBloc>(),
         ),
         BlocProvider<UserBloc>(
           create: (ctx) => UserBloc(profileRepo: ctx.read()),

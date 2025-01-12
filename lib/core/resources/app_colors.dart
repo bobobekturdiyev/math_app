@@ -33,7 +33,7 @@ abstract class AppColors {
     static const Color borderColor = Color(0xFFF4F4F4);
 
   static const Color inputColor = Color(0xFFFFFFFF);
-  static const Color  backgroundColor = Color(0xFFFFFFFF);
+  static const Color  backgroundColor = Color(0xFFF9FEFB);
   static const Color text2 = Color(0xFF52526C);
   static const Color text = Color(0xFF2F2F3B);
   static const Color lessonTabBar = Color(0xFFF1EFFF);

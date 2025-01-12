@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:math_app/features/home/data/model/course_details/course_details_dto.dart';
-import 'package:math_app/features/profile/data/model/all_info_dto/user_dto/user_dto.dart';
 import 'package:math_app/features/show_lesson/data/model/show_lesson_dto.dart';
 
 import '../../features/profile/data/model/all_info_dto/all_info_dto.dart';

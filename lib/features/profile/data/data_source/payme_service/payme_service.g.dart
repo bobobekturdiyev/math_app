@@ -6,13 +6,10 @@ part of 'payme_service.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
 class _PaymeService implements PaymeService {
-  _PaymeService(
-    this._dio, {
-    this.baseUrl,
-  }) {
+  _PaymeService(this._dio, {this.baseUrl, this.errorLogger}) {
     baseUrl ??= 'https://checkout.test.paycom.uz/api';
   }
 
@@ -20,93 +17,98 @@ class _PaymeService implements PaymeService {
 
   String? baseUrl;
 
+  final ParseErrorLogger? errorLogger;
+
   @override
-  Future<HttpResponse<CardCreateDto>> payFromCard(
-      {required CardPayReq cardPayReq}) async {
-    const _extra = <String, dynamic>{};
+  Future<HttpResponse<CardCreateDto>> payFromCard({
+    required CardPayReq cardPayReq,
+  }) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(cardPayReq.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<CardCreateDto>>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/cards.create',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = CardCreateDto.fromJson(_result.data!);
-    final httpResponse = HttpResponse(value, _result);
+    final _options = _setStreamType<HttpResponse<CardCreateDto>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/cards.create',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late CardCreateDto _value;
+    try {
+      _value = CardCreateDto.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
     return httpResponse;
   }
 
   @override
-  Future<HttpResponse<VerifyCodeDto>> sendToken(
-      {required TokenReq tokenReq}) async {
-    const _extra = <String, dynamic>{};
+  Future<HttpResponse<VerifyCodeDto>> sendToken({
+    required TokenReq tokenReq,
+  }) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(tokenReq.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<VerifyCodeDto>>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/cards.get_verify_code',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = VerifyCodeDto.fromJson(_result.data!);
-    final httpResponse = HttpResponse(value, _result);
+    final _options = _setStreamType<HttpResponse<VerifyCodeDto>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/cards.get_verify_code',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late VerifyCodeDto _value;
+    try {
+      _value = VerifyCodeDto.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
     return httpResponse;
   }
 
   @override
-  Future<HttpResponse<CardCreateDto>> sendCode(
-      {required CodeReq codeReq}) async {
-    const _extra = <String, dynamic>{};
+  Future<HttpResponse<CardCreateDto>> sendCode({
+    required CodeReq codeReq,
+  }) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(codeReq.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<CardCreateDto>>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/cards.verify',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = CardCreateDto.fromJson(_result.data!);
-    final httpResponse = HttpResponse(value, _result);
+    final _options = _setStreamType<HttpResponse<CardCreateDto>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/cards.verify',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late CardCreateDto _value;
+    try {
+      _value = CardCreateDto.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
     return httpResponse;
   }
 
@@ -123,10 +125,7 @@ class _PaymeService implements PaymeService {
     return requestOptions;
   }
 
-  String _combineBaseUrls(
-    String dioBaseUrl,
-    String? baseUrl,
-  ) {
+  String _combineBaseUrls(String dioBaseUrl, String? baseUrl) {
     if (baseUrl == null || baseUrl.trim().isEmpty) {
       return dioBaseUrl;
     }

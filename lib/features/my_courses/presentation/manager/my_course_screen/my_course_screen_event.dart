@@ -1,11 +1,14 @@
 part of 'my_course_screen_bloc.dart';
 
-@immutable
 abstract class MyCourseScreenEvent extends Equatable {}
 
+class GetMyCourses extends MyCourseScreenEvent {
+  final String? state;
 
-class GetMyCourses extends MyCourseScreenEvent{
+  GetMyCourses({
+    this.state,
+  });
+
   @override
   List<Object?> get props => [];
-
 }

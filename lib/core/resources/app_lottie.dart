@@ -3,5 +3,5 @@ abstract class AppLottie {
 
   static const _lottiePath = "assets/lottie/";
 
-  static const String snkr = "${_lottiePath}snkr.json";
+  static const String login = "${_lottiePath}login.json";
 }

@@ -6,13 +6,10 @@ part of 'show_lesson_service.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
 class _ShowLessonService implements ShowLessonService {
-  _ShowLessonService(
-    this._dio, {
-    this.baseUrl,
-  }) {
+  _ShowLessonService(this._dio, {this.baseUrl, this.errorLogger}) {
     baseUrl ??= 'http://192.168.0.104:8000/api/v1';
   }
 
@@ -20,32 +17,35 @@ class _ShowLessonService implements ShowLessonService {
 
   String? baseUrl;
 
+  final ParseErrorLogger? errorLogger;
+
   @override
-  Future<HttpResponse<DataResponse<ShowLessonDto>>> getLesson(
-      {required String slug}) async {
-    const _extra = <String, dynamic>{};
+  Future<HttpResponse<DataResponse<ShowLessonDto>>> getLesson({
+    required String slug,
+  }) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<DataResponse<ShowLessonDto>>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/lesson-show-public/${slug}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = DataResponse<ShowLessonDto>.fromJson(_result.data!);
-    final httpResponse = HttpResponse(value, _result);
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<HttpResponse<DataResponse<ShowLessonDto>>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/lesson-show-public/${slug}',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late DataResponse<ShowLessonDto> _value;
+    try {
+      _value = DataResponse<ShowLessonDto>.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
     return httpResponse;
   }
 
@@ -62,10 +62,7 @@ class _ShowLessonService implements ShowLessonService {
     return requestOptions;
   }
 
-  String _combineBaseUrls(
-    String dioBaseUrl,
-    String? baseUrl,
-  ) {
+  String _combineBaseUrls(String dioBaseUrl, String? baseUrl) {
     if (baseUrl == null || baseUrl.trim().isEmpty) {
       return dioBaseUrl;
     }

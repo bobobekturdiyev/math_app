@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,10 +53,10 @@ class _LanguageEditScreenState extends State<LanguageEditScreen> {
   Widget build(BuildContext context) {
     return BlocListener<ProfileBloc, ProfileState>(
       listener: (context, state) {
-        if(state is LangState){
-          if(state.status==StateStatus.success){
+        if (state is LangState) {
+          if (state.status == StateStatus.success) {
             context.read<UserBloc>().add(GetUserData());
-            context.router.pop();
+            context.router.maybePop();
           }
         }
       },
@@ -72,7 +71,7 @@ class _LanguageEditScreenState extends State<LanguageEditScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    context.router.pop();
+                    context.router.maybePop();
                   },
                   child: SvgPicture.asset(AppIcons.arrowLeft),
                 ),
@@ -94,20 +93,18 @@ class _LanguageEditScreenState extends State<LanguageEditScreen> {
             ),
             WFormFieldHolder(
                 child: GestureDetector(
-                  onTap: levelSheet,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('Daraja'),
-                  ),
-                ))
+              onTap: levelSheet,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Daraja'),
+              ),
+            ))
           ]),
         ),
         bottomNavigationBar: WBottomButtons(
           onTap: () {
             if (widget.id != null) {
-              context
-                  .read<ProfileBloc>()
-                  .add(UpdateLang(
+              context.read<ProfileBloc>().add(UpdateLang(
                   lang: controller.text, level: level, id: widget.id!));
             } else {
               context
@@ -135,7 +132,7 @@ class _LanguageEditScreenState extends State<LanguageEditScreen> {
                   ],
                   onChange: (aa) {
                     level = aa;
-                    context.popRoute();
+                    context.router.maybePop();
                   })
             ]),
           );

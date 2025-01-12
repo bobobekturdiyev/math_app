@@ -9,6 +9,7 @@ import '../resources/styles.dart';
 class WBackButton extends StatelessWidget {
   final bool isDark;
   final String text;
+
   const WBackButton({
     Key? key,
     this.isDark = false,
@@ -19,7 +20,7 @@ class WBackButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.router.pop();
+        context.router.maybePop();
       },
       behavior: HitTestBehavior.opaque,
       child: Row(
