@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:math_app/config/routes/route_path.dart';
 import 'package:math_app/core/di/locator.dart';
 import 'package:math_app/core/resources/app_icons.dart';
+import 'package:math_app/core/resources/app_images.dart';
 import 'package:math_app/core/state/bloc/auth/auth_bloc.dart';
 import 'package:math_app/features/auth/presentation/pages/login_screen.dart';
 import 'package:math_app/features/profile/presentation/manager/user_bloc/user_bloc.dart';
@@ -28,48 +29,101 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     }
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppBar(
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        backgroundColor: AppColors.white,
-        title: Text(
-          'Sozlamalar',
-          style: locator<ThemeData>().textTheme.headlineMedium,
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          children: [
-            WSettingsItem(
-              text: "Shaxsiy ma'lumotlar",
-              icon: AppIcons.info,
-              onTap: () {},
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   scrolledUnderElevation: 0,
+      //   backgroundColor: AppColors.white,
+      //   title: Text(
+      //     'Sozlamalar',
+      //     style: locator<ThemeData>().textTheme.headlineMedium,
+      //   ),
+      // ),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 200,
+            pinned: false,
+            floating: false,
+            backgroundColor: AppColors.white,
+            flexibleSpace: FlexibleSpaceBar(
+              collapseMode: CollapseMode.parallax,
+              title: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(46),
+                    child: Container(
+                      width: 46,
+                      height: 46,
+                      decoration: BoxDecoration(shape: BoxShape.circle),
+                      child: Image.asset(
+                        AppImages.placeholder,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    "${locator<AuthBloc>().user?.name} ${locator<AuthBloc>().user?.surname}",
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.white),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    "${locator<AuthBloc>().user?.phone}",
+                    style: TextStyle(fontSize: 10, color: AppColors.white),
+                  ),
+                ],
+              ),
+              centerTitle: true,
+              background: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(32.0),
+                  bottomRight: Radius.circular(32.0),
+                ),
+                child: Image.asset(
+                  AppImages.chatBackground,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-            WSettingsItem(
-              text: "Tez so'raladigan savollar",
-              icon: AppIcons.faq,
-              onTap: () {},
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                SizedBox(height: 16),
+                WSettingsItem(
+                  text: "Shaxsiy ma'lumotlar",
+                  icon: AppIcons.info,
+                  onTap: () {},
+                ),
+                WSettingsItem(
+                  text: "Tez so'raladigan savollar",
+                  icon: AppIcons.faq,
+                  onTap: () {},
+                ),
+                WSettingsItem(
+                  text: "Maxfiylik siyosati",
+                  icon: AppIcons.privacy,
+                  onTap: () {},
+                ),
+                WSettingsItem(
+                  text: "Foydalanish shartlari",
+                  icon: AppIcons.security,
+                  onTap: () {},
+                ),
+                WSettingsItem(
+                  text: "Tizimdan chiqish",
+                  icon: AppIcons.logout,
+                  onTap: () {},
+                  showArrow: false,
+                ),
+                SizedBox(height: 24),
+              ],
             ),
-            WSettingsItem(
-              text: "Maxfiylik siyosati",
-              icon: AppIcons.privacy,
-              onTap: () {},
-            ),
-            WSettingsItem(
-              text: "Foydalanish shartlari",
-              icon: AppIcons.security,
-              onTap: () {},
-            ),
-            Spacer(),
-            WSettingsItem(
-              text: "Tizimdan chiqish",
-              icon: AppIcons.logout,
-              onTap: () {},
-            ),
-            SizedBox(height: 24),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

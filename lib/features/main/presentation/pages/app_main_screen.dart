@@ -60,8 +60,14 @@ class _AppMainScreenState extends State<AppMainScreen> {
                 bottomNavigationBar: Container(
                   constraints: const BoxConstraints(maxHeight: 50),
                   alignment: Alignment.center,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: AppColors.white,
+                    border: Border(
+                      top: BorderSide(
+                        width: 1,
+                        color: AppColors.grey.withValues(alpha: 0.1),
+                      ),
+                    ),
                   ),
                   child: BlocListener<BottomNavBarBloc, BottomNavBarState>(
                     listener: (context, state) async {

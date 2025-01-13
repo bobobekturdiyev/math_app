@@ -15,6 +15,8 @@ class RoutePath {
   static const String chat = "chat";
   static const String profile = "profile";
 
+  static const String ticketMessages = "/ticket-messages";
+
   static const String testsRoute = "/tests-=screen";
   static const String eitherResult = "/either-result";
   static const String costIncome = "/cost-income";

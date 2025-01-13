@@ -12,73 +12,75 @@
 import 'package:auto_route/auto_route.dart' as _i33;
 import 'package:flutter/material.dart' as _i34;
 import 'package:math_app/features/auth/presentation/pages/forgot_password_screen.dart'
-    as _i12;
+    as _i11;
 import 'package:math_app/features/auth/presentation/pages/login_screen.dart'
-    as _i16;
+    as _i15;
 import 'package:math_app/features/auth/presentation/pages/register/register_screen.dart'
-    as _i20;
-import 'package:math_app/features/chat/presentation/pages/chat_list_screen.dart'
-    as _i5;
+    as _i19;
+import 'package:math_app/features/chat/data/models/ticket/ticket_dto.dart'
+    as _i37;
 import 'package:math_app/features/chat/presentation/pages/chat_screen.dart'
-    as _i6;
+    as _i5;
+import 'package:math_app/features/chat/presentation/pages/ticket_messages_screen.dart'
+    as _i31;
 import 'package:math_app/features/home/data/model/course/course_dto.dart'
     as _i35;
 import 'package:math_app/features/home/data/model/course/lesson_dto.dart'
     as _i36;
 import 'package:math_app/features/home/presentation/pages/course_details_screen.dart'
-    as _i8;
+    as _i7;
 import 'package:math_app/features/home/presentation/pages/home_screen.dart'
-    as _i13;
+    as _i12;
 import 'package:math_app/features/home/presentation/pages/lesson_screen.dart'
-    as _i15;
+    as _i14;
 import 'package:math_app/features/main/presentation/pages/app_main_screen.dart'
     as _i3;
 import 'package:math_app/features/main/presentation/pages/root/root_chat.dart'
-    as _i21;
+    as _i20;
 import 'package:math_app/features/main/presentation/pages/root/root_home.dart'
-    as _i22;
+    as _i21;
 import 'package:math_app/features/main/presentation/pages/root/root_matters.dart'
-    as _i23;
+    as _i22;
 import 'package:math_app/features/main/presentation/pages/root/root_my_course.dart'
-    as _i24;
+    as _i23;
 import 'package:math_app/features/main/presentation/pages/root/root_profile.dart'
-    as _i25;
+    as _i24;
 import 'package:math_app/features/main/presentation/pages/splash_screen.dart'
-    as _i28;
+    as _i27;
 import 'package:math_app/features/my_courses/presentation/pages/my_course_screen.dart'
-    as _i17;
+    as _i16;
 import 'package:math_app/features/profile/presentation/pages/about_screen.dart'
     as _i2;
 import 'package:math_app/features/profile/presentation/pages/cost_income_screen.dart'
-    as _i7;
+    as _i6;
 import 'package:math_app/features/profile/presentation/pages/plan_screen.dart'
-    as _i19;
+    as _i18;
 import 'package:math_app/features/profile/presentation/pages/portfolio_pages/about_add_screen.dart'
     as _i1;
 import 'package:math_app/features/profile/presentation/pages/portfolio_pages/award_screen.dart'
     as _i4;
 import 'package:math_app/features/profile/presentation/pages/portfolio_pages/education_screen.dart'
-    as _i9;
+    as _i8;
 import 'package:math_app/features/profile/presentation/pages/portfolio_pages/experience_add.dart'
-    as _i11;
+    as _i10;
 import 'package:math_app/features/profile/presentation/pages/portfolio_pages/language_screen.dart'
-    as _i14;
+    as _i13;
 import 'package:math_app/features/profile/presentation/pages/portfolio_pages/skils_screen.dart'
-    as _i27;
+    as _i26;
 import 'package:math_app/features/profile/presentation/pages/profile_screen.dart'
-    as _i18;
+    as _i17;
 import 'package:math_app/features/profile/presentation/pages/term_use_screen.dart'
-    as _i29;
+    as _i28;
 import 'package:math_app/features/profile/presentation/pages/update_password_screen.dart'
     as _i32;
 import 'package:math_app/features/show_lesson/presentaion/pages/either_result_screen.dart'
-    as _i10;
+    as _i9;
 import 'package:math_app/features/show_lesson/presentaion/pages/show_lesson_screen.dart'
-    as _i26;
+    as _i25;
 import 'package:math_app/features/show_lesson/presentaion/pages/test_result_screen.dart'
-    as _i30;
+    as _i29;
 import 'package:math_app/features/show_lesson/presentaion/pages/tests_screen.dart'
-    as _i31;
+    as _i30;
 
 /// generated route for
 /// [_i1.AboutAddScreen]
@@ -165,23 +167,7 @@ class AwardRouteArgs {
 }
 
 /// generated route for
-/// [_i5.ChatListScreen]
-class ChatListRoute extends _i33.PageRouteInfo<void> {
-  const ChatListRoute({List<_i33.PageRouteInfo>? children})
-    : super(ChatListRoute.name, initialChildren: children);
-
-  static const String name = 'ChatListRoute';
-
-  static _i33.PageInfo page = _i33.PageInfo(
-    name,
-    builder: (data) {
-      return const _i5.ChatListScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [_i6.ChatScreen]
+/// [_i5.ChatScreen]
 class ChatRoute extends _i33.PageRouteInfo<void> {
   const ChatRoute({List<_i33.PageRouteInfo>? children})
     : super(ChatRoute.name, initialChildren: children);
@@ -191,13 +177,13 @@ class ChatRoute extends _i33.PageRouteInfo<void> {
   static _i33.PageInfo page = _i33.PageInfo(
     name,
     builder: (data) {
-      return const _i6.ChatScreen();
+      return const _i5.ChatScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i7.CostIncomeScreen]
+/// [_i6.CostIncomeScreen]
 class CostIncomeRoute extends _i33.PageRouteInfo<void> {
   const CostIncomeRoute({List<_i33.PageRouteInfo>? children})
     : super(CostIncomeRoute.name, initialChildren: children);
@@ -207,13 +193,13 @@ class CostIncomeRoute extends _i33.PageRouteInfo<void> {
   static _i33.PageInfo page = _i33.PageInfo(
     name,
     builder: (data) {
-      return const _i7.CostIncomeScreen();
+      return const _i6.CostIncomeScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i8.CourseDetailsScreen]
+/// [_i7.CourseDetailsScreen]
 class CourseDetailsRoute extends _i33.PageRouteInfo<CourseDetailsRouteArgs> {
   CourseDetailsRoute({
     _i34.Key? key,
@@ -231,7 +217,7 @@ class CourseDetailsRoute extends _i33.PageRouteInfo<CourseDetailsRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<CourseDetailsRouteArgs>();
-      return _i8.CourseDetailsScreen(key: args.key, courseDto: args.courseDto);
+      return _i7.CourseDetailsScreen(key: args.key, courseDto: args.courseDto);
     },
   );
 }
@@ -250,7 +236,7 @@ class CourseDetailsRouteArgs {
 }
 
 /// generated route for
-/// [_i9.EducationScreen]
+/// [_i8.EducationScreen]
 class EducationRoute extends _i33.PageRouteInfo<EducationRouteArgs> {
   EducationRoute({_i34.Key? key, int? id, List<_i33.PageRouteInfo>? children})
     : super(
@@ -267,7 +253,7 @@ class EducationRoute extends _i33.PageRouteInfo<EducationRouteArgs> {
       final args = data.argsAs<EducationRouteArgs>(
         orElse: () => const EducationRouteArgs(),
       );
-      return _i9.EducationScreen(key: args.key, id: args.id);
+      return _i8.EducationScreen(key: args.key, id: args.id);
     },
   );
 }
@@ -286,11 +272,11 @@ class EducationRouteArgs {
 }
 
 /// generated route for
-/// [_i10.EitherResultScreen]
+/// [_i9.EitherResultScreen]
 class EitherResultRoute extends _i33.PageRouteInfo<EitherResultRouteArgs> {
   EitherResultRoute({
     _i34.Key? key,
-    required _i10.ResultType resultType,
+    required _i9.ResultType resultType,
     List<_i33.PageRouteInfo>? children,
   }) : super(
          EitherResultRoute.name,
@@ -304,10 +290,7 @@ class EitherResultRoute extends _i33.PageRouteInfo<EitherResultRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<EitherResultRouteArgs>();
-      return _i10.EitherResultScreen(
-        key: args.key,
-        resultType: args.resultType,
-      );
+      return _i9.EitherResultScreen(key: args.key, resultType: args.resultType);
     },
   );
 }
@@ -317,7 +300,7 @@ class EitherResultRouteArgs {
 
   final _i34.Key? key;
 
-  final _i10.ResultType resultType;
+  final _i9.ResultType resultType;
 
   @override
   String toString() {
@@ -326,7 +309,7 @@ class EitherResultRouteArgs {
 }
 
 /// generated route for
-/// [_i11.ExperienceScreen]
+/// [_i10.ExperienceScreen]
 class ExperienceRoute extends _i33.PageRouteInfo<ExperienceRouteArgs> {
   ExperienceRoute({_i34.Key? key, int? id, List<_i33.PageRouteInfo>? children})
     : super(
@@ -343,7 +326,7 @@ class ExperienceRoute extends _i33.PageRouteInfo<ExperienceRouteArgs> {
       final args = data.argsAs<ExperienceRouteArgs>(
         orElse: () => const ExperienceRouteArgs(),
       );
-      return _i11.ExperienceScreen(key: args.key, id: args.id);
+      return _i10.ExperienceScreen(key: args.key, id: args.id);
     },
   );
 }
@@ -362,7 +345,7 @@ class ExperienceRouteArgs {
 }
 
 /// generated route for
-/// [_i12.ForgotPasswordScreen]
+/// [_i11.ForgotPasswordScreen]
 class ForgotPasswordRoute extends _i33.PageRouteInfo<void> {
   const ForgotPasswordRoute({List<_i33.PageRouteInfo>? children})
     : super(ForgotPasswordRoute.name, initialChildren: children);
@@ -372,13 +355,13 @@ class ForgotPasswordRoute extends _i33.PageRouteInfo<void> {
   static _i33.PageInfo page = _i33.PageInfo(
     name,
     builder: (data) {
-      return const _i12.ForgotPasswordScreen();
+      return const _i11.ForgotPasswordScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i13.HomeScreen]
+/// [_i12.HomeScreen]
 class HomeRoute extends _i33.PageRouteInfo<void> {
   const HomeRoute({List<_i33.PageRouteInfo>? children})
     : super(HomeRoute.name, initialChildren: children);
@@ -388,13 +371,13 @@ class HomeRoute extends _i33.PageRouteInfo<void> {
   static _i33.PageInfo page = _i33.PageInfo(
     name,
     builder: (data) {
-      return const _i13.HomeScreen();
+      return const _i12.HomeScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i14.LanguageEditScreen]
+/// [_i13.LanguageEditScreen]
 class LanguageEditRoute extends _i33.PageRouteInfo<LanguageEditRouteArgs> {
   LanguageEditRoute({
     _i34.Key? key,
@@ -414,7 +397,7 @@ class LanguageEditRoute extends _i33.PageRouteInfo<LanguageEditRouteArgs> {
       final args = data.argsAs<LanguageEditRouteArgs>(
         orElse: () => const LanguageEditRouteArgs(),
       );
-      return _i14.LanguageEditScreen(key: args.key, id: args.id);
+      return _i13.LanguageEditScreen(key: args.key, id: args.id);
     },
   );
 }
@@ -433,7 +416,7 @@ class LanguageEditRouteArgs {
 }
 
 /// generated route for
-/// [_i15.LessonScreen]
+/// [_i14.LessonScreen]
 class LessonRoute extends _i33.PageRouteInfo<LessonRouteArgs> {
   LessonRoute({
     _i34.Key? key,
@@ -451,7 +434,7 @@ class LessonRoute extends _i33.PageRouteInfo<LessonRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<LessonRouteArgs>();
-      return _i15.LessonScreen(key: args.key, lessonDto: args.lessonDto);
+      return _i14.LessonScreen(key: args.key, lessonDto: args.lessonDto);
     },
   );
 }
@@ -470,7 +453,7 @@ class LessonRouteArgs {
 }
 
 /// generated route for
-/// [_i16.LoginScreen]
+/// [_i15.LoginScreen]
 class LoginRoute extends _i33.PageRouteInfo<void> {
   const LoginRoute({List<_i33.PageRouteInfo>? children})
     : super(LoginRoute.name, initialChildren: children);
@@ -480,13 +463,13 @@ class LoginRoute extends _i33.PageRouteInfo<void> {
   static _i33.PageInfo page = _i33.PageInfo(
     name,
     builder: (data) {
-      return const _i16.LoginScreen();
+      return const _i15.LoginScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i17.MyCoursesScreen]
+/// [_i16.MyCoursesScreen]
 class MyCoursesRoute extends _i33.PageRouteInfo<void> {
   const MyCoursesRoute({List<_i33.PageRouteInfo>? children})
     : super(MyCoursesRoute.name, initialChildren: children);
@@ -496,13 +479,13 @@ class MyCoursesRoute extends _i33.PageRouteInfo<void> {
   static _i33.PageInfo page = _i33.PageInfo(
     name,
     builder: (data) {
-      return const _i17.MyCoursesScreen();
+      return const _i16.MyCoursesScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i18.MyProfileScreen]
+/// [_i17.MyProfileScreen]
 class MyProfileRoute extends _i33.PageRouteInfo<void> {
   const MyProfileRoute({List<_i33.PageRouteInfo>? children})
     : super(MyProfileRoute.name, initialChildren: children);
@@ -512,13 +495,13 @@ class MyProfileRoute extends _i33.PageRouteInfo<void> {
   static _i33.PageInfo page = _i33.PageInfo(
     name,
     builder: (data) {
-      return const _i18.MyProfileScreen();
+      return const _i17.MyProfileScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i19.PlanScreen]
+/// [_i18.PlanScreen]
 class PlanRoute extends _i33.PageRouteInfo<void> {
   const PlanRoute({List<_i33.PageRouteInfo>? children})
     : super(PlanRoute.name, initialChildren: children);
@@ -528,13 +511,13 @@ class PlanRoute extends _i33.PageRouteInfo<void> {
   static _i33.PageInfo page = _i33.PageInfo(
     name,
     builder: (data) {
-      return const _i19.PlanScreen();
+      return const _i18.PlanScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i20.RegisterScreen]
+/// [_i19.RegisterScreen]
 class RegisterRoute extends _i33.PageRouteInfo<void> {
   const RegisterRoute({List<_i33.PageRouteInfo>? children})
     : super(RegisterRoute.name, initialChildren: children);
@@ -544,13 +527,13 @@ class RegisterRoute extends _i33.PageRouteInfo<void> {
   static _i33.PageInfo page = _i33.PageInfo(
     name,
     builder: (data) {
-      return const _i20.RegisterScreen();
+      return const _i19.RegisterScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i21.RootChat]
+/// [_i20.RootChat]
 class RootChat extends _i33.PageRouteInfo<void> {
   const RootChat({List<_i33.PageRouteInfo>? children})
     : super(RootChat.name, initialChildren: children);
@@ -560,13 +543,13 @@ class RootChat extends _i33.PageRouteInfo<void> {
   static _i33.PageInfo page = _i33.PageInfo(
     name,
     builder: (data) {
-      return const _i21.RootChat();
+      return const _i20.RootChat();
     },
   );
 }
 
 /// generated route for
-/// [_i22.RootHome]
+/// [_i21.RootHome]
 class RootHome extends _i33.PageRouteInfo<void> {
   const RootHome({List<_i33.PageRouteInfo>? children})
     : super(RootHome.name, initialChildren: children);
@@ -576,13 +559,13 @@ class RootHome extends _i33.PageRouteInfo<void> {
   static _i33.PageInfo page = _i33.PageInfo(
     name,
     builder: (data) {
-      return const _i22.RootHome();
+      return const _i21.RootHome();
     },
   );
 }
 
 /// generated route for
-/// [_i23.RootMatter]
+/// [_i22.RootMatter]
 class RootMatter extends _i33.PageRouteInfo<void> {
   const RootMatter({List<_i33.PageRouteInfo>? children})
     : super(RootMatter.name, initialChildren: children);
@@ -592,13 +575,13 @@ class RootMatter extends _i33.PageRouteInfo<void> {
   static _i33.PageInfo page = _i33.PageInfo(
     name,
     builder: (data) {
-      return const _i23.RootMatter();
+      return const _i22.RootMatter();
     },
   );
 }
 
 /// generated route for
-/// [_i24.RootMyCourse]
+/// [_i23.RootMyCourse]
 class RootMyCourse extends _i33.PageRouteInfo<void> {
   const RootMyCourse({List<_i33.PageRouteInfo>? children})
     : super(RootMyCourse.name, initialChildren: children);
@@ -608,13 +591,13 @@ class RootMyCourse extends _i33.PageRouteInfo<void> {
   static _i33.PageInfo page = _i33.PageInfo(
     name,
     builder: (data) {
-      return const _i24.RootMyCourse();
+      return const _i23.RootMyCourse();
     },
   );
 }
 
 /// generated route for
-/// [_i25.RootProfile]
+/// [_i24.RootProfile]
 class RootProfile extends _i33.PageRouteInfo<void> {
   const RootProfile({List<_i33.PageRouteInfo>? children})
     : super(RootProfile.name, initialChildren: children);
@@ -624,13 +607,13 @@ class RootProfile extends _i33.PageRouteInfo<void> {
   static _i33.PageInfo page = _i33.PageInfo(
     name,
     builder: (data) {
-      return const _i25.RootProfile();
+      return const _i24.RootProfile();
     },
   );
 }
 
 /// generated route for
-/// [_i26.ShowLessonScreen]
+/// [_i25.ShowLessonScreen]
 class ShowLessonRoute extends _i33.PageRouteInfo<ShowLessonRouteArgs> {
   ShowLessonRoute({
     _i34.Key? key,
@@ -648,7 +631,7 @@ class ShowLessonRoute extends _i33.PageRouteInfo<ShowLessonRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<ShowLessonRouteArgs>();
-      return _i26.ShowLessonScreen(key: args.key, slug: args.slug);
+      return _i25.ShowLessonScreen(key: args.key, slug: args.slug);
     },
   );
 }
@@ -667,7 +650,7 @@ class ShowLessonRouteArgs {
 }
 
 /// generated route for
-/// [_i27.SkillsScreen]
+/// [_i26.SkillsScreen]
 class SkillsRoute extends _i33.PageRouteInfo<void> {
   const SkillsRoute({List<_i33.PageRouteInfo>? children})
     : super(SkillsRoute.name, initialChildren: children);
@@ -677,13 +660,13 @@ class SkillsRoute extends _i33.PageRouteInfo<void> {
   static _i33.PageInfo page = _i33.PageInfo(
     name,
     builder: (data) {
-      return const _i27.SkillsScreen();
+      return const _i26.SkillsScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i28.SplashScreen]
+/// [_i27.SplashScreen]
 class SplashRoute extends _i33.PageRouteInfo<void> {
   const SplashRoute({List<_i33.PageRouteInfo>? children})
     : super(SplashRoute.name, initialChildren: children);
@@ -693,13 +676,13 @@ class SplashRoute extends _i33.PageRouteInfo<void> {
   static _i33.PageInfo page = _i33.PageInfo(
     name,
     builder: (data) {
-      return const _i28.SplashScreen();
+      return const _i27.SplashScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i29.TermsOfUseScreen]
+/// [_i28.TermsOfUseScreen]
 class TermsOfUseRoute extends _i33.PageRouteInfo<void> {
   const TermsOfUseRoute({List<_i33.PageRouteInfo>? children})
     : super(TermsOfUseRoute.name, initialChildren: children);
@@ -709,13 +692,13 @@ class TermsOfUseRoute extends _i33.PageRouteInfo<void> {
   static _i33.PageInfo page = _i33.PageInfo(
     name,
     builder: (data) {
-      return const _i29.TermsOfUseScreen();
+      return const _i28.TermsOfUseScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i30.TestResultScreen]
+/// [_i29.TestResultScreen]
 class TestResultRoute extends _i33.PageRouteInfo<void> {
   const TestResultRoute({List<_i33.PageRouteInfo>? children})
     : super(TestResultRoute.name, initialChildren: children);
@@ -725,13 +708,13 @@ class TestResultRoute extends _i33.PageRouteInfo<void> {
   static _i33.PageInfo page = _i33.PageInfo(
     name,
     builder: (data) {
-      return const _i30.TestResultScreen();
+      return const _i29.TestResultScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i31.TestsScreen]
+/// [_i30.TestsScreen]
 class TestsRoute extends _i33.PageRouteInfo<TestsRouteArgs> {
   TestsRoute({_i34.Key? key, List<_i33.PageRouteInfo>? children})
     : super(
@@ -748,7 +731,7 @@ class TestsRoute extends _i33.PageRouteInfo<TestsRouteArgs> {
       final args = data.argsAs<TestsRouteArgs>(
         orElse: () => const TestsRouteArgs(),
       );
-      return _i31.TestsScreen(key: args.key);
+      return _i30.TestsScreen(key: args.key);
     },
   );
 }
@@ -761,6 +744,46 @@ class TestsRouteArgs {
   @override
   String toString() {
     return 'TestsRouteArgs{key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i31.TicketMessagesScreen]
+class TicketMessagesRoute extends _i33.PageRouteInfo<TicketMessagesRouteArgs> {
+  TicketMessagesRoute({
+    _i34.Key? key,
+    required _i37.TicketDto ticketDto,
+    List<_i33.PageRouteInfo>? children,
+  }) : super(
+         TicketMessagesRoute.name,
+         args: TicketMessagesRouteArgs(key: key, ticketDto: ticketDto),
+         initialChildren: children,
+       );
+
+  static const String name = 'TicketMessagesRoute';
+
+  static _i33.PageInfo page = _i33.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<TicketMessagesRouteArgs>();
+      return _i31.TicketMessagesScreen(
+        key: args.key,
+        ticketDto: args.ticketDto,
+      );
+    },
+  );
+}
+
+class TicketMessagesRouteArgs {
+  const TicketMessagesRouteArgs({this.key, required this.ticketDto});
+
+  final _i34.Key? key;
+
+  final _i37.TicketDto ticketDto;
+
+  @override
+  String toString() {
+    return 'TicketMessagesRouteArgs{key: $key, ticketDto: $ticketDto}';
   }
 }
 

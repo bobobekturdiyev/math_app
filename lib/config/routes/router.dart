@@ -88,6 +88,12 @@ class AppRouter extends RootStackRouter {
           page: TestsRoute.page,
           path: RoutePath.testsRoute,
         ),
+
+        AutoRoute(
+          page: TicketMessagesRoute.page,
+          path: RoutePath.ticketMessages,
+        ),
+
         AutoRoute(
           page: EitherResultRoute.page,
           path: RoutePath.eitherResult,

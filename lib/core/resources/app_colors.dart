@@ -4,7 +4,7 @@ abstract class AppColors {
   //General
   static const Color primaryColor = Color(0xFF2EC4B6);
   static const Color primaryColorAccent = Color(0xFFD5F3F0);
-  static const Color primaryColorDark = Color(0xFF0059B5);
+  static const Color primaryColorDark = Color(0xFF00B5B2);
 
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
@@ -33,7 +33,7 @@ abstract class AppColors {
     static const Color borderColor = Color(0xFFF4F4F4);
 
   static const Color inputColor = Color(0xFFFFFFFF);
-  static const Color  backgroundColor = Color(0xFFF9FEFB);
+  static const Color  backgroundColor = Color(0xFFEAFFF8);
   static const Color text2 = Color(0xFF52526C);
   static const Color text = Color(0xFF2F2F3B);
   static const Color lessonTabBar = Color(0xFFF1EFFF);

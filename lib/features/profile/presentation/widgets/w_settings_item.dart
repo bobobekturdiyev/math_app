@@ -8,16 +8,22 @@ class WSettingsItem extends StatelessWidget {
   final String text;
   final String icon;
   final GestureTapCallback onTap;
+  final bool showArrow;
 
-  const WSettingsItem(
-      {super.key, required this.text, required this.icon, required this.onTap});
+  const WSettingsItem({
+    super.key,
+    required this.text,
+    required this.icon,
+    required this.onTap,
+    this.showArrow = true,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12.0),
+        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16),
         child: Row(
           children: [
             SvgPicture.asset(
@@ -32,12 +38,14 @@ class WSettingsItem extends StatelessWidget {
                 style: locator<ThemeData>().textTheme.bodyMedium,
               ),
             ),
-            SvgPicture.asset(
-              AppIcons.arrowRightRounded,
-              width: 24,
-              height: 24,
-              colorFilter: ColorFilter.mode(AppColors.grey, BlendMode.srcIn),
-            ),
+            if (showArrow) ...{
+              SvgPicture.asset(
+                AppIcons.arrowRightRounded,
+                width: 36,
+                height: 36,
+                colorFilter: ColorFilter.mode(AppColors.grey, BlendMode.srcIn),
+              ),
+            },
           ],
         ),
       ),

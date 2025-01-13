@@ -15,4 +15,6 @@ abstract class AppImages {
   static const flutter = "${_imgPath}flutter.png";
   static const frontend = "${_imgPath}fronted.png";
   static const backend = "${_imgPath}backend.png";
+  static const chatBackground = "${_imgPath}chat_background.png";
+  static const placeholder = "${_imgPath}placeholder.png";
 }

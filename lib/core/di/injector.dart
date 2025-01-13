@@ -6,6 +6,7 @@ import 'package:math_app/core/state/bloc/auth/auth_bloc.dart';
 import 'package:math_app/features/auth/data/data_sources/auth_service.dart';
 import 'package:math_app/features/auth/data/repositories/impl_auth_repo.dart';
 import 'package:math_app/features/auth/domain/repositories/auth_repo.dart';
+import 'package:math_app/features/chat/presentation/manager/ticket/ticket_bloc.dart';
 import 'package:math_app/features/my_courses/data/repositories/impl_my_course_repo.dart';
 import 'package:math_app/features/my_courses/domain/repositories/my_course_repo.dart';
 import 'package:math_app/features/profile/data/data_source/payme_service/payme_service.dart';
@@ -21,9 +22,6 @@ import '../../features/chat/data/data_source/chat_service/chat_service.dart';
 import '../../features/chat/data/mapper/chat_mapper.dart';
 import '../../features/chat/data/repositories/impl_user_repostories.dart';
 import '../../features/chat/domain/repositories/chat_repo.dart';
-import '../../features/chat/domain/usecases/chat_use.dart';
-import '../../features/chat/presentation/manager/chat_bloc/chat_bloc.dart';
-import '../../features/chat/presentation/manager/chat_manager_bloc/chat_managers_bloc.dart';
 import '../../features/my_courses/data/data_source/my_course_service.dart';
 import '../../features/profile/presentation/manager/portfolio_delete_bloc/portfolio_del_bloc.dart';
 import '../../features/profile/presentation/manager/user_bloc/user_bloc.dart';
@@ -56,22 +54,11 @@ class Injector extends StatelessWidget {
         BlocProvider<AuthBloc>(
           create: (_) => locator<AuthBloc>(),
         ),
+        BlocProvider<TicketBloc>(
+          create: (_) => locator<TicketBloc>(),
+        ),
         BlocProvider<UserBloc>(
           create: (ctx) => UserBloc(profileRepo: ctx.read()),
-        ),
-        BlocProvider(
-          create: (context) => ChatManagersBloc(
-            ChatUseCases(
-              chatRepo: context.read(),
-            ),
-          ),
-        ),
-        BlocProvider(
-          create: (context) => ChatBloc(
-            ChatUseCases(
-              chatRepo: context.read(),
-            ),
-          ),
         ),
         BlocProvider(
           create: (context) => ProfileBloc(profileRepo: context.read()),

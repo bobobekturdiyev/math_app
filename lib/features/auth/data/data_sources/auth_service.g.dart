@@ -10,7 +10,7 @@ part of 'auth_service.dart';
 
 class _AuthService implements AuthService {
   _AuthService(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'http://192.168.0.104:8000/api/v1';
+    baseUrl ??= 'http://192.168.0.107:8000/api/v1';
   }
 
   final Dio _dio;
