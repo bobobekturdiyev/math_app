@@ -5,6 +5,8 @@ import 'package:math_app/config/routes/router.gr.dart';
 import 'package:math_app/core/di/locator.dart';
 import 'package:math_app/core/resources/app_icons.dart';
 import 'package:math_app/core/resources/styles.dart';
+import 'package:math_app/core/state/bloc/auth/auth_bloc.dart';
+import 'package:math_app/core/util/dialog_helper.dart';
 import 'package:math_app/core/util/helpers.dart';
 import 'package:math_app/core/widgets/w_button.dart';
 import 'package:math_app/core/widgets/w_circle_index_card.dart';
@@ -134,7 +136,12 @@ class _WExpansionTileState extends State<WExpansionTile> {
               child: WButton(
                 text: module.quizzes?[index].title ?? "?title",
                 onTap: () {
-                  if (module.quizzes != null) {
+                  if (!locator<AuthBloc>().loggedIn) {
+                    DialogHelper.loginDialog(
+                      context: context,
+                      message: 'Testlarni ishlash uchun dastlab tizimga kiring',
+                    );
+                  } else if (module.quizzes != null) {
                     context.router
                         .push(QuizRoute(quizDto: module.quizzes![index]));
                   }
