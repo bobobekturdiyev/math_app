@@ -1,7 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
-
 import '../../../../../core/resources/state_status.dart';
 import '../../../../../core/resources/styles.dart';
 import '../../../../../core/widgets/w_button.dart';
@@ -35,7 +32,7 @@ class RegStepVerification extends StatelessWidget {
           children: [
             Text.rich(
               TextSpan(
-                text: "we_sent_email".tr(),
+                text: "we_sent_email",
                 style: Styles.getTextStyle(
                   fontSize: 15,
                 ),
@@ -55,7 +52,7 @@ class RegStepVerification extends StatelessWidget {
             WTextField(
               focusNode: codeFocusNode,
               controller: codeController,
-              hint: 'enter_the_code'.tr(),
+              hint: 'enter_the_code',
               keyboardType: TextInputType.number,
               textAlign: TextAlign.center,
               maxLength: 6,
@@ -74,14 +71,14 @@ class RegStepVerification extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "didnot_receive_the_code".tr(),
+                  "didnot_receive_the_code",
                   style: Styles.getTextStyle(
                     fontSize: 12,
                   ),
                 ),
                 const SizedBox(width: 8),
                 WTextLink(
-                  text: "resend".tr(),
+                  text: "resend",
                   fontWeight: FontWeight.w500,
                   onTap: () {
                     // _callBloc(context: context, event: ResendCode());
@@ -93,7 +90,7 @@ class RegStepVerification extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: WButton(
-                text: 'confirm'.tr(),
+                text: 'confirm',
                 onTap: () {
                   // _callBloc(
                   //     context: context,
@@ -110,9 +107,9 @@ class RegStepVerification extends StatelessWidget {
     );
   }
 
-  // _callBloc(
-  //     {required BuildContext context, required RegisterScreenEvent event}) {
-  //   FocusScope.of(context).unfocus();
-  //   context.read<RegisterScreenBloc>().add(event);
-  // }
+// _callBloc(
+//     {required BuildContext context, required RegisterScreenEvent event}) {
+//   FocusScope.of(context).unfocus();
+//   context.read<RegisterScreenBloc>().add(event);
+// }
 }

@@ -99,13 +99,13 @@ class _RegisterScreenState extends State<RegisterScreen> with AppDimension {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "register".tr(),
+                                      "register",
                                       style: Styles.getTextStyle(
                                           fontSize: scaleSize(22),
                                           fontWeight: FontWeight.w500),
                                     ),
                                     Text(
-                                      "auth_data".tr(),
+                                      "auth_data",
                                       style: Styles.getTextStyle(
                                           color: AppColors.subTextColor),
                                     ),
@@ -126,23 +126,23 @@ class _RegisterScreenState extends State<RegisterScreen> with AppDimension {
                                     //   ),
                                     // },
                                     WTextField(
-                                      label: 'name'.tr(),
+                                      label: 'name',
                                       focusNode: nameFocusNode,
                                       controller: firstNameController,
-                                      hint: "lastname".tr(),
+                                      hint: "lastname",
                                       keyboardType: TextInputType.emailAddress,
                                       errorText: state.errorData?['name'],
                                     ),
                                     WTextField(
-                                      label: 'surname'.tr(),
+                                      label: 'surname',
                                       focusNode: surNameFocusNode,
                                       controller: lastNameController,
-                                      hint: "surname_hint".tr(),
+                                      hint: "surname_hint",
                                       keyboardType: TextInputType.emailAddress,
                                       errorText: state.errorData?['surname'],
                                     ),
                                     WTextField(
-                                      label: 'email'.tr(),
+                                      label: 'email',
                                       focusNode: emailFocusNode,
                                       controller: emailController,
                                       hint: "example@gmail.com",
@@ -151,7 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen> with AppDimension {
                                     ),
                                     // SizedBox(height: scaleSize(4)),
                                     WTextField(
-                                      label: 'password'.tr(),
+                                      label: 'password',
                                       focusNode: passwordFocusNode,
                                       hint: '*********',
                                       controller: passwordController,
@@ -174,7 +174,7 @@ class _RegisterScreenState extends State<RegisterScreen> with AppDimension {
                             return Column(
                               children: [
                                 Text(
-                                  "activation".tr(),
+                                  "activation",
                                   style: Styles.getTextStyle(
                                       fontSize: scaleSize(22),
                                       fontWeight: FontWeight.w500),
@@ -190,10 +190,10 @@ class _RegisterScreenState extends State<RegisterScreen> with AppDimension {
                                   height: scaleHeight(12),
                                 ),
                                 WTextField(
-                                  label: 'verify_code'.tr(),
+                                  label: 'verify_code',
                                   focusNode: codeFocusNode,
                                   controller: codeController,
-                                  hint: "verify_code".tr(),
+                                  hint: "verify_code",
                                   keyboardType: TextInputType.emailAddress,
                                   errorText: null,
                                 ),
@@ -212,7 +212,7 @@ class _RegisterScreenState extends State<RegisterScreen> with AppDimension {
                           return SizedBox(
                             width: double.infinity,
                             child: WButton(
-                              text: 'register'.tr(),
+                              text: 'register',
                               onTap: () {
                                 _callBloc(
                                   context: context,
@@ -232,7 +232,7 @@ class _RegisterScreenState extends State<RegisterScreen> with AppDimension {
                               SizedBox(
                                 width: double.infinity,
                                 child: WButton(
-                                  text: 'confirm'.tr(),
+                                  text: 'confirm',
                                   onTap: () {
                                     _callBloc(
                                         context: context,
@@ -250,7 +250,7 @@ class _RegisterScreenState extends State<RegisterScreen> with AppDimension {
                                   color: const Color(0xFFD9DDE6),
                                   text: '',
                                   child: Text(
-                                    'go_back'.tr(),
+                                    'go_back',
                                     style: Styles.getTextStyle(
                                         color: AppColors.black),
                                   ),
@@ -276,7 +276,7 @@ class _RegisterScreenState extends State<RegisterScreen> with AppDimension {
                           child: Wrap(
                             children: [
                               Text(
-                                "isAvailable_account".tr(),
+                                "isAvailable_account",
                                 style: Styles.getTextStyle(
                                     color: AppColors.subTextColor),
                               ),
@@ -284,7 +284,7 @@ class _RegisterScreenState extends State<RegisterScreen> with AppDimension {
                                 width: 8,
                               ),
                               WTextLink(
-                                text: "login".tr(),
+                                text: "login",
                                 onTap: () {
                                   context.router
                                       .replaceNamed(RoutePath.register);

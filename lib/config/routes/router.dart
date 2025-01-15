@@ -90,6 +90,11 @@ class AppRouter extends RootStackRouter {
         ),
 
         AutoRoute(
+          page: QuizRoute.page,
+          path: RoutePath.quizzes,
+        ),
+
+        AutoRoute(
           page: TicketMessagesRoute.page,
           path: RoutePath.ticketMessages,
         ),

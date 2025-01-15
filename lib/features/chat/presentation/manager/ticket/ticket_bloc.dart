@@ -23,7 +23,5 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
             message: result.errorMessage ?? "Savollarni yuklashda xatolik"));
       }
     });
-
-    add(LoadTickets());
   }
 }

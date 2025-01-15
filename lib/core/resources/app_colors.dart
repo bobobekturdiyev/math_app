@@ -4,7 +4,7 @@ abstract class AppColors {
   //General
   static const Color primaryColor = Color(0xFF2EC4B6);
   static const Color primaryColorAccent = Color(0xFFD5F3F0);
-  static const Color primaryColorDark = Color(0xFF00B5B2);
+  static const Color primaryColorDark = Color(0xFF0059B5);
 
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
@@ -15,6 +15,7 @@ abstract class AppColors {
 
   static const Color redAccent = Color(0xFFF3D5D5);
   static const Color yellow = Color(0xFFFFC746);
+  static const Color yellowDark = Color(0xFFFBB520);
   static const Color currentCourseCardColor = Color(0xFFF6FBFA);
   static const Color blueAccent = Color(0xFF16C7F9);
   static const Color pink = Color(0xFFFF3364);
@@ -27,13 +28,12 @@ abstract class AppColors {
   static const Color wrapColor = Color(0xFFF6F7F9);
   static const Color wrapColor2 = Color(0xFFF2F2F2);
   static const Color wrapBorder = Color(0xFFF2F2F2);
-    static const Color bottomIcon = Color(0xFF8A8A93);
+  static const Color bottomIcon = Color(0xFF8A8A93);
 
-
-    static const Color borderColor = Color(0xFFF4F4F4);
+  static const Color borderColor = Color(0xFFF4F4F4);
 
   static const Color inputColor = Color(0xFFFFFFFF);
-  static const Color  backgroundColor = Color(0xFFEAFFF8);
+  static const Color backgroundColor = Color(0xFFF5F7FB);
   static const Color text2 = Color(0xFF52526C);
   static const Color text = Color(0xFF2F2F3B);
   static const Color lessonTabBar = Color(0xFFF1EFFF);
@@ -41,13 +41,13 @@ abstract class AppColors {
   static const Color grey = Color(0xFF999999);
   static const Color C_CACACA = Color(0xFFCACACA);
   static const Color C_11253C = Color(0xFF11253C);
-  static const Color C_F9F9F9F9= Color(0xFFF9F9F9);
-  static const Color C_D9D9D9= Color(0xFFD9D9D9);
-  static const Color C_777777= Color(0xFF777777);
-  static const Color C_070707= Color(0xFF070707);
-  static const Color C_F7F7F7= Color(0xFFF7F7F7);
-  static const Color C_A1A1A1= Color(0xFFA1A1A1);
-  static const Color fieldColor= Color(0xFFFFFFFF);
+  static const Color C_F9F9F9F9 = Color(0xFFF9F9F9);
+  static const Color C_D9D9D9 = Color(0xFFD9D9D9);
+  static const Color C_777777 = Color(0xFF777777);
+  static const Color C_070707 = Color(0xFF070707);
+  static const Color C_F7F7F7 = Color(0xFFF7F7F7);
+  static const Color C_A1A1A1 = Color(0xFFA1A1A1);
+  static const Color fieldColor = Color(0xFFFFFFFF);
 
   static const Color cardColor = Color(0xFFF8F7FB);
 

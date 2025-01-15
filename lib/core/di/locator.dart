@@ -14,9 +14,12 @@ import 'package:math_app/features/chat/presentation/manager/ticket/ticket_bloc.d
 import 'package:math_app/features/home/data/data_source/course_service.dart';
 import 'package:math_app/features/home/data/repositories/impl_course_repo.dart';
 import 'package:math_app/features/home/domain/repositories/course_repo.dart';
+import 'package:math_app/features/quiz/data/data_sources/quiz_service.dart';
+import 'package:math_app/features/quiz/domain/repositories/quiz_repo.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../features/quiz/data/repositories/impl_quiz_repo.dart';
 import '../resources/app_keys.dart';
 import '../util/interceptor.dart';
 
@@ -72,4 +75,8 @@ Future<void> setupLocator() async {
   locator.registerSingleton<TicketRepo>(
       ImplTicketRepo(ticketService: locator<TicketService>()));
   locator.registerSingleton<TicketBloc>(TicketBloc());
+
+  locator.registerSingleton<QuizService>(QuizService(locator<Dio>()));
+  locator.registerSingleton<QuizRepo>(
+      ImplQuizRepo(quizService: locator<QuizService>()));
 }

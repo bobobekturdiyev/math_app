@@ -1,3 +1,4 @@
+import 'package:math_app/core/resources/message_response.dart';
 import 'package:math_app/features/auth/data/models/login_dto.dart';
 import 'package:math_app/features/auth/data/models/register_dto.dart';
 import 'package:math_app/features/auth/domain/entities/check_token_request.dart';
@@ -39,5 +40,5 @@ abstract class AuthRepo {
   Future<DataState<UserDto>> checkVerifyCode(
       {required ForgotTwoReq forgotTwoReq});
 
-  Future<DataState<bool>> logout();
+  Future<DataState<MessageResponse>> logout();
 }

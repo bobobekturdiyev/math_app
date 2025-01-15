@@ -7,7 +7,7 @@ abstract class AuthState extends Equatable {
 }
 
 class AuthInitial extends AuthState {
-  AuthInitial({required super.isLoggedIn});
+  AuthInitial({super.isLoggedIn = false});
 
   @override
   List<Object> get props => [];
@@ -25,4 +25,18 @@ class LoggedIn extends AuthState {
 
   @override
   List<Object> get props => [isError, super.isLoggedIn];
+}
+
+class LoggingOut extends AuthState {
+  const LoggingOut({super.isLoggedIn = false});
+
+  @override
+  List<Object> get props => [];
+}
+
+class LoggedOut extends AuthState {
+  const LoggedOut({super.isLoggedIn = false});
+
+  @override
+  List<Object> get props => [];
 }

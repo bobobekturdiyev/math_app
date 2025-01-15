@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:math_app/features/auth/domain/entities/forgot_req/forgot_req1.dart';
@@ -23,7 +22,7 @@ class ForgotPasswordBloc
     on<GoVerification>((event, emit) async {
       String error = "";
       if (!Validator.validatePhone(event.email)) {
-        error = "email_not_valid".tr();
+        error = "email_not_valid";
 
         emit(ForgotPasswordInitial(
           status: StateStatus.error,
@@ -60,7 +59,7 @@ class ForgotPasswordBloc
       //     Verification(
       //       email: email,
       //       status: StateStatus.error,
-      //       error: result.data?.message ?? 'incorrect_code'.tr(),
+      //       error: result.data?.message ?? 'incorrect_code',
       //     ),
       //   );
       // }
@@ -90,18 +89,18 @@ class ForgotPasswordBloc
       bool hasError = false;
       if (!Validator.validatePassword(event.password)) {
         hasError = true;
-        errors['password'] = 'password_not_valid'.tr();
+        errors['password'] = 'password_not_valid';
       }
 
       if (!Validator.validatePassword(event.confirmPassword)) {
         hasError = true;
-        errors['confirm_password'] = 'password_not_valid'.tr();
+        errors['confirm_password'] = 'password_not_valid';
       }
 
       if (event.password != event.confirmPassword) {
         hasError = true;
-        errors['password'] = 'passwords_not_same'.tr();
-        errors['confirm_password'] = 'passwords_not_same'.tr();
+        errors['password'] = 'passwords_not_same';
+        errors['confirm_password'] = 'passwords_not_same';
       }
 
       if (hasError) {

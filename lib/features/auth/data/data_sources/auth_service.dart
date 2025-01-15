@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:math_app/core/resources/message_response.dart';
 import 'package:math_app/features/auth/data/models/login_dto.dart';
 import 'package:math_app/features/auth/domain/entities/check_token_request.dart';
 import 'package:math_app/features/auth/domain/entities/forgot_req/forgot_req1.dart';
@@ -33,6 +34,9 @@ abstract class AuthService {
   @POST("/check-token")
   Future<HttpResponse<UserDto>> checkToken(
       {@Body() required CheckTokenRequest checkTokenRequest});
+
+  @POST("/logout")
+  Future<HttpResponse<MessageResponse>> logout();
 
   @POST("/activate-user-phone")
   Future<HttpResponse<RegisterDto>> verifyCode(

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:math_app/core/di/locator.dart';
@@ -37,12 +36,12 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
 
     if (!Validator.validatePhone(event.value)) {
       hasError = true;
-      auth['value'] = 'phone_or_email_invalid'.tr();
+      auth['value'] = 'phone_or_email_invalid';
     }
 
     if (!Validator.validatePassword(event.password)) {
       hasError = true;
-      auth['password'] = 'password_not_valid'.tr();
+      auth['password'] = 'password_not_valid';
     }
 
     if (!hasError) {

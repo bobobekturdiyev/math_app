@@ -1,23 +1,26 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:math_app/config/routes/route_data.dart';
 import 'package:math_app/config/routes/router.gr.dart';
 import 'package:math_app/core/resources/app_colors.dart';
 import 'package:math_app/core/resources/app_icons.dart';
 import 'package:math_app/core/resources/styles.dart';
 import 'package:math_app/core/widgets/w_button.dart';
 import 'package:math_app/core/widgets/w_text_link.dart';
+import 'package:math_app/features/quiz/presentation/manager/test/test_bloc.dart';
 
 enum ResultType { success, failure }
 
 @RoutePage()
 class EitherResultScreen extends StatelessWidget {
   final ResultType resultType;
+  final QuizResultState quizResultState;
 
-  const EitherResultScreen({super.key, required this.resultType});
+  const EitherResultScreen({
+    super.key,
+    required this.resultType,
+    required this.quizResultState,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,21 +29,26 @@ class EitherResultScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 140,
-            ),
-            Stack(
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(top: 44),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(28),
-                    color: resultType == ResultType.failure
-                        ? AppColors.danger
-                        : AppColors.primaryColor,
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(28),
+                color: resultType == ResultType.failure
+                    ? AppColors.danger
+                    : AppColors.primaryColor,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    child: Text(
+                      "To'g'ri javob: ${quizResultState.quizResultDto.correctAnswers}/${quizResultState.quizResultDto.totalQuestions}",
+                      style: Styles.getCorrectAnswersStyle(),
+                    ),
                   ),
-                  child: Container(
+                  Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(24),
@@ -64,8 +72,8 @@ class EitherResultScreen extends StatelessWidget {
                         Center(
                           child: Text(
                             resultType == ResultType.failure
-                                ? "test_failure_message".tr()
-                                : "test_success_message".tr(),
+                                ? "Testdan o’tishingizga yetarlicha ball to’play olmadingiz"
+                                : "Tabriklaymiz! Siz testni muvaffaqiyatli yakunladingiz.",
                             style: Styles.getResultTextStyle(),
                             textAlign: TextAlign.center,
                           ),
@@ -75,8 +83,8 @@ class EitherResultScreen extends StatelessWidget {
                         ),
                         Text(
                           resultType == ResultType.failure
-                              ? "failure_result_guide_info".tr()
-                              : "success_result_guide_info".tr(),
+                              ? "Darslarni qayta ko’rib, testdan o’tishingiz kerak."
+                              : "Kursda davom etish uchun quyidagi knopkani bosing",
                           style: Styles.getResultInfoGuide(),
                           textAlign: TextAlign.center,
                         ),
@@ -87,34 +95,29 @@ class EitherResultScreen extends StatelessWidget {
                             width: double.infinity,
                             child: WButton(
                               text: resultType == ResultType.failure
-                                  ? "review_lessons".tr()
-                                  : "go_to_next_section".tr(),
-                              onTap: () {},
+                                  ? "Darslarga qaytish"
+                                  : "Davom etish",
+                              onTap: () {
+                                context.router.maybePop();
+                              },
                             ))
                       ],
                     ),
                   ),
-                ),
-                  Positioned(
-                    top: 8,
-                    left: 20,
-                    child: Text(
-                      "correct_answers"
-                          .tr(namedArgs: {'to': '8', 'from': '10'}),
-                      style: Styles.getCorrectAnswersStyle(),
-                    ),
-                  ),
-              ],
+                ],
+              ),
             ),
             const SizedBox(
               height: 20,
             ),
             if (resultType == ResultType.success)
-
-            WTextLink(
-              text: "check_test_results".tr(),
-              onTap: () {context.router.push(const TestResultRoute());},
-            ),
+              WTextLink(
+                text: "Test natijalarini tekshirish",
+                onTap: () {
+                  context.router
+                      .push(TestResultRoute(quizResultState: quizResultState));
+                },
+              ),
           ],
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:math_app/core/di/locator.dart';
@@ -45,20 +46,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(LoggedIn(isLoggedIn: loggedIn));
     });
 
-    on<GetMeEvent>((event, emit) async {
-      // final result = await authRepo.getMe();
-      //
-      // if (result is DataSuccess) {
-      //   user = result.data;
-      //   emit(LoggedIn(isLoggedIn: loggedIn));
-      // } else {
-      //   emit(LoggedIn(
-      //       isLoggedIn: loggedIn, isError: true, message: result.errorMessage));
-      // }
-    });
-
     on<Logout>((event, emit) async {
-      emit(AuthInitial(isLoggedIn: loggedIn));
+      emit(LoggingOut());
 
       final result = await authRepo.logout();
 
@@ -66,9 +55,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         final prefs = await SharedPreferences.getInstance();
         loggedIn = false;
         prefs.remove(AppKeys.token);
-
+        locator<Dio>().options.headers['Authorization'] = null;
         loggedIn = false;
-        // emit(LoggedIn(isLoggedIn: false, message: result.data));
+        emit(LoggedOut());
       } else {
         emit(
           LoggedIn(
@@ -79,7 +68,5 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         );
       }
     });
-
-    add(GetMeEvent());
   }
 }

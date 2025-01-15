@@ -1,7 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
-
 import '../../../../../core/resources/app_colors.dart';
 import '../../../../../core/resources/state_status.dart';
 import '../../../../../core/resources/styles.dart';
@@ -41,14 +38,13 @@ class RegStep1 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "tell_us_about_yourself".tr(),
+              "tell_us_about_yourself",
               style: Styles.getTextStyle(fontSize: 18),
             ),
             const SizedBox(height: 24),
             if (
-            // state.error != null
-            true
-            ) ...{
+                // state.error != null
+                true) ...{
               Text(
                 'state.error',
                 style: Styles.getTextStyle(
@@ -60,14 +56,14 @@ class RegStep1 extends StatelessWidget {
             WTextField(
               focusNode: nameFocusNode,
               controller: firstNameController,
-              hint: 'firstname'.tr(),
+              hint: 'firstname',
               keyboardType: TextInputType.text,
-              errorText: 'state.errorData?[''name'']',
+              errorText: 'state.errorData?[' 'name' ']',
             ),
             WTextField(
               focusNode: surnameFocusNode,
               controller: lastNameController,
-              hint: 'lastname'.tr(),
+              hint: 'lastname',
               keyboardType: TextInputType.text,
               errorText: "state.errorData?['surname']",
             ),
@@ -76,9 +72,7 @@ class RegStep1 extends StatelessWidget {
                 color: AppColors.black,
                 borderRadius: BorderRadius.circular(30),
                 border: Border.all(
-                  color:
-                  state.errorData?['phone'] != null
-
+                  color: state.errorData?['phone'] != null
                       ? AppColors.danger
                       : AppColors.white,
                 ),
@@ -89,7 +83,7 @@ class RegStep1 extends StatelessWidget {
               //       borderSide: BorderSide.none,
               //     ),
               //     contentPadding: const EdgeInsets.only(right: 16),
-              //     hintText: 'phone_number'.tr(),
+              //     hintText: 'phone_number',
               //     hintStyle: Styles.getTextStyle(
               //       color: const Color(0xFF666666),
               //       letterSpacing: 1,
@@ -118,7 +112,7 @@ class RegStep1 extends StatelessWidget {
               //         borderRadius: BorderRadius.circular(30),
               //       ),
               //       contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-              //       hintText: 'search_country'.tr(),
+              //       hintText: 'search_country',
               //       hintStyle: Styles.getTextStyle(
               //           color: Colors.black, letterSpacing: 1, fontSize: 12),
               //     ),
@@ -145,13 +139,12 @@ class RegStep1 extends StatelessWidget {
               // ),
             ),
             if (
-            // state.errorData?['phone'] != null
-            true
-            ) ...{
+                // state.errorData?['phone'] != null
+                true) ...{
               Padding(
                 padding: const EdgeInsets.only(left: 16.0, top: 8),
                 child: Text(
-                  "state.errorData?['phone']" ,
+                  "state.errorData?['phone']",
                   style:
                       Styles.getTextStyle(fontSize: 8, color: AppColors.danger),
                 ),
@@ -161,7 +154,7 @@ class RegStep1 extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: WButton(
-                text: 'next_step'.tr(),
+                text: 'next_step',
                 onTap: () {
                   // _callBloc(
                   //   context: context,
@@ -183,9 +176,9 @@ class RegStep1 extends StatelessWidget {
     );
   }
 
-  // _callBloc(
-  //     {required BuildContext context, required RegisterScreenEvent event}) {
-  //   FocusScope.of(context).unfocus();
-  //   // context.read<RegisterScreenBloc>().add(event);
-  // }
+// _callBloc(
+//     {required BuildContext context, required RegisterScreenEvent event}) {
+//   FocusScope.of(context).unfocus();
+//   // context.read<RegisterScreenBloc>().add(event);
+// }
 }

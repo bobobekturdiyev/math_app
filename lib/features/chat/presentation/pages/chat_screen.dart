@@ -169,7 +169,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   builder: (_) => AddTicketPage(),
                 );
               },
-              backgroundColor: AppColors.primaryColorDark,
+              backgroundColor: AppColors.primaryColor,
               child: Icon(
                 Icons.add_comment_rounded,
                 color: AppColors.white,
@@ -177,5 +177,11 @@ class _ChatScreenState extends State<ChatScreen> {
             )
           : null,
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    locator<TicketBloc>().add(LoadTickets());
   }
 }

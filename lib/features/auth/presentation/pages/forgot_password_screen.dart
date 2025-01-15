@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -110,13 +109,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "reset_password".tr(),
+                                          "reset_password",
                                           style: Styles.getTextStyle(
                                               fontSize: scaleSize(22),
                                               fontWeight: FontWeight.w500),
                                         ),
                                         Text(
-                                          "forgot_sub".tr(),
+                                          "forgot_sub",
                                           style: Styles.getTextStyle(
                                               color: AppColors.subTextColor),
                                         ),
@@ -124,7 +123,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
 
                                         WTextField(
                                           controller: emailController,
-                                          label: 'email'.tr(),
+                                          label: 'email',
                                           hint: 'example@gmail.com',
                                           keyboardType:
                                               TextInputType.emailAddress,
@@ -148,10 +147,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                     //     alignment: Alignment.bottomLeft,
                                     //     child:Wrap(
                                     //       children: [
-                                    //         Text("isAvailable_account".tr(),style: Styles.getTextStyle(color: AppColors.subTextColor),),
+                                    //         Text("isAvailable_account",style: Styles.getTextStyle(color: AppColors.subTextColor),),
                                     //         const SizedBox(width: 8,),
                                     //         WTextLink(
-                                    //           text: "login".tr(),
+                                    //           text: "login",
                                     //           onTap: () {
                                     //             context.router.replaceNamed(RoutePath.register);
                                     //           },
@@ -163,10 +162,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                     //     alignment: Alignment.bottomLeft,
                                     //     child:Wrap(
                                     //       children: [
-                                    //         Text("isAvailable_account".tr(),style: Styles.getTextStyle(color: AppColors.subTextColor),),
+                                    //         Text("isAvailable_account",style: Styles.getTextStyle(color: AppColors.subTextColor),),
                                     //         const SizedBox(width: 8,),
                                     //         WTextLink(
-                                    //           text: "login".tr(),
+                                    //           text: "login",
                                     //           onTap: () {
                                     //             context.router.replaceNamed(RoutePath.register);
                                     //           },
@@ -186,20 +185,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "input_code".tr(),
+                                          "input_code",
                                           style: Styles.getTextStyle(
                                               fontSize: scaleSize(22),
                                               fontWeight: FontWeight.w500),
                                         ),
                                         // Text(
-                                        //   "forgot_sub".tr(),
+                                        //   "forgot_sub",
                                         //   style: Styles.getTextStyle(color: AppColors.subTextColor),
                                         // ),
                                         WTextField(
-                                          label: "getVerify_code".tr(),
+                                          label: "getVerify_code",
                                           focusNode: codeFocusNode,
                                           controller: codeController,
-                                          hint: 'verify_code'.tr(),
+                                          hint: 'verify_code',
                                           keyboardType: TextInputType.number,
                                           textAlign: TextAlign.center,
                                           maxLength: 6,
@@ -223,7 +222,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                           children: [
                                             const SizedBox(width: 8),
                                             WTextLink(
-                                              text: "resend".tr(),
+                                              text: "resend",
                                               fontWeight: FontWeight.w500,
                                               onTap: () {
                                                 _callBloc(
@@ -253,7 +252,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "new_password".tr(),
+                                          "new_password",
                                           style: Styles.getTextStyle(
                                               fontSize: scaleSize(22),
                                               fontWeight: FontWeight.w500),
@@ -264,8 +263,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                         WTextField(
                                             focusNode: passwordFocusNode,
                                             controller: passwordController,
-                                            label: 'input_password'.tr(),
-                                            hint: 'input_password'.tr(),
+                                            label: 'input_password',
+                                            hint: 'input_password',
                                             isObscure: true,
                                             keyboardType:
                                                 TextInputType.visiblePassword,
@@ -276,8 +275,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                             focusNode: confirmPasswordFocusNode,
                                             controller:
                                                 confirmPasswordController,
-                                            label: 'repeat_password'.tr(),
-                                            hint: 'repeat_password'.tr(),
+                                            label: 'repeat_password',
+                                            hint: 'repeat_password',
                                             isObscure: true,
                                             keyboardType:
                                                 TextInputType.visiblePassword,
@@ -308,7 +307,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                 child: WButton(
                                   showLoader:
                                       state.status == StateStatus.loading,
-                                  text: 'send'.tr(),
+                                  text: 'send',
                                   onTap: () {
                                     _callBloc(
                                       context: context,
@@ -324,7 +323,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                 width: double.infinity,
                                 child: WButton(
                                   // state.status == StateStatus.loading,
-                                  text: 'get_code'.tr(),
+                                  text: 'get_code',
                                   onTap: () {
                                     _callBloc(
                                       context: context,
@@ -341,7 +340,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                 child: WButton(
                                   // showLoader:
                                   //     state.status == StateStatus.loading,
-                                  text: 'send'.tr(),
+                                  text: 'send',
                                   onTap: () {
                                     _callBloc(
                                       context: context,

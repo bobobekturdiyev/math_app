@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -265,7 +264,7 @@ class _PlanScreenState extends State<PlanScreen> {
                                       keyboardType: TextInputType.number,
                                     ),
                                     WButton(
-                                        text: "send".tr(),
+                                        text: "send",
                                         onTap: () {
                                           context.read<PaymeBloc>().add(
                                               CardVerification(
@@ -283,10 +282,10 @@ class _PlanScreenState extends State<PlanScreen> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 WTextField(
-                                  label: "getVerify_code".tr(),
+                                  label: "getVerify_code",
                                   // focusNode: codeFocusNode,
                                   controller: codeController,
-                                  hint: 'verify_code'.tr(),
+                                  hint: 'verify_code',
                                   keyboardType: TextInputType.number,
                                   textAlign: TextAlign.center,
                                   maxLength: 6,
@@ -297,7 +296,7 @@ class _PlanScreenState extends State<PlanScreen> {
                                   onSubmitted: (str) {},
                                 ),
                                 WButton(
-                                    text: "send".tr(),
+                                    text: "send",
                                     onTap: () {
                                       context.read<PaymeBloc>().add(VerifyCode(
                                           code: codeController.text));

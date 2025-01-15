@@ -56,74 +56,93 @@ class _WExpansionTileState extends State<WExpansionTile> {
           module.name ?? "?modulename",
           style: Styles.getTextStyle(color: AppColors.subTextColor),
         ),
-        children: List.generate(
-          module.lessons?.length ?? 0,
-          (index) => GestureDetector(
-            onTap: () {
-              if (widget.courseAccess && widget.moduleAccess ||
-                  (widget.module.lessons![index].isOpen ?? false)) {
-                context.router.push(
-                  LessonRoute(
-                    lessonDto: module.lessons![index],
-                  ),
-                );
-              } else {
-                _showLogin(context);
-              }
-            },
-            child: Container(
-              margin: const EdgeInsets.only(bottom: 16),
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    spreadRadius: 0,
-                    blurRadius: 15,
-                    offset: const Offset(0, 10),
-                    color: Colors.black.withOpacity(0.05),
-                  ),
-                ],
-              ),
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        WCircleIndexCard(index: index),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                module.lessons![index].title ?? "?lessonTitle",
-                                style: Styles.getLessonTitle(),
-                              ),
-                              Text(
-                                module.lessons![index].duration ?? "?duration",
-                                style: Styles.getLessonSubTitle(),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+        children: [
+          ...List.generate(
+            module.lessons?.length ?? 0,
+            (index) => GestureDetector(
+              onTap: () {
+                if (widget.courseAccess && widget.moduleAccess ||
+                    (widget.module.lessons![index].isOpen ?? false)) {
+                  context.router.push(
+                    LessonRoute(
+                      lessonDto: module.lessons![index],
                     ),
-                  ),
-                  SvgPicture.asset(
-                      (widget.courseAccess && widget.moduleAccess ||
-                              (module.lessons![index].isOpen ?? false))
-                          ? AppIcons.playRoundDis
-                          : AppIcons.lock),
-                ],
+                  );
+                } else {
+                  _showLogin(context);
+                }
+              },
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      spreadRadius: 0,
+                      blurRadius: 15,
+                      offset: const Offset(0, 10),
+                      color: Colors.black.withOpacity(0.05),
+                    ),
+                  ],
+                ),
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Row(
+                        children: [
+                          WCircleIndexCard(index: index),
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  module.lessons![index].title ??
+                                      "?lessonTitle",
+                                  style: Styles.getLessonTitle(),
+                                ),
+                                Text(
+                                  module.lessons![index].duration ??
+                                      "?duration",
+                                  style: Styles.getLessonSubTitle(),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SvgPicture.asset(
+                        (widget.courseAccess && widget.moduleAccess ||
+                                (module.lessons![index].isOpen ?? false))
+                            ? AppIcons.playRoundDis
+                            : AppIcons.lock),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
+          ...List.generate(
+            module.quizzes?.length ?? 0,
+            (index) => SizedBox(
+              width: double.infinity,
+              child: WButton(
+                text: module.quizzes?[index].title ?? "?title",
+                onTap: () {
+                  if (module.quizzes != null) {
+                    context.router
+                        .push(QuizRoute(quizDto: module.quizzes![index]));
+                  }
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -93,7 +93,7 @@
 //                   child: Text(
 //                     // user.account.birthday ??
 //                     (widget.date==null&&time==null)?
-//                     "select_date".tr():time!,
+//                     "select_date":time!,
 //                     overflow: TextOverflow.ellipsis,
 //                     maxLines: 1,
 //                     style: Styles.getTextStyle(

@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:math_app/features/auth/domain/entities/register_request.dart';
 
 import '../../../../../core/resources/data_state.dart';
@@ -11,7 +10,6 @@ import '../../../../../core/util/validator.dart';
 import '../../../domain/repositories/auth_repo.dart';
 
 part 'register_screen_event.dart';
-
 part 'register_screen_state.dart';
 
 class RegisterScreenBloc
@@ -59,19 +57,19 @@ class RegisterScreenBloc
 
     if (!Validator.validateName(event.name)) {
       hasError = true;
-      auth['name'] = 'email_not_valid'.tr();
+      auth['name'] = 'email_not_valid';
     }
     if (!Validator.validateName(event.surname)) {
       hasError = true;
-      auth['surname'] = 'email_not_valid'.tr();
+      auth['surname'] = 'email_not_valid';
     }
     if (!Validator.validatePhone(event.value)) {
       hasError = true;
-      auth['value'] = 'email_not_valid'.tr();
+      auth['value'] = 'email_not_valid';
     }
     if (!Validator.validatePassword(event.password)) {
       hasError = true;
-      auth['password'] = 'password_not_valid'.tr();
+      auth['password'] = 'password_not_valid';
     }
     if (!hasError) {
       value = event.value;
@@ -88,7 +86,7 @@ class RegisterScreenBloc
       if (response is DataSuccess) {
         emit(const VerificationState());
       } else {
-        auth['error'] = response.errorMessage ?? "something_went_wrong".tr();
+        auth['error'] = response.errorMessage ?? "something_went_wrong";
         emit(RegisterScreenInitial(
           status: StateStatus.error,
           errorData: auth,

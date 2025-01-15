@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:math_app/config/routes/route_path.dart';
+import 'package:math_app/config/routes/router.gr.dart';
 import 'package:math_app/core/di/locator.dart';
 import 'package:math_app/core/state/bloc/bottom_nav_bar/bottom_nav_bar_bloc.dart';
 
@@ -16,5 +17,10 @@ abstract class Helper {
     locator<BottomNavBarBloc>().add(OpenPage(path: RoutePath.profile));
 
     context.router.popUntilRouteWithPath(RoutePath.main);
+  }
+
+  static void restart(BuildContext context) {
+    locator<BottomNavBarBloc>().add(OpenPage(path: RoutePath.profile));
+    context.router.replaceAll([SplashRoute()]);
   }
 }

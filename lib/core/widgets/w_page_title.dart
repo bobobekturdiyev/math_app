@@ -1,5 +1,3 @@
-
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:math_app/core/widgets/w_textfield.dart';
@@ -16,6 +14,7 @@ class WPageTitle extends StatefulWidget {
   final Function(String)? onChanged;
   final FocusNode? focusNode;
   final double fontSize;
+
   const WPageTitle({
     Key? key,
     required this.title,
@@ -98,7 +97,7 @@ class _WPageTitleState extends State<WPageTitle> {
                               onSubmitted: widget.onSubmitted,
                               onChanged: widget.onChanged,
                               margin: EdgeInsets.zero,
-                              hint: "search_by_name".tr(),
+                              hint: "search_by_name",
                               onTapOutside: (ev) {},
                               suffixIcon: Padding(
                                 padding: const EdgeInsets.all(14.0),

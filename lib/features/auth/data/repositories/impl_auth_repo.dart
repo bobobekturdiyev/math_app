@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:math_app/core/resources/message_response.dart';
 import 'package:math_app/features/auth/data/models/login_dto.dart';
 import 'package:math_app/features/auth/domain/entities/check_token_request.dart';
 import 'package:math_app/features/auth/domain/entities/forgot_req/forgot_req1.dart';
@@ -140,9 +141,14 @@ class ImplAuthRepo extends AuthRepo {
   }
 
   @override
-  Future<DataState<bool>> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<DataState<MessageResponse>> logout() async {
+    try {
+      final result = await authService.logout();
+
+      return DataSuccess<MessageResponse>(data: result.data);
+    } catch (e) {
+      return _getError<MessageResponse>(e);
+    }
   }
 
   @override

@@ -1,7 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
-
 import '../../../../../core/resources/app_colors.dart';
 import '../../../../../core/resources/state_status.dart';
 import '../../../../../core/resources/styles.dart';
@@ -40,13 +37,11 @@ class RegStepMail extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "lets_create_your_account".tr(),
+              "lets_create_your_account",
               style: Styles.getTextStyle(fontSize: 18),
             ),
             const SizedBox(height: 24),
-            if (
-            state.errorData?['error'] != null
-            ) ...{
+            if (state.errorData?['error'] != null) ...{
               Center(
                 child: Text(
                   "state.errorData!['error']!,",
@@ -58,14 +53,14 @@ class RegStepMail extends StatelessWidget {
             WTextField(
               focusNode: emailFocusNode,
               controller: emailController,
-              hint: 'email'.tr(),
+              hint: 'email',
               keyboardType: TextInputType.emailAddress,
               errorText: "state.errorData?['email']",
             ),
             WTextField(
               focusNode: passwordFocusNode,
               controller: passwordController,
-              hint: 'password'.tr(),
+              hint: 'password',
               isObscure: true,
               keyboardType: TextInputType.visiblePassword,
               errorText: "state.errorData?['password']",
@@ -73,7 +68,7 @@ class RegStepMail extends StatelessWidget {
             WTextField(
               focusNode: confirmPasswordFocusNode,
               controller: confirmPasswordController,
-              hint: 'confirm_password'.tr(),
+              hint: 'confirm_password',
               isObscure: true,
               keyboardType: TextInputType.visiblePassword,
               errorText: "state.errorData?['confirmPassword']",
@@ -82,7 +77,7 @@ class RegStepMail extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: WButton(
-                text: 'next_step'.tr(),
+                text: 'next_step',
                 onTap: () {
                   // _callBloc(
                   //     context: context,
@@ -103,9 +98,9 @@ class RegStepMail extends StatelessWidget {
     );
   }
 
-  // _callBloc(
-  //     {required BuildContext context, required RegisterScreenEvent event}) {
-  //   FocusScope.of(context).unfocus();
-  //   context.read<RegisterScreenBloc>().add(event);
-  // }
+// _callBloc(
+//     {required BuildContext context, required RegisterScreenEvent event}) {
+//   FocusScope.of(context).unfocus();
+//   context.read<RegisterScreenBloc>().add(event);
+// }
 }
