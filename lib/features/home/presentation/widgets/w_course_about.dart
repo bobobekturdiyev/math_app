@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:math_app/core/resources/app_colors.dart';
 import 'package:math_app/core/resources/styles.dart';
 
 class WCourseAbout extends StatelessWidget {

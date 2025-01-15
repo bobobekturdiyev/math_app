@@ -27,3 +27,14 @@ class Logout extends AuthEvent {
   @override
   List<Object?> get props => [];
 }
+
+class AssignUser extends AuthEvent {
+  final User user;
+
+  const AssignUser({
+    required this.user,
+  });
+
+  @override
+  List<Object?> get props => [user];
+}

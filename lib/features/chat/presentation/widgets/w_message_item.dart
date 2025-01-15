@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:math_app/core/extensions/string_extention.dart';
 import 'package:math_app/features/chat/data/models/ticket/ticket_message.dart';
 
 import '../../../../core/resources/app_colors.dart';
@@ -64,10 +66,17 @@ class WMessageItem extends StatelessWidget {
                       ),
                       SizedBox(height: 8),
                     },
-                    Text(
-                      message.body ?? "?body",
-                      style: Styles.getTextStyle(
+                    HtmlWidget(
+                      message.body?.readMore() ?? "?body",
+                      textStyle: Styles.getTextStyle(
                           color: isMe ? AppColors.white : AppColors.black),
+                      customWidgetBuilder: (el) {
+                        return Text(
+                          el.text,
+                          style: Styles.getTextStyle(
+                              color: isMe ? AppColors.white : AppColors.black),
+                        );
+                      },
                     ),
                     SizedBox(height: 4),
                     Align(

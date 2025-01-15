@@ -1,7 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-import 'chat_user.dart';
-
 class UsersAllEntities {
   final String? image;
   final String name;
@@ -12,10 +10,12 @@ class UsersAllEntities {
   final int? chatId;
   String lastMessage;
   String? lastDate;
+
   // final List<ChatUserEntities> chatUserEntities;
   int messageCount;
   bool unread;
-  UsersAllEntities( {
+
+  UsersAllEntities({
     required this.name,
     required this.surname,
     required this.userId,
@@ -25,8 +25,7 @@ class UsersAllEntities {
     this.chatId,
     this.messageCount = 0,
     this.lastDate,
-    this.lastMessage='',
-
+    this.lastMessage = '',
     required this.unread,
     // required this.chatUserEntities
   });

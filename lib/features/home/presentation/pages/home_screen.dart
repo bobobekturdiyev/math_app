@@ -5,6 +5,7 @@ import 'package:math_app/config/routes/router.gr.dart';
 import 'package:math_app/core/widgets/unfocus.dart';
 import 'package:math_app/core/widgets/w_button.dart';
 import 'package:math_app/core/widgets/w_loader.dart';
+import 'package:math_app/core/widgets/w_logo.dart';
 import 'package:math_app/features/home/presentation/manager/category/category_home_bloc.dart';
 import 'package:math_app/features/home/presentation/manager/course/course_home_bloc.dart';
 import 'package:math_app/features/home/presentation/widgets/w_category.dart';
@@ -76,15 +77,26 @@ class _HomeScreenState extends State<HomeScreen> {
                     elevation: 0,
                     scrolledUnderElevation: 0,
                     backgroundColor: AppColors.white,
-                    title: WSearch(
-                      onSubmitted: (str) {
-                        onRefresh = () {
-                          courseHomeBloc.add(SearchCourse(query: str));
-                          categoryHomeBloc.add(const CategoryHomeHideSelect());
-                        };
+                    title: Row(
+                      children: [
+                        WLogo(
+                          size: 48,
+                        ),
+                        SizedBox(width: 12),
+                        Expanded(
+                          child: WSearch(
+                            onSubmitted: (str) {
+                              onRefresh = () {
+                                courseHomeBloc.add(SearchCourse(query: str));
+                                categoryHomeBloc
+                                    .add(const CategoryHomeHideSelect());
+                              };
 
-                        onRefresh!();
-                      },
+                              onRefresh!();
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   if (showCategorySection) ...{

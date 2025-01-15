@@ -11,7 +11,6 @@ import 'package:math_app/core/widgets/w_loader.dart';
 import 'package:math_app/core/widgets/w_non_auth.dart';
 import 'package:math_app/features/my_courses/presentation/manager/my_course_screen/my_course_screen_bloc.dart';
 
-import '../../../home/presentation/widgets/w_category.dart';
 import '../widgets/w_my_course_item.dart';
 
 @RoutePage()
@@ -70,47 +69,30 @@ class _MyCoursesScreenState extends State<MyCoursesScreen>
                       return SliverList(
                         delegate: SliverChildListDelegate(
                           [
-                            Container(
-                              decoration: const BoxDecoration(
-                                color: AppColors.white,
-                              ),
-                              child: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  children: [
-                                    SizedBox(width: 16),
-                                    WCategory(
-                                      onTap: () {},
-                                      text: "Barcha kurslar",
-                                      isActive: true,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
                             SizedBox(height: 16),
                             ListView.builder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) => Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16.0),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          context.router.push(
-                                              CourseDetailsRoute(
-                                                  courseDto:
-                                                      state.courses[index]));
-                                        },
-                                        child: WMyCourseItem(
-                                          course: state.courses[index],
-                                        ),
-                                        // child: WCourseCard(
-                                        //   course: state.courses[index],
-                                        // ),
-                                      ),
-                                    ),
-                                itemCount: state.courses.length)
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) => Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    context.router.push(
+                                      CourseDetailsRoute(
+                                          courseDto: state.courses[index]),
+                                    );
+                                  },
+                                  child: WMyCourseItem(
+                                    course: state.courses[index],
+                                  ),
+                                  // child: WCourseCard(
+                                  //   course: state.courses[index],
+                                  // ),
+                                ),
+                              ),
+                              itemCount: state.courses.length,
+                            ),
                           ],
                         ),
                       );

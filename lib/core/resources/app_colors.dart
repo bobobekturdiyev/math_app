@@ -19,6 +19,7 @@ abstract class AppColors {
   static const Color currentCourseCardColor = Color(0xFFF6FBFA);
   static const Color blueAccent = Color(0xFF16C7F9);
   static const Color pink = Color(0xFFFF3364);
+  static const Color pinkAccent = Color(0xFFFF6482);
   static const Color green = Color(0xFF54BA4A);
   static const Color dateColor = Color(0xFFDBD6FE);
 
@@ -35,6 +36,7 @@ abstract class AppColors {
   static const Color inputColor = Color(0xFFFFFFFF);
   static const Color backgroundColor = Color(0xFFF5F7FB);
   static const Color text2 = Color(0xFF52526C);
+  static const Color darkGrey = Color(0xFF52526C);
   static const Color text = Color(0xFF2F2F3B);
   static const Color lessonTabBar = Color(0xFFF1EFFF);
 

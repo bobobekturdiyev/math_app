@@ -5,4 +5,5 @@ abstract class AppLottie {
 
   static const String login = "${_lottiePath}login.json";
   static const String hand = "${_lottiePath}hand.json";
+  static const String wifi = "${_lottiePath}wifi.json";
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:math_app/core/di/locator.dart';
+import 'package:math_app/core/extensions/string_extention.dart';
 import 'package:math_app/core/resources/app_colors.dart';
 import 'package:math_app/features/chat/data/models/ticket/ticket_dto.dart';
 
@@ -31,21 +33,43 @@ class WTicketItem extends StatelessWidget {
                         style: locator<ThemeData>().textTheme.headlineSmall,
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(left: 16),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: AppColors.redAccent.withValues(alpha: 0.5),
-                      ),
-                      child: Text(
-                        ticketDto.status ?? "?status",
-                        style: TextStyle(color: AppColors.danger, fontSize: 10),
-                      ),
-                    ),
+                    Builder(builder: (context) {
+                      String status = '';
+                      Color color = AppColors.primaryColor;
+                      if (ticketDto.status != null) {
+                        switch (ticketDto.status) {
+                          case 'open':
+                            status = 'Javob kutilmoqda';
+                            color = AppColors.pinkAccent;
+                            break;
+                          case 'closed':
+                            status = 'Javob berilgan';
+                            color = AppColors.primaryColor;
+                            break;
+                          case 'archived':
+                            status = 'Arxivlangan';
+                            color = AppColors.darkGrey;
+                            break;
+                        }
+                      }
+
+                      return Container(
+                        margin: EdgeInsets.only(left: 16),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: color,
+                        ),
+                        child: Text(
+                          status,
+                          style:
+                              TextStyle(color: AppColors.white, fontSize: 10),
+                        ),
+                      );
+                    }),
                   ],
                 ),
                 Text(
@@ -60,19 +84,33 @@ class WTicketItem extends StatelessWidget {
                 SizedBox(height: 8),
                 Builder(builder: (context) {
                   String? message = ticketDto.message?.body;
-                  if (ticketDto.message?.userId != null &&
-                      ticketDto.userId != null &&
-                      ticketDto.message!.userId == ticketDto.userId!) {
-                    message = "Siz: $message";
-                  }
 
-                  return Text(
-                    message ?? "?body",
-                    style: locator<ThemeData>().textTheme.bodyMedium?.copyWith(
-                          color: AppColors.grey.withValues(alpha: 0.95),
-                        ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  return HtmlWidget(
+                    message?.readMore() ?? "?body",
+                    textStyle:
+                        locator<ThemeData>().textTheme.bodyMedium?.copyWith(
+                              color: AppColors.grey.withValues(alpha: 0.95),
+                            ),
+
+                    customWidgetBuilder: (el) {
+                      return Text(
+                        el.text.readMore(),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style:
+                            locator<ThemeData>().textTheme.bodyMedium?.copyWith(
+                                  color: AppColors.grey.withValues(alpha: 0.95),
+                                ),
+                      );
+                    },
+                    // child: Text(
+                    //   message ?? "?body",
+                    //   style: locator<ThemeData>().textTheme.bodyMedium?.copyWith(
+                    //         color: AppColors.grey.withValues(alpha: 0.95),
+                    //       ),
+                    //   maxLines: 1,
+                    //   overflow: TextOverflow.ellipsis,
+                    // ),
                   );
                 }),
                 Divider(

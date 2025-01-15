@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:math_app/features/auth/domain/entities/forgot_req/forgot_req1.dart';
-import 'package:math_app/features/auth/domain/entities/forgot_req/forgot_req2.dart';
 import 'package:math_app/features/auth/domain/entities/forgot_req/forgot_request.dart';
 
 import '../../../../../core/resources/data_state.dart';
@@ -10,6 +9,7 @@ import '../../../../../core/util/validator.dart';
 import '../../../domain/repositories/auth_repo.dart';
 
 part 'forgot_password_event.dart';
+
 part 'forgot_password_state.dart';
 
 class ForgotPasswordBloc
@@ -44,25 +44,6 @@ class ForgotPasswordBloc
           ));
         }
       }
-    });
-
-    on<GoFinalStateEvent>((event, emit) async {
-      emit(Verification(email: email, status: StateStatus.loading));
-      final result = await authRepo.checkVerifyCode(
-          forgotTwoReq: ForgotTwoReq(
-              value: int.parse(email), code: int.parse(event.code)));
-
-      // if (result is DataSuccess && result.data?.code == 200) {
-      //   emit(const FinalState());
-      // } else {
-      //   emit(
-      //     Verification(
-      //       email: email,
-      //       status: StateStatus.error,
-      //       error: result.data?.message ?? 'incorrect_code',
-      //     ),
-      //   );
-      // }
     });
 
     on<ResendCode>((event, emit) async {

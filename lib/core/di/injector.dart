@@ -11,21 +11,15 @@ import 'package:math_app/features/my_courses/data/repositories/impl_my_course_re
 import 'package:math_app/features/my_courses/domain/repositories/my_course_repo.dart';
 import 'package:math_app/features/profile/data/data_source/payme_service/payme_service.dart';
 import 'package:math_app/features/profile/data/data_source/profile_service.dart';
-import 'package:math_app/features/profile/data/repositories/impl_profile_repo.dart';
 import 'package:math_app/features/profile/domain/repositories/profile_repo.dart';
-import 'package:math_app/features/profile/presentation/manager/profile_bloc/profile_bloc.dart';
-import 'package:math_app/features/show_lesson/data/data_source/show_lesson_service.dart';
-import 'package:math_app/features/show_lesson/data/repositories/impl_show_lesson_repo.dart';
-import 'package:math_app/features/show_lesson/domain/repositories/show_lesson_repo.dart';
 
 import '../../features/chat/data/data_source/chat_service/chat_service.dart';
 import '../../features/chat/data/mapper/chat_mapper.dart';
 import '../../features/chat/data/repositories/impl_user_repostories.dart';
 import '../../features/chat/domain/repositories/chat_repo.dart';
 import '../../features/my_courses/data/data_source/my_course_service.dart';
-import '../../features/profile/presentation/manager/portfolio_delete_bloc/portfolio_del_bloc.dart';
-import '../../features/profile/presentation/manager/user_bloc/user_bloc.dart';
 import '../state/bloc/bottom_nav_bar/bottom_nav_bar_bloc.dart';
+import '../state/bloc/connectivity/connectivity_bloc.dart';
 import 'locator.dart';
 
 class Injector extends StatelessWidget {
@@ -43,7 +37,6 @@ class Injector extends StatelessWidget {
         ..._getAuthRepo(),
         ..._getHomeRepo(),
         ..._getPlanRepo(),
-        ..._getShowLessonRepo(),
         ..._getMyCourseRepo(),
         ..._getChatRepo(),
       ],
@@ -54,17 +47,11 @@ class Injector extends StatelessWidget {
         BlocProvider<AuthBloc>(
           create: (_) => locator<AuthBloc>(),
         ),
+        BlocProvider<ConnectivityBloc>(
+          create: (_) => locator<ConnectivityBloc>(),
+        ),
         BlocProvider<TicketBloc>(
           create: (_) => locator<TicketBloc>(),
-        ),
-        BlocProvider<UserBloc>(
-          create: (ctx) => UserBloc(profileRepo: ctx.read()),
-        ),
-        BlocProvider(
-          create: (context) => ProfileBloc(profileRepo: context.read()),
-        ),
-        BlocProvider(
-          create: (context) => PortfolioDelBloc(profileRepo: context.read()),
         ),
       ], child: child),
     );
@@ -89,17 +76,6 @@ class Injector extends StatelessWidget {
         // ),
       ];
 
-  List<RepositoryProvider> _getShowLessonRepo() => [
-        RepositoryProvider<ShowLessonService>(
-          create: (context) => ShowLessonService(locator<Dio>()),
-        ),
-        RepositoryProvider<ShowLessonRepo>(
-          create: (context) => ImplShowLessonRepo(
-            service: context.read(),
-          ),
-        ),
-      ];
-
   List<RepositoryProvider> _getMyCourseRepo() => [
         RepositoryProvider<MyCourseService>(
           create: (context) => MyCourseService(locator<Dio>()),
@@ -119,10 +95,7 @@ class Injector extends StatelessWidget {
           create: (context) => PaymeService(DioManager.getDio),
         ),
         RepositoryProvider<ProfileRepo>(
-          create: (context) => ImplProfileRepo(
-            profileService: context.read(),
-            paymeService: context.read(),
-          ),
+          create: (context) => locator<ProfileRepo>(),
         ),
       ];
 

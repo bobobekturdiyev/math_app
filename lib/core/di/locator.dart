@@ -19,8 +19,12 @@ import 'package:math_app/features/quiz/domain/repositories/quiz_repo.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../features/profile/data/data_source/profile_service.dart';
+import '../../features/profile/data/repositories/impl_profile_repo.dart';
+import '../../features/profile/domain/repositories/profile_repo.dart';
 import '../../features/quiz/data/repositories/impl_quiz_repo.dart';
 import '../resources/app_keys.dart';
+import '../state/bloc/connectivity/connectivity_bloc.dart';
 import '../util/interceptor.dart';
 
 GetIt locator = GetIt.instance;
@@ -58,6 +62,7 @@ Future<void> setupLocator() async {
 
   locator.registerSingleton<ThemeData>(AppTheme.light());
   locator.registerSingleton<BottomNavBarBloc>(BottomNavBarBloc());
+  locator.registerSingleton<ConnectivityBloc>(ConnectivityBloc());
 
   locator.registerSingleton<AuthService>(AuthService(locator<Dio>()));
   locator.registerSingleton<AuthRepo>(
@@ -70,6 +75,10 @@ Future<void> setupLocator() async {
       courseService: locator<CourseService>(),
     ),
   );
+
+  locator.registerSingleton<ProfileService>(ProfileService(locator<Dio>()));
+  locator.registerSingleton<ProfileRepo>(
+      ImplProfileRepo(profileService: locator<ProfileService>()));
 
   locator.registerSingleton<TicketService>(TicketService(locator<Dio>()));
   locator.registerSingleton<TicketRepo>(

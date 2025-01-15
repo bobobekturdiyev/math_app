@@ -1,13 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
-import 'package:math_app/core/resources/data_state.dart';
 import 'package:math_app/features/home/data/model/course_details/course_details_dto.dart';
 import 'package:math_app/features/home/data/model/lesson_by_course/lesson_by_course.dart';
-import 'package:math_app/features/home/domain/repositories/home_repo.dart';
+import 'package:meta/meta.dart';
 
 part 'course_details_screen_event.dart';
-
 part 'course_details_screen_state.dart';
 
 class CourseDetailsScreenBloc

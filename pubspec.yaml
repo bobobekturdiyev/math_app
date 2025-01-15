@@ -21,6 +21,7 @@ dependencies:
   flutter_widget_from_html_core: ^0.15.2
   youtube_player_flutter: ^9.1.1
   flutter_keyboard_visibility: ^6.0.0
+  rive: ^0.13.20
 
 
   #UI
@@ -49,6 +50,7 @@ dependencies:
   json_annotation: ^4.8.1
   permission_handler: ^11.0.1
   path_provider: ^2.1.1
+  connectivity_plus: ^6.1.2
 
   #DB
   shared_preferences: ^2.2.0
@@ -79,6 +81,7 @@ flutter:
     - assets/png/
     - assets/translations/
     - assets/lottie/
+    - assets/rive/
 
   fonts:
     - family: Outfit

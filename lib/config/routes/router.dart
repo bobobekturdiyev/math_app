@@ -74,10 +74,6 @@ class AppRouter extends RootStackRouter {
                   page: MyProfileRoute.page,
                   path: "",
                 ),
-                // AutoRoute(
-                //   page: ChangePasswordRoute.page,
-                //   path: RoutePath.changePassword,
-                // ),
               ],
             ),
           ],
@@ -105,8 +101,8 @@ class AppRouter extends RootStackRouter {
         ),
 
         AutoRoute(
-          page: CostIncomeRoute.page,
-          path: RoutePath.costIncome,
+          page: ProfileUpdateRoute.page,
+          path: RoutePath.profileUpdate,
         ),
         CustomRoute(
           transitionsBuilder: TransitionsBuilders.noTransition,
@@ -130,48 +126,12 @@ class AppRouter extends RootStackRouter {
         ),
 
         AutoRoute(
-          page: PlanRoute.page,
-          path: RoutePath.plan,
-        ),
-        AutoRoute(
-          page: AboutRoute.page,
-          path: RoutePath.about,
-        ),
-        AutoRoute(
           page: TermsOfUseRoute.page,
           path: RoutePath.termsUse,
         ),
         AutoRoute(
-          page: UpdatePasswordRoute.page,
-          path: RoutePath.updatePassword,
-        ),
-        AutoRoute(
-          page: ShowLessonRoute.page,
-          path: RoutePath.showLesson,
-        ),
-        AutoRoute(
-          page: AboutAddRoute.page,
-          path: RoutePath.aboutAdd,
-        ),
-        AutoRoute(
-          page: SkillsRoute.page,
-          path: RoutePath.skillsScreen,
-        ),
-        AutoRoute(
-          page: LanguageEditRoute.page,
-          path: RoutePath.language,
-        ),
-        AutoRoute(
-          page: ExperienceRoute.page,
-          path: RoutePath.experience,
-        ),
-        AutoRoute(
-          page: EducationRoute.page,
-          path: RoutePath.education,
-        ),
-        AutoRoute(
-          page: AwardRoute.page,
-          path: RoutePath.award,
+          page: NoInternetRoute.page,
+          path: RoutePath.noInternet,
         ),
       ];
 }

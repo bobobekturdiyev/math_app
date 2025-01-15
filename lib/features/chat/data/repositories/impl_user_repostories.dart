@@ -10,10 +10,10 @@ import '../../domain/repositories/chat_repo.dart';
 import '../data_source/chat_service/chat_service.dart';
 import '../mapper/chat_mapper.dart';
 
-
 class ImplChatRepo extends ChatRepo {
   final ChatService authService;
   final ChatMapper authMapper;
+
   ImplChatRepo({
     required this.authService,
     required this.authMapper,
@@ -22,13 +22,8 @@ class ImplChatRepo extends ChatRepo {
   @override
   Future<List<UsersAllEntities>> getAllUsers() {
     return authService.getUsers().then((value) {
-      print(">>>>>>>>>>${authMapper.usersDtoToEntity(value.data)}");
       return authMapper.usersDtoToEntity(value.data);
-
     }).catchError((e) {
-
-
-
       _checkError(e);
     });
   }
@@ -36,9 +31,7 @@ class ImplChatRepo extends ChatRepo {
   @override
   Future<List<ChatUserEntities>> chatUsers(String id) {
     return authService.getChat(id: id).then((value) {
-
       return authMapper.chatUsersToEntitiy(value.data);
-
     }).catchError((e) {
       _checkError(e);
     });

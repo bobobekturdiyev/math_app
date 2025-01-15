@@ -7,7 +7,9 @@ import 'package:math_app/config/routes/route_path.dart';
 import 'package:math_app/core/di/locator.dart';
 import 'package:math_app/core/state/bloc/auth/auth_bloc.dart';
 import 'package:math_app/core/state/bloc/bottom_nav_bar/bottom_nav_bar_bloc.dart';
+import 'package:math_app/core/state/bloc/connectivity/connectivity_bloc.dart';
 import 'package:math_app/core/widgets/w_loader.dart';
+import 'package:math_app/core/widgets/w_logo.dart';
 
 import '../../../../config/routes/router.gr.dart';
 
@@ -24,6 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     locator<AuthBloc>().add(CheckToken());
+    locator<ConnectivityBloc>().add(CheckConnection());
     _startTimer();
   }
 
@@ -51,21 +54,32 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
-        if (state is LoggedIn) {
-          if (isPassed && !statePassed) {
-            _redirect();
-          }
-          statePassed = true;
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is LoggedIn) {
+              if (isPassed && !statePassed) {
+                _redirect();
+              }
+              statePassed = true;
+            }
+          },
+        ),
+        BlocListener<ConnectivityBloc, ConnectivityState>(
+          listener: (context, state) {
+            if (state is OfflineState) {
+              context.router.replaceAll([NoInternetRoute()]);
+            }
+          },
+        ),
+      ],
       child: Scaffold(
         body: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const FlutterLogo(size: 100), // Replace with your app logo
+              WLogo(),
               const SizedBox(height: 16),
               const Text(
                 'Matematika kursi',

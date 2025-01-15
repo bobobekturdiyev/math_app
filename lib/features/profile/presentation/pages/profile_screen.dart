@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:math_app/config/routes/router.gr.dart';
 import 'package:math_app/core/di/locator.dart';
 import 'package:math_app/core/resources/app_icons.dart';
 import 'package:math_app/core/resources/app_images.dart';
@@ -40,54 +41,58 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
       // ),
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            expandedHeight: 200,
-            pinned: false,
-            floating: false,
-            backgroundColor: AppColors.white,
-            flexibleSpace: FlexibleSpaceBar(
-              collapseMode: CollapseMode.parallax,
-              title: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(46),
-                    child: Container(
-                      width: 46,
-                      height: 46,
-                      decoration: BoxDecoration(shape: BoxShape.circle),
-                      child: Image.asset(
-                        AppImages.placeholder,
+          BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, state) {
+              return SliverAppBar(
+                expandedHeight: 200,
+                pinned: false,
+                floating: false,
+                backgroundColor: AppColors.white,
+                flexibleSpace: FlexibleSpaceBar(
+                  collapseMode: CollapseMode.parallax,
+                  title: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(46),
+                        child: Container(
+                          width: 46,
+                          height: 46,
+                          decoration: BoxDecoration(shape: BoxShape.circle),
+                          child: Image.asset(
+                            AppImages.placeholder,
+                          ),
+                        ),
                       ),
+                      SizedBox(height: 8),
+                      Text(
+                        "${locator<AuthBloc>().user?.name} ${locator<AuthBloc>().user?.surname}",
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.white),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        "${locator<AuthBloc>().user?.phone}",
+                        style: TextStyle(fontSize: 10, color: AppColors.white),
+                      ),
+                    ],
+                  ),
+                  centerTitle: true,
+                  background: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(32.0),
+                      bottomRight: Radius.circular(32.0),
+                    ),
+                    child: Image.asset(
+                      AppImages.chatBackground,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(height: 8),
-                  Text(
-                    "${locator<AuthBloc>().user?.name} ${locator<AuthBloc>().user?.surname}",
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.white),
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    "${locator<AuthBloc>().user?.phone}",
-                    style: TextStyle(fontSize: 10, color: AppColors.white),
-                  ),
-                ],
-              ),
-              centerTitle: true,
-              background: ClipRRect(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(32.0),
-                  bottomRight: Radius.circular(32.0),
                 ),
-                child: Image.asset(
-                  AppImages.chatBackground,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
+              );
+            },
           ),
           SliverList(
             delegate: SliverChildListDelegate(
@@ -96,7 +101,9 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 WSettingsItem(
                   text: "Shaxsiy ma'lumotlar",
                   icon: AppIcons.info,
-                  onTap: () {},
+                  onTap: () {
+                    context.router.push(ProfileUpdateRoute());
+                  },
                 ),
                 // WSettingsItem(
                 //   text: "Tez so'raladigan savollar",

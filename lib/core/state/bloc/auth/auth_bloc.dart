@@ -25,6 +25,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(LoggedIn(isLoggedIn: true));
     });
 
+    on<AssignUser>((event, emit) {
+      emit(AuthInitial(isLoggedIn: loggedIn));
+      user = event.user;
+      emit(LoggedIn(isLoggedIn: loggedIn));
+    });
+
     on<CheckToken>((event, emit) async {
       emit(AuthInitial(isLoggedIn: this.loggedIn));
       final prefs = await SharedPreferences.getInstance();

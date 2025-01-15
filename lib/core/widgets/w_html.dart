@@ -27,15 +27,6 @@ class WHtml extends StatelessWidget {
         htmlContent,
         customStylesBuilder: (element) {
           // Style for elements with the class 'foo'
-          if (element.classes.contains('foo')) {
-            return {
-              'color': 'red',
-              'font-weight': 'bold',
-              'font-size': '16px',
-              'text-decoration': 'underline',
-            };
-          }
-
           // Style for links (anchor tags)
           if (element.localName == 'a') {
             return {
@@ -48,7 +39,7 @@ class WHtml extends StatelessWidget {
           // Other styles for paragraphs, headings, etc.
           if (element.localName == 'p') {
             return {
-              'font-size': '16px',
+              'font-size': '14px',
               'line-height': '1.6',
               'color': '#333',
               'margin': '10px 0',
