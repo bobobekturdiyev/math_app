@@ -90,6 +90,7 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
                           ),
                           TextField(
                             controller: nameController,
+                            textInputAction: TextInputAction.next,
                             decoration: InputDecoration(
                               hintText: 'Ismingizni yozing',
                               errorText: state is ProfileUpdateValidationError

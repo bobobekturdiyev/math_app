@@ -13,10 +13,6 @@ import 'package:math_app/features/profile/data/data_source/payme_service/payme_s
 import 'package:math_app/features/profile/data/data_source/profile_service.dart';
 import 'package:math_app/features/profile/domain/repositories/profile_repo.dart';
 
-import '../../features/chat/data/data_source/chat_service/chat_service.dart';
-import '../../features/chat/data/mapper/chat_mapper.dart';
-import '../../features/chat/data/repositories/impl_user_repostories.dart';
-import '../../features/chat/domain/repositories/chat_repo.dart';
 import '../../features/my_courses/data/data_source/my_course_service.dart';
 import '../state/bloc/bottom_nav_bar/bottom_nav_bar_bloc.dart';
 import '../state/bloc/connectivity/connectivity_bloc.dart';
@@ -35,10 +31,8 @@ class Injector extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         ..._getAuthRepo(),
-        ..._getHomeRepo(),
         ..._getPlanRepo(),
         ..._getMyCourseRepo(),
-        ..._getChatRepo(),
       ],
       child: MultiBlocProvider(providers: [
         BlocProvider<BottomNavBarBloc>(
@@ -66,16 +60,6 @@ class Injector extends StatelessWidget {
         ),
       ];
 
-  List<RepositoryProvider> _getHomeRepo() => [
-        // RepositoryProvider<CourseService>(
-        //   create: (context) => CourseService(locator<Dio>()),
-        // ),
-        // RepositoryProvider<HomeRepo>(
-        //   create: (context) =>
-        //       ImplHomeRepo(homeService:  context.read()),
-        // ),
-      ];
-
   List<RepositoryProvider> _getMyCourseRepo() => [
         RepositoryProvider<MyCourseService>(
           create: (context) => MyCourseService(locator<Dio>()),
@@ -96,21 +80,6 @@ class Injector extends StatelessWidget {
         ),
         RepositoryProvider<ProfileRepo>(
           create: (context) => locator<ProfileRepo>(),
-        ),
-      ];
-
-  List<RepositoryProvider> _getChatRepo() => [
-        RepositoryProvider<ChatService>(
-          create: (context) => ChatService(locator<Dio>()),
-        ),
-        RepositoryProvider<ChatMapper>(
-          create: (context) => ChatMapper(),
-        ),
-        RepositoryProvider<ChatRepo>(
-          create: (context) => ImplChatRepo(
-            authMapper: context.read(),
-            authService: context.read(),
-          ),
         ),
       ];
 }

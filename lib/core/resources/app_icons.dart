@@ -83,4 +83,5 @@ abstract class AppIcons {
   static const String privacy = "$_imgPath/privacy.svg";
   static const String security = "$_imgPath/security.svg";
   static const String settings = "$_imgPath/settings.svg";
+  static const String payme = "$_imgPath/payme.svg";
 }

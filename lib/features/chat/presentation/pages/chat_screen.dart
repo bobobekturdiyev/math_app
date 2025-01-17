@@ -95,7 +95,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 builder: (context, state) {
                   if (state is TicketLoaded) {
                     if (state.tickets.isEmpty) {
-                      return SliverToBoxAdapter(
+                      return SliverFillRemaining(
                         child: Center(
                           child: Text(
                             "Siz hali savol yubormagansiz",

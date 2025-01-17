@@ -14,6 +14,9 @@ import 'package:math_app/features/chat/presentation/manager/ticket/ticket_bloc.d
 import 'package:math_app/features/home/data/data_source/course_service.dart';
 import 'package:math_app/features/home/data/repositories/impl_course_repo.dart';
 import 'package:math_app/features/home/domain/repositories/course_repo.dart';
+import 'package:math_app/features/order/data/data_sources/order_service.dart';
+import 'package:math_app/features/order/data/repositories/impl_order_repo.dart';
+import 'package:math_app/features/order/domain/repositories/order_repo.dart';
 import 'package:math_app/features/quiz/data/data_sources/quiz_service.dart';
 import 'package:math_app/features/quiz/domain/repositories/quiz_repo.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -25,6 +28,7 @@ import '../../features/profile/domain/repositories/profile_repo.dart';
 import '../../features/quiz/data/repositories/impl_quiz_repo.dart';
 import '../resources/app_keys.dart';
 import '../state/bloc/connectivity/connectivity_bloc.dart';
+import '../state/provider/countdown_provider.dart';
 import '../util/interceptor.dart';
 
 GetIt locator = GetIt.instance;
@@ -51,7 +55,6 @@ Future<void> setupLocator() async {
 
   dio.options.followRedirects = true;
   dio.options.maxRedirects = 5;
-  dio.options.contentType = 'application/json';
   dio.options.headers.addAll({
     "X-Authorization": "Programmer Uz",
     "Authorization": "Bearer $token",
@@ -63,6 +66,9 @@ Future<void> setupLocator() async {
   locator.registerSingleton<ThemeData>(AppTheme.light());
   locator.registerSingleton<BottomNavBarBloc>(BottomNavBarBloc());
   locator.registerSingleton<ConnectivityBloc>(ConnectivityBloc());
+  locator.registerLazySingleton<CountdownTimerProvider>(
+    () => CountdownTimerProvider(durationInSeconds: 60),
+  );
 
   locator.registerSingleton<AuthService>(AuthService(locator<Dio>()));
   locator.registerSingleton<AuthRepo>(
@@ -73,6 +79,13 @@ Future<void> setupLocator() async {
   locator.registerSingleton<CourseRepo>(
     ImplCourseRepo(
       courseService: locator<CourseService>(),
+    ),
+  );
+
+  locator.registerSingleton<OrderService>(OrderService(locator<Dio>()));
+  locator.registerSingleton<OrderRepo>(
+    ImplOrderRepo(
+      orderService: locator<OrderService>(),
     ),
   );
 

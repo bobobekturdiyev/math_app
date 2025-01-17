@@ -7,6 +7,7 @@ import '../resources/app_colors.dart';
 class CountdownTimer extends StatefulWidget {
   final int durationInSeconds;
   final VoidCallback onTimerEnd;
+  final bool isColored;
   final VoidCallback? warningCallback; // Optional callback for warnings
 
   const CountdownTimer({
@@ -14,6 +15,7 @@ class CountdownTimer extends StatefulWidget {
     required this.durationInSeconds,
     required this.onTimerEnd,
     this.warningCallback,
+    this.isColored = true,
   });
 
   @override
@@ -25,6 +27,7 @@ class CountdownTimerState extends State<CountdownTimer> {
   Timer? _timer;
   bool _warningTriggered =
       false; // Track if the warningCallback has been triggered
+  Color textColor = AppColors.grey;
 
   @override
   void initState() {
@@ -69,15 +72,19 @@ class CountdownTimerState extends State<CountdownTimer> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.isColored) {
+      if (_remainingTime <= 15) {
+        textColor = AppColors.danger;
+      } else if (_remainingTime <= 60) {
+        textColor = AppColors.yellowDark;
+      }
+    }
+
     return Text(
       _formatTime(_remainingTime),
       style: TextStyle(
         fontWeight: FontWeight.bold,
-        color: _remainingTime <= 15
-            ? AppColors.danger
-            : _remainingTime <= 60
-                ? AppColors.yellowDark
-                : AppColors.primaryColor, // Change text color to red
+        color: textColor, // Change text color to red
       ),
     );
   }

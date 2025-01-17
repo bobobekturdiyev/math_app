@@ -7,7 +7,7 @@ import '../resources/data_state.dart';
 import 'error_response.dart';
 
 abstract class DataException {
-  static Future<DataError<T>> getError<T>(dynamic exception) async{
+  static Future<DataError<T>> getError<T>(dynamic exception) async {
     if (exception is DioException) {
       // Check for DioException and handle accordingly
       if (exception.response != null) {
@@ -22,14 +22,15 @@ abstract class DataException {
     return DataError<T>(exception.toString());
   }
 
-  // Helper function to handle DioResponse errors
+// Helper function to handle DioResponse errors
   static Future<DataError<T>> _handleResponseError<T>(Response response) async {
     final data = response.data;
 
     if (data is Map<String, dynamic>) {
+      // Handle 'errors' field with detailed validation messages
       final errors = data['errors'];
-      if (errors != null) {
-        return _formatErrorList<T>(errors);
+      if (errors is Map<String, dynamic>) {
+        return _formatValidationErrors<T>(errors);
       }
 
       final error = data['error'];
@@ -57,6 +58,20 @@ abstract class DataException {
         statusCode: response.statusCode);
   }
 
+// Helper function to format validation errors
+  static DataError<T> _formatValidationErrors<T>(Map<String, dynamic> errors) {
+    final errorMessages = errors.entries.map((entry) {
+      final field = entry.key;
+      final messages = entry.value;
+      if (messages is List) {
+        return "$field: ${messages.join(", ")}";
+      }
+      return "$field: $messages";
+    }).join("\n");
+
+    return DataError<T>(errorMessages);
+  }
+
   // Helper function to handle lists of errors
   static DataError<T> _formatErrorList<T>(List errors) {
     final errorMessage = errors.join("\n");
@@ -81,7 +96,8 @@ abstract class DataException {
   }
 
   // Custom logic for handling 401 Unauthorized errors
-  static Future<DataError<T>> _handleCustom401Error<T>(Response response) async{
+  static Future<DataError<T>> _handleCustom401Error<T>(
+      Response response) async {
     final prefs = await SharedPreferences.getInstance();
 
     prefs.remove(AppKeys.token);
@@ -92,5 +108,4 @@ abstract class DataException {
       statusCode: response.statusCode,
     );
   }
-
 }

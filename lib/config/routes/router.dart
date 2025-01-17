@@ -80,30 +80,8 @@ class AppRouter extends RootStackRouter {
         ),
         // =================
 
-        AutoRoute(
-          page: TestsRoute.page,
-          path: RoutePath.testsRoute,
-        ),
+        // LESSON
 
-        AutoRoute(
-          page: QuizRoute.page,
-          path: RoutePath.quizzes,
-        ),
-
-        AutoRoute(
-          page: TicketMessagesRoute.page,
-          path: RoutePath.ticketMessages,
-        ),
-
-        AutoRoute(
-          page: EitherResultRoute.page,
-          path: RoutePath.eitherResult,
-        ),
-
-        AutoRoute(
-          page: ProfileUpdateRoute.page,
-          path: RoutePath.profileUpdate,
-        ),
         CustomRoute(
           transitionsBuilder: TransitionsBuilders.noTransition,
           page: CourseDetailsRoute.page,
@@ -120,18 +98,32 @@ class AppRouter extends RootStackRouter {
           path: RoutePath.courseDetails,
         ),
 
+        // QUIZ
         AutoRoute(
-          page: ChatRoute.page,
-          path: RoutePath.chatScreen,
+          page: TestsRoute.page,
+          path: RoutePath.testsRoute,
         ),
 
         AutoRoute(
-          page: TermsOfUseRoute.page,
-          path: RoutePath.termsUse,
+          page: QuizRoute.page,
+          path: RoutePath.quizzes,
         ),
+
         AutoRoute(
-          page: NoInternetRoute.page,
-          path: RoutePath.noInternet,
+          page: EitherResultRoute.page,
+          path: RoutePath.eitherResult,
         ),
+
+        AutoRoute(
+            page: TicketMessagesRoute.page, path: RoutePath.ticketMessages),
+
+        AutoRoute(page: ProfileUpdateRoute.page, path: RoutePath.profileUpdate),
+
+        AutoRoute(page: ChatRoute.page, path: RoutePath.chatScreen),
+
+        AutoRoute(page: TermsOfUseRoute.page, path: RoutePath.termsUse),
+        AutoRoute(page: NoInternetRoute.page, path: RoutePath.noInternet),
+
+        AutoRoute(page: CheckoutRoute.page, path: RoutePath.checkout),
       ];
 }

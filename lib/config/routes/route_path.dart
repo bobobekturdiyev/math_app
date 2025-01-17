@@ -23,4 +23,5 @@ class RoutePath {
   static const String termsUse = "/terms-of-use";
   static const String updatePassword = "/update-password";
   static const String noInternet = "/noInternet";
+  static const String checkout = "/checkout";
 }

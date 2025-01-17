@@ -2,10 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:math_app/config/routes/router.gr.dart';
 import 'package:math_app/core/di/locator.dart';
 import 'package:math_app/core/resources/app_colors.dart';
 import 'package:math_app/core/state/bloc/auth/auth_bloc.dart';
 import 'package:math_app/core/util/dialog_helper.dart';
+import 'package:math_app/core/util/snackbar_helper.dart';
 import 'package:math_app/core/widgets/w_html.dart';
 import 'package:math_app/core/widgets/w_standard_tabbar.dart';
 import 'package:math_app/features/home/data/model/course/course_dto.dart';
@@ -55,12 +57,17 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen>
     super.initState();
   }
 
-  void init() {
+  _loadBloc() {
     final course = widget.courseDto;
     if (course.id != null) {
       courseAccessBloc.add(LoadCourseAccess(courseId: course.id!));
       courseModuleBloc.add(LoadModules(courseId: course.id!));
     }
+  }
+
+  void init() {
+    final course = widget.courseDto;
+    _loadBloc();
 
     tabController = TabController(length: 2, vsync: this);
     tabController.addListener(() {
@@ -363,6 +370,20 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen>
                     context: context,
                     message:
                         "Kursni xarid qilish uchun dastlab tizimga kiring");
+              } else {
+                if (widget.courseDto.id != null) {
+                  context.router.push(
+                    CheckoutRoute(
+                      courseId: widget.courseDto.id!,
+                      onClose: () {
+                        _loadBloc();
+                      },
+                    ),
+                  );
+                } else {
+                  SnackbarHelper.showError(
+                      context: context, text: "Kursni topilmadi");
+                }
               }
             },
           ),

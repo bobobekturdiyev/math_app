@@ -46,8 +46,6 @@ class _MyCoursesScreenState extends State<MyCoursesScreen>
             onRefresh: () async {
               if (onRefresh == null) {
                 myCourseScreenBloc.add(GetMyCourses());
-              } else {
-                // onRefresh!();
               }
             },
             child: CustomScrollView(
@@ -66,6 +64,14 @@ class _MyCoursesScreenState extends State<MyCoursesScreen>
                 BlocBuilder<MyCourseScreenBloc, MyCourseScreenState>(
                   builder: (context, state) {
                     if (state is MyCoursesLoaded) {
+                      if (state.courses.isEmpty) {
+                        return SliverFillRemaining(
+                          child: Center(
+                            child: Text('Sizda hali kurslar yo\'q'),
+                          ),
+                        );
+                      }
+
                       return SliverList(
                         delegate: SliverChildListDelegate(
                           [
