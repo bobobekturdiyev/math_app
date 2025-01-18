@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:math_app/core/widgets/w_button.dart';
 import 'package:math_app/core/widgets/w_loader.dart';
 import 'package:math_app/features/order/presentation/manager/payment_type/payment_type_bloc.dart';
+import 'package:math_app/features/order/presentation/pages/card_page.dart';
 import 'package:math_app/features/order/presentation/pages/payme_page.dart';
 
 import '../manager/order/order_bloc.dart';
@@ -35,29 +35,12 @@ class _PaymentPageState extends State<PaymentPage> {
                 },
               );
             case 'karta':
-              return _getCard();
+              return CardPage();
           }
         }
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [],
-        );
+        return SizedBox();
       },
-    );
-  }
-
-  _getCard() {
-    return Column(
-      children: [
-        Text('Karta'),
-        WButton(
-          text: 'To\'lovni amalga oshirish',
-          onTap: () {
-            // Karta to'lovni amalga oshirish
-          },
-        ),
-      ],
     );
   }
 }

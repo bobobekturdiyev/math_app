@@ -123,10 +123,19 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         children: [
                                           Expanded(child: text),
                                           SizedBox(width: 12),
-                                          Image.asset(
-                                            AppImages.payme,
-                                            width: 70,
-                                          )
+                                          if (paymentState.paymentType.value ==
+                                              'payme') ...{
+                                            Image.asset(
+                                              AppImages.payme,
+                                              width: 70,
+                                            )
+                                          } else ...{
+                                            Icon(
+                                              Icons.credit_card,
+                                              size: 50,
+                                              color: AppColors.primaryColor,
+                                            )
+                                          }
                                         ],
                                       );
                                     }

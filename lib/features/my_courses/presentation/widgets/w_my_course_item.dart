@@ -96,23 +96,28 @@ class WMyCourseItem extends StatelessWidget {
                                       color: AppColors.subTextColor),
                                 ),
                               },
-                              Text(
-                                "75%",
-                                style: Styles.getTextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: 10),
-                              ),
+                              if (course.progress != null) ...{
+                                Text(
+                                  "${(course.progress! / 100)}%",
+                                  style: Styles.getTextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 10),
+                                ),
+                              },
                             ],
                           ),
                           const SizedBox(
                             height: 6,
                           ),
-                          LinearProgressIndicator(
-                            value: 0.75,
-                            borderRadius: BorderRadius.circular(5),
-                            color: AppColors.primaryColor, //<-- SEE HERE
-                            backgroundColor:
-                                AppColors.borderColor, //<-- SEE HERE
-                          ),
+                          if (course.progress != null) ...{
+                            LinearProgressIndicator(
+                              value: (course.progress! / 100),
+                              borderRadius: BorderRadius.circular(5),
+                              color: AppColors.primaryColor, //<-- SEE HERE
+                              backgroundColor:
+                                  AppColors.borderColor, //<-- SEE HERE
+                            ),
+                          },
                         ],
                       ),
                     ),
@@ -122,7 +127,7 @@ class WMyCourseItem extends StatelessWidget {
                   height: 4,
                 ),
                 Text(
-                  "38 / 50",
+                  "${course.visitedLessons} / ${course.totalLessons} darslar",
                   style: Styles.getTextStyle(
                       fontSize: 8, color: AppColors.subTextColor),
                 )

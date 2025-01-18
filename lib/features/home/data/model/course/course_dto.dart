@@ -23,6 +23,8 @@ class CourseDto {
   String? updatedAt;
   int? totalLessons;
   int? totalVideos;
+  int? progress;
+  int? visitedLessons;
 
   CourseDto({
     id,
@@ -49,6 +51,8 @@ class CourseDto {
     updatedAt,
     totalLessons,
     totalVideos,
+    progress,
+    visitedLessons,
   });
 
   CourseDto.fromJson(Map<String, dynamic> json) {
@@ -76,6 +80,8 @@ class CourseDto {
     updatedAt = json['updated_at'];
     totalLessons = json['total_lessons'];
     totalVideos = json['total_videos'];
+    progress = json['progress'];
+    visitedLessons = json['visited_lessons'];
   }
 
   Map<String, dynamic> toJson() {
@@ -104,6 +110,8 @@ class CourseDto {
     data['updated_at'] = updatedAt;
     data['total_lessons'] = totalLessons;
     data['total_videos'] = totalVideos;
+    data['progress'] = progress;
+    data['visited_lessons'] = visitedLessons;
     return data;
   }
 }

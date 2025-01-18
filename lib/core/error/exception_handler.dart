@@ -72,12 +72,6 @@ abstract class DataException {
     return DataError<T>(errorMessages);
   }
 
-  // Helper function to handle lists of errors
-  static DataError<T> _formatErrorList<T>(List errors) {
-    final errorMessage = errors.join("\n");
-    return DataError<T>(errorMessage);
-  }
-
   // Helper function to handle specific DioException types
   static DataError<T> _handleDioException<T>(DioException exception) {
     switch (exception.type) {

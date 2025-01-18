@@ -19,7 +19,7 @@ class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
     });
 
     on<CheckConnection>((event, emit) async {
-      emit(OnlineState());
+      _checkConnection();
     });
 
     _checkConnection();

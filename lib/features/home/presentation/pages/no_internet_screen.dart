@@ -38,6 +38,8 @@ class _NoInternetScreenState extends State<NoInternetScreen> {
       child: Scaffold(
         body: Center(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Lottie.asset(AppLottie.wifi),
               Text(

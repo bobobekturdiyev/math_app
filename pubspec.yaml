@@ -35,6 +35,7 @@ dependencies:
   #  pod_player: ^0.2.1
   webview_flutter: ^4.10.0
   flutter_inappwebview: ^6.1.5
+  image_picker: ^1.1.2
 
   # STATE MANAGEMENT
   flutter_bloc: ^8.1.3

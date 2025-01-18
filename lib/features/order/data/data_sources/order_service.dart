@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:math_app/features/order/data/models/card_number_dto.dart';
 import 'package:math_app/features/order/data/models/order_dto.dart';
 import 'package:math_app/features/order/data/models/payment_type_dto.dart';
 import 'package:math_app/features/order/data/models/send_otp_dto.dart';
@@ -23,6 +24,9 @@ abstract class OrderService {
 
   @GET("/payment/types")
   Future<HttpResponse<PaymentTypeDto>> getPaymentTypes();
+
+  @GET("/payment/get-card")
+  Future<HttpResponse<CardNumberDto>> getCardNumber();
 
   @POST("/payment/send-otp")
   Future<HttpResponse<SendOtpDto>> sendOtp({

@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:math_app/core/network/dio_manager.dart';
 import 'package:math_app/core/state/bloc/auth/auth_bloc.dart';
 import 'package:math_app/features/auth/data/data_sources/auth_service.dart';
 import 'package:math_app/features/auth/data/repositories/impl_auth_repo.dart';
@@ -9,7 +8,6 @@ import 'package:math_app/features/auth/domain/repositories/auth_repo.dart';
 import 'package:math_app/features/chat/presentation/manager/ticket/ticket_bloc.dart';
 import 'package:math_app/features/my_courses/data/repositories/impl_my_course_repo.dart';
 import 'package:math_app/features/my_courses/domain/repositories/my_course_repo.dart';
-import 'package:math_app/features/profile/data/data_source/payme_service/payme_service.dart';
 import 'package:math_app/features/profile/data/data_source/profile_service.dart';
 import 'package:math_app/features/profile/domain/repositories/profile_repo.dart';
 
@@ -74,9 +72,6 @@ class Injector extends StatelessWidget {
   List<RepositoryProvider> _getPlanRepo() => [
         RepositoryProvider<ProfileService>(
           create: (context) => ProfileService(locator<Dio>()),
-        ),
-        RepositoryProvider<PaymeService>(
-          create: (context) => PaymeService(DioManager.getDio),
         ),
         RepositoryProvider<ProfileRepo>(
           create: (context) => locator<ProfileRepo>(),

@@ -23,6 +23,11 @@ class OrderDto {
     required this.user,
   });
 
+  @override
+  String toString() {
+    return 'OrderDto(orderId: $orderId, amount: $amount, userId: $userId, status: $status, model: $model, user: $user)';
+  }
+
   factory OrderDto.fromJson(Map<String, dynamic> json) =>
       _$OrderDtoFromJson(json);
 
