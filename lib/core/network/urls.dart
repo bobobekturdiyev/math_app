@@ -8,7 +8,9 @@ abstract class Urls {
       // 'https://2f4e-84-54-70-186.ngrok-free.app/api/v1';
       // "http://192.168.13.11:8000/api/v1";
 
-      "http://192.168.0.107:8000/api/v1";
+      "https://programmer.uz/api/v1";
+
+  // "http://192.168.0.107:8000/api/v1";
 
   static const pageUrl = "https://programmer.uz";
 

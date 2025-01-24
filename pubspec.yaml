@@ -69,7 +69,13 @@ dev_dependencies:
   flutter_launcher_icons: ^0.14.2
   flutter_lints: ^5.0.0
 
-
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/png/logo_math.png"
+  min_sdk_android: 26 # android min sdk min:16, default 21
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/png/logo_math.png"
 flutter:
 
   uses-material-design: true
@@ -95,3 +101,4 @@ flutter:
           weight: 600
         - asset: assets/fonts/Poppins-Light.ttf
           weight: 400
+

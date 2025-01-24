@@ -6,8 +6,8 @@
 
     <application
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
-        android:label="math_app">
+        android:icon="@mipmap/launcher_icon"
+        android:label="Matematika kursi">
 
         <activity
             android:name=".MainActivity"
