@@ -8,5 +8,5 @@ abstract class AppImages {
   static const chatBackground = "${_imgPath}chat_background.png";
   static const placeholder = "${_imgPath}placeholder.png";
 
-  static const logo = "${_imgPath}logo_math.png";
+  static const logo = "${_imgPath}logo.png";
 }

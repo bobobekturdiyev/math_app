@@ -6,6 +6,7 @@ import 'package:math_app/features/auth/data/data_sources/auth_service.dart';
 import 'package:math_app/features/auth/data/repositories/impl_auth_repo.dart';
 import 'package:math_app/features/auth/domain/repositories/auth_repo.dart';
 import 'package:math_app/features/chat/presentation/manager/ticket/ticket_bloc.dart';
+import 'package:math_app/features/main/presentation/manager/app_bloc.dart';
 import 'package:math_app/features/my_courses/data/repositories/impl_my_course_repo.dart';
 import 'package:math_app/features/my_courses/domain/repositories/my_course_repo.dart';
 import 'package:math_app/features/profile/data/data_source/profile_service.dart';
@@ -44,6 +45,9 @@ class Injector extends StatelessWidget {
         ),
         BlocProvider<TicketBloc>(
           create: (_) => locator<TicketBloc>(),
+        ),
+        BlocProvider<AppBloc>(
+          create: (_) => locator<AppBloc>()..add(LoadAppData()),
         ),
       ], child: child),
     );

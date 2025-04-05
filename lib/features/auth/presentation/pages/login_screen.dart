@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:math_app/config/routes/router.gr.dart';
+import 'package:math_app/features/main/presentation/manager/app_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/resources/app_colors.dart';
@@ -16,7 +17,7 @@ import '../widgets/w_auth_holder.dart';
 
 @RoutePage()
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -83,33 +84,44 @@ class _LoginScreenState extends State<LoginScreen> with AppDimension {
                                   fontSize: scaleSize(22),
                                   fontWeight: FontWeight.w500),
                             ),
-                            Text.rich(
-                              TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: "@programmeruzbot",
-                                    style: TextStyle(
-                                      color: AppColors.primaryColor,
-                                      decoration: TextDecoration.underline,
-                                      fontSize: 14,
+                            BlocBuilder<AppBloc, AppState>(
+                              builder: (context, state) {
+                                if (state is AppLoaded) {
+                                  final bot = state.appDto.bot;
+
+                                  return Text.rich(
+                                    TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: "@${bot.username}",
+                                          style: TextStyle(
+                                            color: AppColors.primaryColor,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            fontSize: 14,
+                                          ),
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () async {
+                                              final url =
+                                                  'https://t.me/${bot.username}';
+                                              await _launchUrl(url);
+                                            },
+                                        ),
+                                        TextSpan(
+                                          text:
+                                              " telegram botimiz orqali 1 daqiqalik kod olib, quyida yozing: ",
+                                          style: TextStyle(
+                                            color: AppColors.grey,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () async {
-                                        final url =
-                                            'https://t.me/programmeruzbot';
-                                        await _launchUrl(url);
-                                      },
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        " telegram botimiz orqali 1 daqiqalik kod olib, quyida yozing: ",
-                                    style: TextStyle(
-                                      color: AppColors.grey,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                  );
+                                }
+
+                                return SizedBox();
+                              },
                             ),
                             SizedBox(
                               height: scaleHeight(12),

@@ -10,7 +10,7 @@ part of 'home_service.dart';
 
 class _HomeService implements HomeService {
   _HomeService(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://programmer.uz/api/v1';
+    baseUrl ??= 'https://urfonxonov.uz/api/v1';
   }
 
   final Dio _dio;

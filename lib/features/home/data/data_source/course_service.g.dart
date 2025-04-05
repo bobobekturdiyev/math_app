@@ -10,7 +10,7 @@ part of 'course_service.dart';
 
 class _CourseService implements CourseService {
   _CourseService(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://programmer.uz/api/v1';
+    baseUrl ??= 'https://urfonxonov.uz/api/v1';
   }
 
   final Dio _dio;

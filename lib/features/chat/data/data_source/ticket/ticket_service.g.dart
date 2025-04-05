@@ -10,7 +10,7 @@ part of 'ticket_service.dart';
 
 class _TicketService implements TicketService {
   _TicketService(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://programmer.uz/api/v1';
+    baseUrl ??= 'https://urfonxonov.uz/api/v1';
   }
 
   final Dio _dio;

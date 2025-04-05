@@ -10,6 +10,8 @@ import 'package:math_app/core/util/helpers.dart';
 import 'package:math_app/core/widgets/w_button.dart';
 import 'package:math_app/core/widgets/w_sheet.dart';
 import 'package:math_app/features/auth/presentation/pages/login_screen.dart';
+import 'package:math_app/features/main/presentation/manager/app_bloc.dart';
+import 'package:math_app/features/profile/presentation/widgets/w_link_item.dart';
 import 'package:math_app/features/profile/presentation/widgets/w_settings_item.dart';
 
 import '../../../../core/resources/app_colors.dart';
@@ -127,6 +129,23 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                   showArrow: false,
                 ),
                 SizedBox(height: 24),
+
+                BlocBuilder<AppBloc, AppState>(
+                  builder: (context, state) {
+                    if (state is AppLoaded) {
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: List.generate(
+                          state.appDto.links.length,
+                          (index) => WLinkItem(
+                            link: state.appDto.links[index],
+                          ),
+                        ),
+                      );
+                    }
+                    return SizedBox();
+                  },
+                )
               ],
             ),
           ),

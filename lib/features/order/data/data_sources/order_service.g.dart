@@ -10,7 +10,7 @@ part of 'order_service.dart';
 
 class _OrderService implements OrderService {
   _OrderService(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://programmer.uz/api/v1';
+    baseUrl ??= 'https://urfonxonov.uz/api/v1';
   }
 
   final Dio _dio;

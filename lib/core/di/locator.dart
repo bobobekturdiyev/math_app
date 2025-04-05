@@ -14,6 +14,10 @@ import 'package:math_app/features/chat/presentation/manager/ticket/ticket_bloc.d
 import 'package:math_app/features/home/data/data_source/course_service.dart';
 import 'package:math_app/features/home/data/repositories/impl_course_repo.dart';
 import 'package:math_app/features/home/domain/repositories/course_repo.dart';
+import 'package:math_app/features/main/data/data_source/app_service.dart';
+import 'package:math_app/features/main/data/repository/impl_app_repo.dart';
+import 'package:math_app/features/main/domain/repository/app_repo.dart';
+import 'package:math_app/features/main/presentation/manager/app_bloc.dart';
 import 'package:math_app/features/order/data/data_sources/order_service.dart';
 import 'package:math_app/features/order/data/repositories/impl_order_repo.dart';
 import 'package:math_app/features/order/domain/repositories/order_repo.dart';
@@ -74,6 +78,11 @@ Future<void> setupLocator() async {
   locator.registerSingleton<AuthRepo>(
       ImplAuthRepo(authService: locator<AuthService>()));
   locator.registerSingleton<AuthBloc>(AuthBloc());
+
+  locator.registerSingleton<AppService>(AppService(locator<Dio>()));
+  locator.registerSingleton<AppRepo>(
+      ImplAppRepo(appService: locator<AppService>()));
+  locator.registerSingleton<AppBloc>(AppBloc());
 
   locator.registerSingleton<CourseService>(CourseService(locator<Dio>()));
   locator.registerSingleton<CourseRepo>(
